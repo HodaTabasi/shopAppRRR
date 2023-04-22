@@ -1,8 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rrr_shop_app/login_screen.dart';
-import 'package:rrr_shop_app/splach_screen.dart';
+import 'package:rrr_shop_app/screens/home/navigation_buttom.dart';
+import 'package:rrr_shop_app/screens/login_screen.dart';
+import 'package:rrr_shop_app/screens/otp/otp_screen.dart';
+import 'package:rrr_shop_app/screens/splach_screen.dart';
+
+import 'screens/complete_profile/complete_profile.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,7 +42,10 @@ class MyApp extends StatelessWidget {
         initialRoute: '/splash_screen',
         routes: {
           '/splash_screen': (context) => SplashScreen(),
-          '/login_screen': (context) => LoginScreen()
+          '/login_screen': (context) => LoginScreen(),
+          '/otp_screen': (context) => OTPScreen(),
+          '/complete_screen': (context) => CompleteProfile(),
+          '/main_screen': (context) => MainScreen(),
         },
       );
     }

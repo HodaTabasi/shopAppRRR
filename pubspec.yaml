@@ -38,6 +38,7 @@ dependencies:
   flutter_screenutil: ^5.7.0
   easy_localization: ^3.0.1
   flutter_svg: ^2.0.5
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:
@@ -81,9 +82,9 @@ flutter:
   fonts:
     - family: avenir
       fonts:
-        - asset: assets/fonts/avenir.otf
+#        - asset: assets/fonts/avenir.otf
         - asset: assets/fonts/Avenir_Light.otf
-          weight: 400
+
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
