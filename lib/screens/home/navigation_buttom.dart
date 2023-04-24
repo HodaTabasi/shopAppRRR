@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:rrr_shop_app/screens/home/tebs/cart_tab/cart_page.dart';
 import 'package:rrr_shop_app/screens/home/tebs/fav_tab/fav_screen.dart';
 import 'package:rrr_shop_app/screens/home/tebs/home_tab/home_page.dart';
 import 'package:rrr_shop_app/screens/home/tebs/order_tab/order_page.dart';
@@ -17,7 +18,8 @@ class _MainScreenState extends State<MainScreen> {
   List<Widget> bodyItem = [
     HomePage(),
     FavPage(),
-    OrderPage()
+    CartPage(),
+    OrderPage(),
   ];
   @override
   Widget build(BuildContext context) {

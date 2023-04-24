@@ -48,5 +48,15 @@
   "ship_cost": "Ship Cost",
   "tax": "Taxes ",
   "recipient_data": "Recipient Data ",
-  "total": "Total "
+  "total": "Total ",
+  "pending": "Pending ",
+  "driving": "Driving ",
+  "completeo": "Completed ",
+  "cancel": "canceled ",
+  "product_name": "Product Name: ",
+  "product_price": "Price: ",
+  "brand": "Brand: ",
+  "t_address": "Delivery Address: ",
+  "data_f": "The first recipient: ",
+  "phone": "Phone Number: "
 }
