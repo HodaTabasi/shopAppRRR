@@ -13,7 +13,7 @@ class ListItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: decoration1,
+      decoration: decoration(blurRadius: 2,radius: 12.0.r),
       height: 100.h,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -24,10 +24,13 @@ class ListItemWidget extends StatelessWidget {
             child: Checkbox(value: false, onChanged: (value) {
             },),
           ),
-          ClipRRect(
-              clipBehavior: Clip.antiAlias,
-              borderRadius: BorderRadius.circular(8.r),
-              child: Image.network("https://media.istockphoto.com/id/1146517111/photo/taj-mahal-mausoleum-in-agra.jpg?s=612x612&w=0&k=20&c=vcIjhwUrNyjoKbGbAQ5sOcEzDUgOfCsm9ySmJ8gNeRk=",height: 80.h,width: 110.w,fit: BoxFit.fill,)),
+          Padding(
+            padding:  isOrder ?EdgeInsets.zero:EdgeInsets.all(8.0),
+            child: ClipRRect(
+                clipBehavior: Clip.antiAlias,
+                borderRadius: BorderRadius.circular(8.r),
+                child: Image.network("https://media.istockphoto.com/id/1146517111/photo/taj-mahal-mausoleum-in-agra.jpg?s=612x612&w=0&k=20&c=vcIjhwUrNyjoKbGbAQ5sOcEzDUgOfCsm9ySmJ8gNeRk=",height: 80.h,width: 110.w,fit: BoxFit.fill,)),
+          ),
           Expanded(
             child: Padding(
               padding:  EdgeInsets.symmetric(horizontal: 12.0.r),

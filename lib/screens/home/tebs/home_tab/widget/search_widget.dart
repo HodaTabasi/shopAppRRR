@@ -12,7 +12,7 @@ class SearchWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: decoration,
+      decoration: decoration(radius: 20.0.r,blurRadius: 5),
       child: IntrinsicHeight(
         child: Row(
           children: [

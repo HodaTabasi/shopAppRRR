@@ -39,5 +39,14 @@
   "size": "size: ",
   "color": "color: ",
   "buy": "Buy",
-  "cost": "Total: "
+  "cost": "cost: ",
+  "confirmation": "Confirmation ",
+  "address": "Address ",
+  "products": "Products ",
+  "payment_method": "Payment Method ",
+  "pay_cost": "Pay Cost ",
+  "ship_cost": "Ship Cost",
+  "tax": "Taxes ",
+  "recipient_data": "Recipient Data ",
+  "total": "Total "
 }

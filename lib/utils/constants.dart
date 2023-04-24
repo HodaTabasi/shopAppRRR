@@ -12,26 +12,40 @@ Color thirdColor = Color(0xff858585);
 Color background = Color(0xffFFFDFA);
 Color miniground = Color(0xffC6B48C);
 Color divider = Color(0xffD0D0D0);
-BoxDecoration decoration = BoxDecoration(
-    color: Colors.white,
-    borderRadius: BorderRadius.circular(20.r),
-    boxShadow: const [
-      BoxShadow(
-          color: Colors.grey,
-          blurRadius: 5
-      )
-    ]
-);
-BoxDecoration decoration1 = BoxDecoration(
-    color: Colors.white,
-    borderRadius: BorderRadius.circular(12.r),
-    boxShadow: const [
-      BoxShadow(
-          color: Colors.grey,
-          blurRadius: 2
-      )
-    ]
-);
+Color textColor = Color(0xff636363);
+
+decoration({double blurRadius = 0.0,double radius = 0.0}){
+  return BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(radius),
+      boxShadow:  [
+        BoxShadow(
+            color: Colors.grey,
+            blurRadius: blurRadius
+        )
+      ]
+  );
+}
+// BoxDecoration decoration = BoxDecoration(
+//     color: Colors.white,
+//     borderRadius: BorderRadius.circular(20.r),
+//     boxShadow: const [
+//       BoxShadow(
+//           color: Colors.grey,
+//           blurRadius: 5
+//       )
+//     ]
+// );
+// BoxDecoration decoration1 = BoxDecoration(
+//     color: Colors.white,
+//     borderRadius: BorderRadius.circular(12.r),
+//     boxShadow: const [
+//       BoxShadow(
+//           color: Colors.grey,
+//           blurRadius: 2
+//       )
+//     ]
+// );
 image({path}){
 return SvgPicture.asset(path);
 }

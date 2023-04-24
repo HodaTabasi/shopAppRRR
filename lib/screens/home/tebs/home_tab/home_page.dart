@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   Container buildContainer() {
     return Container(
-          decoration: decoration,
+          decoration: decoration(blurRadius: 5,radius: 20.0.r),
           padding: EdgeInsets.symmetric(horizontal: 12.w),
           child: TabBar(
             controller: tabController,
