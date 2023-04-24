@@ -44,11 +44,12 @@ OutlineInputBorder outlineInputBorder() {
   );
 }
 
+
 var sliver = SliverGridDelegateWithFixedCrossAxisCount(
 crossAxisCount: 2,
 childAspectRatio: 2 / 2.5,
-crossAxisSpacing: 8.r,
-mainAxisSpacing: 8.r);
+crossAxisSpacing: 12.r,
+mainAxisSpacing: 12.r);
 
 class TrianglePainter extends CustomPainter {
   final Color strokeColor;
