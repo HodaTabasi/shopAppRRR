@@ -10,6 +10,8 @@ Color mainColor = Color(0xff957255);
 Color secondColor = Color(0xff595959);
 Color thirdColor = Color(0xff858585);
 Color background = Color(0xffFFFDFA);
+Color miniground = Color(0xffC6B48C);
+Color divider = Color(0xffD0D0D0);
 BoxDecoration decoration = BoxDecoration(
     color: Colors.white,
     borderRadius: BorderRadius.circular(20.r),
@@ -17,6 +19,16 @@ BoxDecoration decoration = BoxDecoration(
       BoxShadow(
           color: Colors.grey,
           blurRadius: 5
+      )
+    ]
+);
+BoxDecoration decoration1 = BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(12.r),
+    boxShadow: const [
+      BoxShadow(
+          color: Colors.grey,
+          blurRadius: 2
       )
     ]
 );

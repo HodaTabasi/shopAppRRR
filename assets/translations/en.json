@@ -31,5 +31,13 @@
   "more_sele": "Best Seller",
   "trend": "trend",
   "new1": "News",
-  "welcome": "Welcome"
+  "welcome": "Welcome",
+  "fav": "Favourite",
+  "cart": "Cart",
+  "order": "Orders",
+  "product": "Products",
+  "size": "size: ",
+  "color": "color: ",
+  "buy": "Buy",
+  "cost": "Total: "
 }

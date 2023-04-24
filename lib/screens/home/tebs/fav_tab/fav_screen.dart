@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rrr_shop_app/utils/helper.dart';
 
-import '../../core/app_product_card.dart';
-import '../../utils/constants.dart';
-import '../../utils/helper.dart';
+import '../../../../core/app_product_card.dart';
+import '../../../../utils/constants.dart';
 
 class FavPage extends StatefulWidget {
   const FavPage({Key? key}) : super(key: key);

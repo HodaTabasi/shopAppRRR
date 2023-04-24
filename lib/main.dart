@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rrr_shop_app/screens/complete_order/complete_order_screen.dart';
 import 'package:rrr_shop_app/screens/home/navigation_buttom.dart';
 import 'package:rrr_shop_app/screens/login_screen.dart';
 import 'package:rrr_shop_app/screens/otp/otp_screen.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
           '/otp_screen': (context) => OTPScreen(),
           '/complete_screen': (context) => CompleteProfile(),
           '/main_screen': (context) => MainScreen(),
+          '/complete_buy_screen': (context) => CompleteOrderScreen(),
         },
       );
     }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:rrr_shop_app/screens/home/tebs/fav_tab/fav_screen.dart';
 import 'package:rrr_shop_app/screens/home/tebs/home_tab/home_page.dart';
+import 'package:rrr_shop_app/screens/home/tebs/order_tab/order_page.dart';
 
-import '../fav_page/fav_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -15,7 +16,8 @@ class _MainScreenState extends State<MainScreen> {
   int curruntIndex = 0;
   List<Widget> bodyItem = [
     HomePage(),
-    FavPage()
+    FavPage(),
+    OrderPage()
   ];
   @override
   Widget build(BuildContext context) {
