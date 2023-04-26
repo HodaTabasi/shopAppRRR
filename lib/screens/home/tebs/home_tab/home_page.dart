@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:rrr_shop_app/screens/home/tebs/home_tab/widget/search_widget.dart';
 import 'package:rrr_shop_app/screens/home/tebs/home_tab/widget/slider_widget.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
@@ -52,7 +53,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           Padding(
             padding: EdgeInsets.all(16.0.r),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                ZoomDrawer.of(context)!.toggle();
+              },
               child: SvgPicture.asset("assets/images/16_16.svg"),
             ),
           )

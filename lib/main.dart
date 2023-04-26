@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
-        initialRoute: '/splash_screen',
+        initialRoute: '/main_screen',
         routes: {
           '/splash_screen': (context) => SplashScreen(),
           '/login_screen': (context) => LoginScreen(),
