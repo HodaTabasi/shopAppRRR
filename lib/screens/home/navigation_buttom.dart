@@ -4,6 +4,7 @@ import 'package:rrr_shop_app/screens/home/tebs/cart_tab/cart_page.dart';
 import 'package:rrr_shop_app/screens/home/tebs/fav_tab/fav_screen.dart';
 import 'package:rrr_shop_app/screens/home/tebs/home_tab/home_page.dart';
 import 'package:rrr_shop_app/screens/home/tebs/order_tab/order_page.dart';
+import 'package:rrr_shop_app/screens/home/tebs/profile_tab/profile_Page.dart';
 
 
 class MainScreen extends StatefulWidget {
@@ -20,6 +21,7 @@ class _MainScreenState extends State<MainScreen> {
     FavPage(),
     CartPage(),
     OrderPage(),
+    ProfilePage(),
   ];
   @override
   Widget build(BuildContext context) {

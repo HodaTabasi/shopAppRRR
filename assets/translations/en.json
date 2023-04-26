@@ -58,5 +58,13 @@
   "brand": "Brand: ",
   "t_address": "Delivery Address: ",
   "data_f": "The first recipient: ",
-  "phone": "Phone Number: "
+  "phone": "Phone Number: ",
+  "profile": "My Profile ",
+  "share": "Share App",
+  "support": "Technical Support",
+  "setting": "Setting ",
+  "logout": "Logout ",
+  "delete_account": "Delete Account ",
+  "m1": "You can contact us via social media or the phone number ",
+  "m2": "Respond to your inquiries via social media during official working hours, with an hour to reply "
 }
