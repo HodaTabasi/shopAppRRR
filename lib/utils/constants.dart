@@ -20,7 +20,7 @@ decoration({double blurRadius = 0.0,double radius = 0.0}){
       borderRadius: BorderRadius.circular(radius),
       boxShadow:  [
         BoxShadow(
-            color: Colors.grey,
+            color: Color(0xffE2E2E2),
             blurRadius: blurRadius
         )
       ]
@@ -77,36 +77,37 @@ childAspectRatio: 2 / 2.5,
 crossAxisSpacing: 12.r,
 mainAxisSpacing: 12.r);
 
-class TrianglePainter extends CustomPainter {
-  final Color strokeColor;
-  final PaintingStyle paintingStyle;
-  final double strokeWidth;
+// class TrianglePainter extends CustomPainter {
+//   final Color strokeColor;
+//   final PaintingStyle paintingStyle;
+//   final double strokeWidth;
+//
+//   TrianglePainter({this.strokeColor = Colors.black, this.strokeWidth = 3, this.paintingStyle = PaintingStyle.stroke});
+//
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     Paint paint = Paint()
+//       ..color = strokeColor
+//       ..strokeWidth = strokeWidth
+//       ..style = paintingStyle;
+//
+//     canvas.drawPath(getTrianglePath(size.width, size.height), paint);
+//   }
+//
+//   Path getTrianglePath(double x, double y) {
+//     return Path()
+//       ..moveTo(0, y)
+//       ..lineTo(y, 0)
+//       ..lineTo(0, 0);
+//       // ..lineTo(x / 2, 0);
+//
+//   }
+//
+//   @override
+//   bool shouldRepaint(TrianglePainter oldDelegate) {
+//     return oldDelegate.strokeColor != strokeColor ||
+//         oldDelegate.paintingStyle != paintingStyle ||
+//         oldDelegate.strokeWidth != strokeWidth;
+//   }
+// }
 
-  TrianglePainter({this.strokeColor = Colors.black, this.strokeWidth = 3, this.paintingStyle = PaintingStyle.stroke});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()
-      ..color = strokeColor
-      ..strokeWidth = strokeWidth
-      ..style = paintingStyle;
-
-    canvas.drawPath(getTrianglePath(size.width, size.height), paint);
-  }
-
-  Path getTrianglePath(double x, double y) {
-    return Path()
-      ..moveTo(0, y)
-      ..lineTo(y, 0)
-      ..lineTo(0, 0);
-      // ..lineTo(x / 2, 0);
-
-  }
-
-  @override
-  bool shouldRepaint(TrianglePainter oldDelegate) {
-    return oldDelegate.strokeColor != strokeColor ||
-        oldDelegate.paintingStyle != paintingStyle ||
-        oldDelegate.strokeWidth != strokeWidth;
-  }
-}

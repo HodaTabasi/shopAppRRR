@@ -5,6 +5,7 @@ import 'package:rrr_shop_app/screens/complete_order/complete_order_screen.dart';
 import 'package:rrr_shop_app/screens/home/navigation_buttom.dart';
 import 'package:rrr_shop_app/screens/login_screen.dart';
 import 'package:rrr_shop_app/screens/otp/otp_screen.dart';
+import 'package:rrr_shop_app/screens/setting/setting_screen.dart';
 import 'package:rrr_shop_app/screens/splach_screen.dart';
 
 import 'screens/complete_profile/complete_profile.dart';
@@ -13,7 +14,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   runApp( EasyLocalization(
-      supportedLocales: const [Locale('en', 'US'), Locale('ar')],
+      supportedLocales: const [Locale('en'), Locale('ar')],
       path: 'assets/translations', // <-- change the path of the translation files
       fallbackLocale: const Locale('ar'),
       child: MyApp()
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
           '/complete_screen': (context) => CompleteProfile(),
           '/main_screen': (context) => MainScreen(),
           '/complete_buy_screen': (context) => CompleteOrderScreen(),
+          '/setting': (context) => SettingScreen(),
         },
       );
     }

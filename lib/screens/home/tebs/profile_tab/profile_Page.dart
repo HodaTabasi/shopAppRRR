@@ -88,7 +88,9 @@ class _ProfilePageState extends State<ProfilePage> {
             SettingItem(
               title: "setting",
               iconName: "Setting.svg",
-              onClick: () {},
+              onClick: () {
+                Navigator.pushNamed(context, '/setting');
+              },
             ),
             SettingItem(
               title: "logout",
