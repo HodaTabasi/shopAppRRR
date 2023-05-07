@@ -12,27 +12,30 @@ class SearchWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: decoration(radius: 20.0.r,blurRadius: 5),
-      child: IntrinsicHeight(
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: image(path: "assets/images/vector.svg"),
-            ),
-            VerticalDivider(),
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                    ),
-                    hintText: 'search'.tr(),
-                    hintStyle:
-                    TextStyle(color: Colors.grey, fontSize: 14.sp)),
+      decoration: decoration(radius: 25.0.r,blurRadius: 5),
+      child: SizedBox(
+        height: 50.h,
+        child: IntrinsicHeight(
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: image(path: "assets/images/vector.svg"),
               ),
-            ),
-          ],
+              VerticalDivider(),
+              Expanded(
+                child: TextField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                      hintText: 'search'.tr(),
+                      hintStyle:
+                      TextStyle(color: Colors.grey, fontSize: 14.sp)),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

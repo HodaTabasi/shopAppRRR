@@ -67,5 +67,15 @@
   "delete_account": "Delete Account ",
   "m1": "You can contact us via social media or the phone number ",
   "m2": "Respond to your inquiries via social media during official working hours, with an hour to reply ",
-  "cat": "Category"
+  "cat": "Category",
+  "profile_info": "account information",
+  "chang_phone": "Change Phone Number",
+  "lang": "Language",
+  "ar": "Arabic",
+  "en": "English",
+  "more": "More",
+  "location_p": "Geolocation",
+  "upgrade": "Upgrade Application",
+  "disc": "description",
+  "colors": "Colors"
 }

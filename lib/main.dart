@@ -5,6 +5,7 @@ import 'package:rrr_shop_app/screens/complete_order/complete_order_screen.dart';
 import 'package:rrr_shop_app/screens/home/navigation_buttom.dart';
 import 'package:rrr_shop_app/screens/login_screen.dart';
 import 'package:rrr_shop_app/screens/otp/otp_screen.dart';
+import 'package:rrr_shop_app/screens/product_details/product_details.dart';
 import 'package:rrr_shop_app/screens/setting/setting_screen.dart';
 import 'package:rrr_shop_app/screens/splach_screen.dart';
 
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
           '/main_screen': (context) => MainScreen(),
           '/complete_buy_screen': (context) => CompleteOrderScreen(),
           '/setting': (context) => SettingScreen(),
+          '/product_details': (context) => ProductDetails(),
         },
       );
     }
