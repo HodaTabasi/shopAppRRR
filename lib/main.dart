@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rrr_shop_app/screens/cat_product/cat_product_screen.dart';
 import 'package:rrr_shop_app/screens/complete_order/complete_order_screen.dart';
 import 'package:rrr_shop_app/screens/home/navigation_buttom.dart';
 import 'package:rrr_shop_app/screens/login_screen.dart';
@@ -11,15 +12,17 @@ import 'package:rrr_shop_app/screens/splach_screen.dart';
 
 import 'screens/complete_profile/complete_profile.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  runApp( EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('ar')],
-      path: 'assets/translations', // <-- change the path of the translation files
-      fallbackLocale: const Locale('ar'),
-      child: MyApp()
-  ),);
+  runApp(
+    EasyLocalization(
+        supportedLocales: const [Locale('en'), Locale('ar')],
+        path: 'assets/translations',
+        // <-- change the path of the translation files
+        fallbackLocale: const Locale('ar'),
+        child: MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -29,36 +32,33 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 690),
-      minTextAdapt: true,
-      splitScreenMode: true,
-    builder: (context , child) {
-      return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          fontFamily: 'avenir'
-        ),
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        initialRoute: '/main_screen',
-        routes: {
-          '/splash_screen': (context) => SplashScreen(),
-          '/login_screen': (context) => LoginScreen(),
-          '/otp_screen': (context) => OTPScreen(),
-          '/complete_screen': (context) => CompleteProfile(),
-          '/main_screen': (context) => MainScreen(),
-          '/complete_buy_screen': (context) => CompleteOrderScreen(),
-          '/setting': (context) => SettingScreen(),
-          '/product_details': (context) => ProductDetails(),
-        },
-      );
-    }
-    );
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return MaterialApp(
+            title: 'Flutter Demo',
+            theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'avenir'),
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            // initialRoute: '/main_screen',
+            home: CatProductScreen(),
+            routes: {
+              '/splash_screen': (context) => SplashScreen(),
+              '/login_screen': (context) => LoginScreen(),
+              '/otp_screen': (context) => OTPScreen(),
+              '/complete_screen': (context) => CompleteProfile(),
+              '/main_screen': (context) => MainScreen(),
+              '/complete_buy_screen': (context) => CompleteOrderScreen(),
+              '/setting': (context) => SettingScreen(),
+              '/product_details': (context) => ProductDetails(),
+            },
+          );
+        });
   }
 
-  /*
+/*
   ScreenUtilInit(
       designSize: const Size(360, 690),
       minTextAdapt: true,
