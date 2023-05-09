@@ -10,10 +10,12 @@ import 'package:rrr_shop_app/screens/product_details/product_details.dart';
 import 'package:rrr_shop_app/screens/setting/setting_screen.dart';
 import 'package:rrr_shop_app/screens/splach_screen.dart';
 
+import 'controller/preferences/shared_pref_controller.dart';
 import 'screens/complete_profile/complete_profile.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SharedPrefController().initPref();
   await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(

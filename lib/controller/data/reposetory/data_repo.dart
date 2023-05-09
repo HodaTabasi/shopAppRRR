@@ -5,6 +5,7 @@ import 'package:rrr_shop_app/controller/data/model/category.dart';
 import 'package:rrr_shop_app/controller/data/model/order.dart';
 import 'package:rrr_shop_app/controller/data/model/product.dart';
 import 'package:rrr_shop_app/controller/data/model/slider.dart';
+import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
 class DataRepository with ApiHelper{
   final _apiController = APIController();
@@ -65,19 +66,30 @@ class DataRepository with ApiHelper{
 
   dynamic login({user}) async {
     final jsonResponse = await _apiController.login(user: user);
-    //save user in sharedPreferance
-    return jsonResponse['success'] ?successResponce:failedResponse;
+    if(jsonResponse['success']){
+      SharedPrefController().user = jsonResponse['data'];
+      SharedPrefController().loggedIn = true;
+      return successResponce;
+    }
+    return failedResponse;
   }
 
   dynamic register({user}) async {
     final jsonResponse = await _apiController.register(user: user);
-    //save user in sharedPreferance
-    return jsonResponse['success'] ?successResponce:failedResponse;
+    if(jsonResponse['success']){
+      SharedPrefController().user = jsonResponse['data'];
+      SharedPrefController().loggedIn = true;
+      return successResponce;
+    }
+    return failedResponse;
   }
 
   dynamic updateUser({user}) async {
     final jsonResponse = await _apiController.updateUser(user: user);
-    //update user in sharedPreferance
-    return jsonResponse['success'] ?successResponce:failedResponse;
+    if(jsonResponse['success']){
+      SharedPrefController().user = jsonResponse['data'];
+      return successResponce;
+    }
+    return failedResponse;
   }
 }
