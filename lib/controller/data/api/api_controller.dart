@@ -162,7 +162,7 @@ dynamic register({required User user}) async {
 
 dynamic updateUser({user}) async {
   Uri uri = Uri.parse(APISetting.update_user);
-  var response = await http.post(uri, headers: headersWithOutToken,body: {});
+  var response = await http.post(uri, headers: headersWithOutToken,body:user.toJsonRegister());
 
   print(response.body);
 

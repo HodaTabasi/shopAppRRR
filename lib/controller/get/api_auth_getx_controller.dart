@@ -6,6 +6,7 @@ class AuthGETXController extends GetxController {
 
   String phoneNumber = "";
   RxInt groupValue = 1.obs;
+  bool flag = false;
   Rx<DateTime> date = DateTime.now().obs;
 
   static AuthGETXController get to => Get.find<AuthGETXController>();

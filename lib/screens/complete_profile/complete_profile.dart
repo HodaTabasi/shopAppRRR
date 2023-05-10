@@ -1,8 +1,9 @@
 import 'package:easy_localization/easy_localization.dart' as data;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart' ;
+import 'package:get/get.dart';
 import 'package:rrr_shop_app/controller/data/model/user.dart';
+import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 import 'package:rrr_shop_app/core/app_button.dart';
 import 'package:rrr_shop_app/screens/complete_profile/done_registration_sheet.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
@@ -20,7 +21,6 @@ class CompleteProfile extends StatefulWidget {
 }
 
 class _CompleteProfileState extends State<CompleteProfile> {
-
   late TextEditingController _nameController;
   late TextEditingController _emailController;
   late TextEditingController _idController;
@@ -28,10 +28,23 @@ class _CompleteProfileState extends State<CompleteProfile> {
 
   @override
   void initState() {
-    _nameController = TextEditingController();
-    _emailController = TextEditingController();
-    _idController = TextEditingController();
-    _birthdayController = TextEditingController();
+    if (AuthGETXController.to.flag) {
+      User u = SharedPrefController().user;
+      _nameController = TextEditingController(text: u.name);
+      _emailController = TextEditingController(text: u.email);
+      _idController = TextEditingController(text: u.idNumber.toString());
+      _birthdayController = TextEditingController(text: u.dateOfBirth);
+      u.gender == "male"
+          ? AuthGETXController.to.groupValue.value = 1
+          : AuthGETXController.to.groupValue.value = 2;
+      AuthGETXController.to.phoneNumber = u.phoneNumber.toString();
+    } else {
+      _nameController = TextEditingController();
+      _emailController = TextEditingController();
+      _idController = TextEditingController();
+      _birthdayController = TextEditingController();
+    }
+
     super.initState();
   }
 
@@ -42,7 +55,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
       appBar: AppBar(
           backgroundColor: Colors.white,
           title: Text(
-            "complete",
+            AuthGETXController.to.flag ? "update" : "complete",
             style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w600,
@@ -60,74 +73,70 @@ class _CompleteProfileState extends State<CompleteProfile> {
                 color: Colors.red,
               ))),
       body: Obx(() {
-          return ListView(
-            padding: EdgeInsets.all(16.r),
-            children: [
-              buildStack(),
-              AppTextFiled(
-                title: 'name',
-                icon: Icons.person,
-                hint: data.tr('enter_name'),
-                controller: _nameController,
-              ),
-              AppTextFiled(
-                title: 'email',
-                icon: Icons.email,
-                // hint: 'enter_email'.tr(),
-                hint: data.tr('enter_email'),
-                controller: _emailController,
-              ),
-              AppTextFiled(
-                title: 'id',
-                icon: Icons.art_track,
-                hint: data.tr('enter_id'),
-                controller: _idController,
-              ),
-              AppTextFiled(
-                title: 'date',
-                icon: Icons.calendar_month,
-                hint: data.tr('enter_date'),
-                controller: _birthdayController,
-                readOnly: true,
-              ),
-              Text(
-                "gender",
-                style: TextStyle(
-                    color: Color(0xff6E6E6F),
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w200),
-              ).tr(),
-              getSpace(h: 16.h),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
+        return ListView(
+          padding: EdgeInsets.all(16.r),
+          children: [
+            buildStack(),
+            AppTextFiled(
+              title: 'name',
+              icon: Icons.person,
+              hint: data.tr('enter_name'),
+              controller: _nameController,
+            ),
+            AppTextFiled(
+              title: 'email',
+              icon: Icons.email,
+              // hint: 'enter_email'.tr(),
+              hint: data.tr('enter_email'),
+              controller: _emailController,
+            ),
+            AppTextFiled(
+              title: 'id',
+              icon: Icons.art_track,
+              hint: data.tr('enter_id'),
+              controller: _idController,
+            ),
+            AppTextFiled(
+              title: 'date',
+              icon: Icons.calendar_month,
+              hint: data.tr('enter_date'),
+              controller: _birthdayController,
+              readOnly: true,
+            ),
+            Text(
+              "gender",
+              style: TextStyle(
+                  color: Color(0xff6E6E6F),
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w200),
+            ).tr(),
+            getSpace(h: 16.h),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.r),
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 0.6
-                  )
-                ),
-                child: IntrinsicHeight(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      buildSelectedGender(context,"male",Icons.male,1,(val) {
-                        AuthGETXController.to.changeValue(val);
-                      }),
-                      VerticalDivider(color: Colors.grey,thickness: 0.6),
-                      buildSelectedGender(context,"female",Icons.female,2,(val) {
-                        AuthGETXController.to.changeValue(val);
-                      }),
-                    ],
-                  ),
+                  border: Border.all(color: Colors.grey, width: 0.6)),
+              child: IntrinsicHeight(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    buildSelectedGender(context, "male", Icons.male, 1, (val) {
+                      AuthGETXController.to.changeValue(val);
+                    }),
+                    VerticalDivider(color: Colors.grey, thickness: 0.6),
+                    buildSelectedGender(context, "female", Icons.female, 2,
+                        (val) {
+                      AuthGETXController.to.changeValue(val);
+                    }),
+                  ],
                 ),
               ),
-              getSpace(h: 8.h),
-              BtnApp(title: data.tr("save"), prsee: () => _performRegister())
-            ],
-          );
-        }
-      ),
+            ),
+            getSpace(h: 8.h),
+            BtnApp(title: data.tr("save"), prsee: () => _performRegister())
+          ],
+        );
+      }),
     );
   }
 
@@ -139,45 +148,55 @@ class _CompleteProfileState extends State<CompleteProfile> {
 
   bool _checkData() {
     if (_nameController.text.isNotEmpty &&
-    _emailController.text.isNotEmpty &&
-    _idController.text.isNotEmpty &&
-    _birthdayController.text.isNotEmpty) {
+        _emailController.text.isNotEmpty &&
+        _idController.text.isNotEmpty &&
+        _birthdayController.text.isNotEmpty) {
       return true;
     }
 
-    showSnackBar(context:context,message: 'Enter required data!', error: true);
+    showSnackBar(
+        context: context, message: 'Enter required data!', error: true);
     return false;
   }
-User get user {
+
+  User get user {
     User u = User();
     u.name = _nameController.text;
     u.idNumber = int.parse(_idController.text);
     u.phoneNumber = int.parse(AuthGETXController.to.phoneNumber);
     u.email = _emailController.text;
     u.dateOfBirth = _birthdayController.text;
-    u.gender = AuthGETXController.to.groupValue.value == 1 ?"male":"female";
+    u.gender = AuthGETXController.to.groupValue.value == 1 ? "male" : "female";
     u.lang = "ar";
     return u;
-}
+  }
 
   Future<void> _register() async {
     LoadingController.to.changeLoading(true);
-    ApiResponse isSucess = await AuthGETXController.to.register(user:user);
+    late ApiResponse isSucess;
+    if(AuthGETXController.to.flag){
+      isSucess = await AuthGETXController.to.updateUser(user: user);
+    }else{
+      isSucess = await AuthGETXController.to.register(user: user);
+    }
+
     LoadingController.to.changeLoading(false);
-    if(isSucess.success){
-      showModalBottomSheet(
-          isScrollControlled: false,
-          backgroundColor: Colors.white,
-          context: context,
-          shape: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15.r),
-              borderSide: BorderSide(
-                  color: Colors.transparent
-              )
-          ),
-          builder: (context) => DoneRegisterSheet());
+
+    if (isSucess.success ) {
+      if(!AuthGETXController.to.flag){
+        showModalBottomSheet(
+            isScrollControlled: false,
+            backgroundColor: Colors.white,
+            context: context,
+            shape: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15.r),
+                borderSide: BorderSide(color: Colors.transparent)),
+            builder: (context) => DoneRegisterSheet());
+      }
+      showSnackBar(context: context, message: isSucess.message, error: false);
+
     } else {
-      showSnackBar(context:context,message: isSucess.message, error: true);
+      showSnackBar(context: context, message: isSucess.message, error: true);
     }
   }
 
@@ -186,9 +205,7 @@ User get user {
     _nameController.dispose();
     _emailController.dispose();
     _idController.dispose();
-     _birthdayController.dispose();
+    _birthdayController.dispose();
     super.dispose();
   }
-
-
 }

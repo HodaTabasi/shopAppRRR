@@ -7,6 +7,9 @@ import 'package:rrr_shop_app/screens/home/tebs/profile_tab/suppourt_sheet.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../../controller/data/model/user.dart';
+import '../../../../controller/get/api_auth_getx_controller.dart';
+import '../../../../controller/preferences/shared_pref_controller.dart';
 import '../../../../utils/constants.dart';
 import 'custom_dialog.dart';
 
@@ -16,6 +19,12 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  late User u ;
+  @override
+  void initState() {
+    u = SharedPrefController().user;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,12 +51,13 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               trailing: InkWell(
                 onTap: () {
+                  AuthGETXController.to.flag = true;
                   Navigator.pushNamed(context, '/complete_screen');
                 },
                 child: SvgPicture.asset("assets/images/editprofile.svg"),
               ),
               title: Text(
-                "ياسمين عبد العزيز",
+                u.name??"",
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
@@ -55,7 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               subtitle: Text(
-                "+009755778487",
+                u.phoneNumber.toString(),
                 style: TextStyle(
                   color: textColor,
                   fontWeight: FontWeight.w500,

@@ -77,5 +77,6 @@
   "location_p": "Geolocation",
   "upgrade": "Upgrade Application",
   "disc": "description",
-  "colors": "Colors"
+  "colors": "Colors",
+  "update": "Update Profile"
 }

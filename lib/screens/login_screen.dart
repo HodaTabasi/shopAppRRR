@@ -133,6 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
           context, "/main_screen", (route) => false);
     } else {
       AuthGETXController.to.phoneNumber = _phoneController.text;
+      AuthGETXController.to.flag = false;
       Navigator.pushNamed(
           context, "/complete_screen");
       // showSnackBar(context:context,message: isSucess.message, error: true);
