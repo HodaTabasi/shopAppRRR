@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/model/user.dart';
 
-enum PrefKeys { loggedIn, lang ,user}
+enum PrefKeys {loggedIn, lang ,user}
 
 enum PrefKeysPatient {
   id,

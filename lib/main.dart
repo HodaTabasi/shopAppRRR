@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rrr_shop_app/screens/cat_product/cat_product_screen.dart';
 import 'package:rrr_shop_app/screens/complete_order/complete_order_screen.dart';
+import 'package:rrr_shop_app/screens/fillter/fillter_page.dart';
 import 'package:rrr_shop_app/screens/home/navigation_buttom.dart';
 import 'package:rrr_shop_app/screens/login_screen.dart';
 import 'package:rrr_shop_app/screens/otp/otp_screen.dart';
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
             supportedLocales: context.supportedLocales,
             locale: context.locale,
             // initialRoute: '/main_screen',
-            home: CatProductScreen(),
+            home: FillterScreen(),
             routes: {
               '/splash_screen': (context) => SplashScreen(),
               '/login_screen': (context) => LoginScreen(),
@@ -53,8 +54,10 @@ class MyApp extends StatelessWidget {
               '/complete_screen': (context) => CompleteProfile(),
               '/main_screen': (context) => MainScreen(),
               '/complete_buy_screen': (context) => CompleteOrderScreen(),
-              '/setting': (context) => SettingScreen(),
-              '/product_details': (context) => ProductDetails(),
+              '/setting_screen': (context) => SettingScreen(),
+              '/product_details_screen': (context) => ProductDetails(),
+              '/cart_product_screen': (context) => CatProductScreen(),
+              '/fillter_screen': (context) => FillterScreen(),
             },
           );
         });
