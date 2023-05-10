@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
+import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
 class SplashScreen extends StatefulWidget {
 
@@ -9,8 +11,10 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 3),(){
-      Navigator.pushReplacementNamed(context, '/login_screen');
+    Future.delayed(Duration.zero,() async {
+      await APIGetxController.to.getSliders();
+      String route = SharedPrefController().loggedIn?'/main_screen':'/login_screen';
+      Navigator.pushReplacementNamed(context,route);
     } );
     return Scaffold(
       backgroundColor: Colors.white,

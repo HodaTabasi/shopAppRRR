@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
 import 'package:rrr_shop_app/screens/home/tebs/home_tab/widget/search_widget.dart';
 import 'package:rrr_shop_app/screens/home/tebs/home_tab/widget/slider_widget.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
@@ -66,7 +67,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         children: [
           SearchWidget(),
           getSpace(h: 10.h),
-          SliderWidget(controller: controller, l: l),
+          SliderWidget(controller: controller, l: APIGetxController.to.sliders),
           getSpace(h: 10.h),
           buildContainer(),
           getSpace(h: 10.h),

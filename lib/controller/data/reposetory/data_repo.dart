@@ -46,10 +46,10 @@ class DataRepository with ApiHelper{
     return jsonResponse['success'] ?successResponce:failedResponse;
   }
 
-  Future<List<Slider>> getSliders() async {
+  Future<List<MySlider>> getSliders() async {
     final jsonResponse = await _apiController.getSliders();
     var jsonArray = jsonResponse['data'] as List;
-    return jsonArray.map((jsonObject) => Slider.fromJson(jsonObject)).toList();
+    return jsonArray.map((jsonObject) => MySlider.fromJson(jsonObject)).toList();
   }
 
   Future<List<Category>> getAllCategory() async {
