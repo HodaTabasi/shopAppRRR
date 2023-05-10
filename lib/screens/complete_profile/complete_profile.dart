@@ -1,11 +1,16 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' as data;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart' ;
+import 'package:rrr_shop_app/controller/data/model/user.dart';
 import 'package:rrr_shop_app/core/app_button.dart';
 import 'package:rrr_shop_app/screens/complete_profile/done_registration_sheet.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
 
+import '../../controller/data/api/api_response.dart';
+import '../../controller/get/api_auth_getx_controller.dart';
+import '../../controller/get/loading_getx_controller.dart';
 import '../../core/app_text_filed.dart';
 import 'complete_widget.dart';
 
@@ -15,7 +20,20 @@ class CompleteProfile extends StatefulWidget {
 }
 
 class _CompleteProfileState extends State<CompleteProfile> {
-  var groupValue = 1;
+
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+  late TextEditingController _idController;
+  late TextEditingController _birthdayController;
+
+  @override
+  void initState() {
+    _nameController = TextEditingController();
+    _emailController = TextEditingController();
+    _idController = TextEditingController();
+    _birthdayController = TextEditingController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,80 +52,142 @@ class _CompleteProfileState extends State<CompleteProfile> {
           centerTitle: true,
           toolbarHeight: 80,
           leading: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+              },
               icon: Icon(
                 Icons.clear,
                 color: Colors.red,
               ))),
-      body: ListView(
-        padding: EdgeInsets.all(16.r),
-        children: [
-          buildStack(),
-          AppTextFiled(
-            title: 'name',
-            icon: Icons.person,
-            hint: 'enter_name'.tr(),
-          ),
-          AppTextFiled(
-            title: 'email',
-            icon: Icons.email,
-            hint: 'enter_email'.tr(),
-          ),
-          AppTextFiled(
-            title: 'id',
-            icon: Icons.art_track,
-            hint: 'enter_id'.tr(),
-          ),
-          AppTextFiled(
-            title: 'date',
-            icon: Icons.calendar_month,
-            hint: 'enter_date'.tr(),
-          ),
-          Text(
-            "gender",
-            style: TextStyle(
-                color: Color(0xff6E6E6F),
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w200),
-          ).tr(),
-          getSpace(h: 16.h),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.r),
-              border: Border.all(
-                color: Colors.grey,
-                width: 0.6
-              )
-            ),
-            child: IntrinsicHeight(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  buildSelectedGender(context,"male",Icons.male,1,(val) {}),
-                  VerticalDivider(color: Colors.grey,thickness: 0.6),
-                  buildSelectedGender(context,"female",Icons.female,2,(val) {}),
-                ],
+      body: Obx(() {
+          return ListView(
+            padding: EdgeInsets.all(16.r),
+            children: [
+              buildStack(),
+              AppTextFiled(
+                title: 'name',
+                icon: Icons.person,
+                hint: data.tr('enter_name'),
+                controller: _nameController,
               ),
-            ),
-          ),
-          getSpace(h: 8.h),
-          BtnApp(title: "save".tr(), prsee: (){
-            showModalBottomSheet(
-              isScrollControlled: false,
-              backgroundColor: Colors.white,
-              context: context,
-              shape: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15.r),
-                borderSide: BorderSide(
-                  color: Colors.transparent
-                )
+              AppTextFiled(
+                title: 'email',
+                icon: Icons.email,
+                // hint: 'enter_email'.tr(),
+                hint: data.tr('enter_email'),
+                controller: _emailController,
               ),
-              builder: (context) => DoneRegisterSheet());
-          })
-        ],
+              AppTextFiled(
+                title: 'id',
+                icon: Icons.art_track,
+                hint: data.tr('enter_id'),
+                controller: _idController,
+              ),
+              AppTextFiled(
+                title: 'date',
+                icon: Icons.calendar_month,
+                hint: data.tr('enter_date'),
+                controller: _birthdayController,
+                readOnly: true,
+              ),
+              Text(
+                "gender",
+                style: TextStyle(
+                    color: Color(0xff6E6E6F),
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w200),
+              ).tr(),
+              getSpace(h: 16.h),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.r),
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 0.6
+                  )
+                ),
+                child: IntrinsicHeight(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      buildSelectedGender(context,"male",Icons.male,1,(val) {
+                        AuthGETXController.to.changeValue(val);
+                      }),
+                      VerticalDivider(color: Colors.grey,thickness: 0.6),
+                      buildSelectedGender(context,"female",Icons.female,2,(val) {
+                        AuthGETXController.to.changeValue(val);
+                      }),
+                    ],
+                  ),
+                ),
+              ),
+              getSpace(h: 8.h),
+              BtnApp(title: data.tr("save"), prsee: () => _performRegister())
+            ],
+          );
+        }
       ),
     );
+  }
+
+  Future<void> _performRegister() async {
+    if (_checkData()) {
+      await _register();
+    }
+  }
+
+  bool _checkData() {
+    if (_nameController.text.isNotEmpty &&
+    _emailController.text.isNotEmpty &&
+    _idController.text.isNotEmpty &&
+    _birthdayController.text.isNotEmpty) {
+      return true;
+    }
+
+    showSnackBar(context:context,message: 'Enter required data!', error: true);
+    return false;
+  }
+User get user {
+    User u = User();
+    u.name = _nameController.text;
+    u.idNumber = int.parse(_idController.text);
+    u.phoneNumber = int.parse(AuthGETXController.to.phoneNumber);
+    u.email = _emailController.text;
+    u.dateOfBirth = _birthdayController.text;
+    u.gender = AuthGETXController.to.groupValue.value == 1 ?"male":"female";
+    u.lang = "ar";
+    return u;
+}
+
+  Future<void> _register() async {
+    LoadingController.to.changeLoading(true);
+    ApiResponse isSucess = await AuthGETXController.to.register(user:user);
+    LoadingController.to.changeLoading(false);
+    if(isSucess.success){
+      showModalBottomSheet(
+          isScrollControlled: false,
+          backgroundColor: Colors.white,
+          context: context,
+          shape: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15.r),
+              borderSide: BorderSide(
+                  color: Colors.transparent
+              )
+          ),
+          builder: (context) => DoneRegisterSheet());
+    } else {
+      showSnackBar(context:context,message: isSucess.message, error: true);
+    }
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _idController.dispose();
+     _birthdayController.dispose();
+    super.dispose();
   }
 
 

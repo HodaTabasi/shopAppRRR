@@ -1,27 +1,31 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:rrr_shop_app/controller/get/api_auth_getx_controller.dart';
 
 import '../../utils/constants.dart';
 
-SizedBox buildSelectedGender(BuildContext context, String title, IconData iconData, int value, onChange) {
+Widget buildSelectedGender(BuildContext context, String title, IconData iconData, int value, onChange) {
   return SizedBox(
-    width: MediaQuery.of(context).size.width/2.5,
-    child: Row(
-      children: [
-        Radio(
-          value: value,
-          groupValue: 0,
-          onChanged: (val) {},
-          activeColor: mainColor,
-          // fillColor: MaterialStateColor.resolveWith((states) => mainColor),
+        width: MediaQuery.of(context).size.width/2.5,
+        child: Row(
+          children: [
+            Radio(
+              value: value,
+              groupValue: AuthGETXController.to.groupValue.value,
+              onChanged: onChange,
+              activeColor: mainColor,
+              // fillColor: MaterialStateColor.resolveWith((states) => mainColor),
+            ),
+            Text(title,style: TextStyle(color: Colors.grey),).tr(),
+            Spacer(),
+            Icon(iconData,color: Colors.grey,)
+          ],
         ),
-        Text(title,style: TextStyle(color: Colors.grey),).tr(),
-        Spacer(),
-        Icon(iconData,color: Colors.grey,)
-      ],
-    ),
-  );
+      );
+
+
 }
 
 Stack buildStack() {

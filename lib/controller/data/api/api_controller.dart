@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
 
+import '../model/user.dart';
 import 'api_helper.dart';
 
 class APIController with ApiHelper{
@@ -144,9 +145,9 @@ dynamic login({phone}) async {
   return null;
 }
 
-dynamic register({user}) async {
+dynamic register({required User user}) async {
   Uri uri = Uri.parse(APISetting.register);
-  var response = await http.post(uri, headers: headersWithOutToken,body: {});
+  var response = await http.post(uri, headers: headersWithOutToken,body: user.toJsonRegister());
 
   print(response.body);
 

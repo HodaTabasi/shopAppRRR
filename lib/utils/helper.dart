@@ -7,7 +7,7 @@ getSpace({w = 0.0,h = 0.0}){
   );
 }
 
-getRichText({S1,S2,S3,mainColor,fontWeight}){
+getRichText({S1="",S2="",S3="",mainColor,fontWeight}){
   return  RichText(
     text: TextSpan(
       text: S1,

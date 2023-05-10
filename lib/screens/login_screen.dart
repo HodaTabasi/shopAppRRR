@@ -131,8 +131,11 @@ class _LoginScreenState extends State<LoginScreen> {
       // Get.offAll(()=>MainScreen());
       Navigator.pushNamedAndRemoveUntil(
           context, "/main_screen", (route) => false);
-    }else {
-      showSnackBar(context:context,message: isSucess.message, error: true);
+    } else {
+      AuthGETXController.to.phoneNumber = _phoneController.text;
+      Navigator.pushNamed(
+          context, "/complete_screen");
+      // showSnackBar(context:context,message: isSucess.message, error: true);
     }
   }
 

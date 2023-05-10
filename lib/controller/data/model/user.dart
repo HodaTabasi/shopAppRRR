@@ -61,4 +61,15 @@ class User {
     data['deleted_at'] = this.deletedAt;
     return data;
   }
+  Map<String, dynamic> toJsonRegister() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['email'] = this.email;
+    data['phone_number'] = this.phoneNumber.toString();
+    data['id_number'] = this.idNumber.toString();
+    data['date_of_birth'] = this.dateOfBirth;
+    data['gender'] = this.gender;
+    data['lang'] = this.lang;
+    return data;
+  }
 }
