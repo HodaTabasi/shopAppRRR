@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:rrr_shop_app/controller/get/all_binding_controller.dart';
 import 'package:rrr_shop_app/screens/cat_product/cat_product_screen.dart';
 import 'package:rrr_shop_app/screens/complete_order/complete_order_screen.dart';
 import 'package:rrr_shop_app/screens/fillter/fillter_page.dart';
@@ -39,14 +41,16 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
-          return MaterialApp(
+          return GetMaterialApp(
+            initialBinding: AllBindingController(),
+            smartManagement: SmartManagement.full,
             title: 'Flutter Demo',
             theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'avenir'),
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
-            // initialRoute: '/main_screen',
-            home: FillterScreen(),
+            initialRoute: '/splash_screen',
+            // home: FillterScreen(),
             routes: {
               '/splash_screen': (context) => SplashScreen(),
               '/login_screen': (context) => LoginScreen(),

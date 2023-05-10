@@ -1,9 +1,14 @@
+import 'package:get/get.dart';
 import 'package:rrr_shop_app/controller/data/api/api_response.dart';
 import 'package:rrr_shop_app/controller/data/reposetory/data_repo.dart';
 
-class AuthGETXController {
-  Future<ApiResponse> login({user}) async {
-    return await DataRepository().login(user: user);
+class AuthGETXController extends GetxController {
+
+  static AuthGETXController get to => Get.find<AuthGETXController>();
+
+
+  Future<ApiResponse> login({phone}) async {
+    return await DataRepository().login(phone: phone);
   }
 
   Future<ApiResponse> register({user}) async {

@@ -127,9 +127,11 @@ dynamic getSubCategory() async {
   return null;
 }
 
-dynamic login({user}) async {
+dynamic login({phone}) async {
   Uri uri = Uri.parse(APISetting.login);
-  var response = await http.post(uri, headers: headersWithOutToken,body: {});
+  var response = await http.post(uri, headers: headersWithOutToken,body: {
+    "phone_number":phone
+  });
 
   print(response.body);
 

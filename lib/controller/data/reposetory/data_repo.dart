@@ -64,8 +64,8 @@ class DataRepository with ApiHelper{
     return jsonArray.map((jsonObject) => Category.fromJson(jsonObject)).toList();
   }
 
-  dynamic login({user}) async {
-    final jsonResponse = await _apiController.login(user: user);
+  dynamic login({phone}) async {
+    final jsonResponse = await _apiController.login(phone: phone);
     if(jsonResponse['success']){
       SharedPrefController().user = jsonResponse['data'];
       SharedPrefController().loggedIn = true;

@@ -19,3 +19,11 @@ getRichText({S1,S2,S3,mainColor,fontWeight}){
     ),
   );
 }
+
+showSnackBar({context,message,error}){
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(message, textAlign: TextAlign.center),
+    backgroundColor: error?Colors.red:Colors.green,
+
+  ));
+}

@@ -14,6 +14,9 @@ class APIGetxController extends GetxController{
   RxList<Category> cate = <Category>[].obs;
   Product? product;
 
+  static APIGetxController get to => Get.find<APIGetxController>();
+
+
   getAllProduct(){
     DataRepository().getAllProduct().then((value){
       products.value = value;
