@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
 import 'package:rrr_shop_app/controller/data/model/product.dart';
+import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
 
 import '../utils/constants.dart';
 import '../utils/helper.dart';
@@ -21,7 +22,8 @@ class _AppProductCardState extends State<AppProductCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.pushNamed(context, '/product_details');
+        // Navigator.pushNamed(context, '/product_details_screen');
+        print(widget.product.productThumbnail);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -35,15 +37,21 @@ class _AppProductCardState extends State<AppProductCard> {
             Positioned(
                 bottom: 0,
                 left: 0,
-                child: Container(
-                  padding: EdgeInsets.all(8.r),
-                  decoration: BoxDecoration(
-                      color: Color.fromRGBO(149, 114, 85, 0.2),
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(18.r),
-                          bottomLeft: Radius.circular(16.r))),
-                  child: Icon(Icons.add_shopping_cart_sharp,
-                      color: mainColor, size: 20),
+                child: InkWell(
+                  onTap: () async {
+                   bool b = await HiveGetXController.to.addToCart(p: widget.product);
+                   showSnackBar(context: context,message: "done",error: !b);
+                   },
+                  child: Container(
+                    padding: EdgeInsets.all(8.r),
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(149, 114, 85, 0.2),
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(18.r),
+                            bottomLeft: Radius.circular(16.r))),
+                    child: Icon(Icons.add_shopping_cart_sharp,
+                        color: mainColor, size: 20),
+                  ),
                 )),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -150,7 +158,7 @@ class _AppProductCardState extends State<AppProductCard> {
                 Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0.r),
                     child: Text(
-                      widget.product.brandAr!,
+                      widget.product.brandAr??"",
                       style: TextStyle(
                           fontSize: 12.sp,
                           color: Colors.black,
@@ -186,8 +194,14 @@ class _AppProductCardState extends State<AppProductCard> {
                   decoration: BoxDecoration(
                       shape: BoxShape.circle, color: Colors.white),
                   child: InkWell(
-                      onTap: () {},
-                      child:Icon(
+                      onTap: () async {
+                        bool b = await HiveGetXController.to.addToFav(p: widget.product);
+                        showSnackBar(context: context,message: "done",error: !b);
+                      },
+                      child:HiveGetXController.to.favProducts.any((element) => element.id == widget.product.id) ?Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                      ):Icon(
                         Icons.favorite_border,
                         color: thirdColor,
                       )),

@@ -12,25 +12,29 @@ class Product {
   String? productNameEn;
   @HiveField(2)
   String? productNameAr;
+  @HiveField(3)
   String? brandEn;
+  @HiveField(4)
   String? brandAr;
   String? productQty;
   String? productSize;
   String? productColors;
-  @HiveField(3)
+  @HiveField(5)
   String? basePrice;
   String? sellingPrice;
+  @HiveField(11)
   String? discountPrice;
   String? descriptionEn;
   String? descriptionAr;
-  String? productThumbnail;
-  @HiveField(4)
-  int? trend;
-  @HiveField(5)
-  int? newProduct;
   @HiveField(6)
-  int? offer;
+  String? productThumbnail;
   @HiveField(7)
+  int? trend;
+  @HiveField(8)
+  int? newProduct;
+  @HiveField(9)
+  int? offer;
+  @HiveField(10)
   int? status;
   String? createdAt;
   String? updatedAt;
