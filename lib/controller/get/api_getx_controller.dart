@@ -14,6 +14,7 @@ class APIGetxController extends GetxController{
   RxList<MySlider> sliders = <MySlider>[].obs;
   RxList<Category> cate = <Category>[].obs;
   Product? product;
+  Category? category;
 
   static APIGetxController get to => Get.find<APIGetxController>();
 

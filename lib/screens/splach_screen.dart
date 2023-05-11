@@ -13,6 +13,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     Future.delayed(Duration.zero,() async {
       await APIGetxController.to.getSliders();
+      await APIGetxController.to.getAllCategory();
       String route = SharedPrefController().loggedIn?'/main_screen':'/login_screen';
       Navigator.pushReplacementNamed(context,route);
     } );

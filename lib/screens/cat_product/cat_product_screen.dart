@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:rrr_shop_app/controller/data/model/product.dart';
+import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
 import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
 import 'package:rrr_shop_app/core/app_product_card.dart';
 import 'package:rrr_shop_app/screens/home/tebs/home_tab/widget/search_widget.dart';
@@ -56,7 +57,7 @@ class _CatProductScreenState extends State<CatProductScreen> {
               ),
             )),
       ),
-       body: GetX<HiveGetXController>(
+       body: GetX<APIGetxController>(
          builder: (context) {
            return GridView.builder(
              padding: EdgeInsets.all(8.r),

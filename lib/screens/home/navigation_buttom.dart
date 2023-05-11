@@ -4,7 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:get/get.dart';
 import 'package:rrr_shop_app/controller/data/model/product.dart';
+import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
 import 'package:rrr_shop_app/controller/hive/hice_operations.dart';
 import 'package:rrr_shop_app/screens/home/tebs/cart_tab/cart_page.dart';
 import 'package:rrr_shop_app/screens/home/tebs/fav_tab/fav_screen.dart';
@@ -13,7 +15,6 @@ import 'package:rrr_shop_app/screens/home/tebs/order_tab/order_page.dart';
 import 'package:rrr_shop_app/screens/home/tebs/profile_tab/profile_Page.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
-
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -31,6 +32,7 @@ class _MainScreenState extends State<MainScreen> {
     OrderPage(),
     ProfilePage(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,24 +46,20 @@ class _MainScreenState extends State<MainScreen> {
         mainScreen: Scaffold(
           backgroundColor: background,
           body: bodyItem[curruntIndex],
-          bottomNavigationBar:Container(
-            margin: EdgeInsets.symmetric(horizontal: 8.r,vertical: 10.r),
+          bottomNavigationBar: Container(
+            margin: EdgeInsets.symmetric(horizontal: 8.r, vertical: 10.r),
             //add ClipRRect widget for Round Corner
-           decoration: BoxDecoration(
-             borderRadius:  const BorderRadius.only(
-               topRight: Radius.circular(50),
-               topLeft: Radius.circular(50),
-               bottomLeft: Radius.circular(50),
-               bottomRight: Radius.circular(50),
-             ),
-             boxShadow: [
-               BoxShadow(
-                 color: Color(0xffE9E9E9),
-                 blurRadius: 5,
-                 spreadRadius: 2
-               )
-             ]
-           ),
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(50),
+                  topLeft: Radius.circular(50),
+                  bottomLeft: Radius.circular(50),
+                  bottomRight: Radius.circular(50),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                      color: Color(0xffE9E9E9), blurRadius: 5, spreadRadius: 2)
+                ]),
             child: ClipRRect(
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(50),
@@ -69,7 +67,7 @@ class _MainScreenState extends State<MainScreen> {
                 bottomLeft: Radius.circular(50),
                 bottomRight: Radius.circular(50),
               ),
-              child:  BottomNavigationBar(
+              child: BottomNavigationBar(
                 type: BottomNavigationBarType.fixed,
                 backgroundColor: Colors.white,
                 currentIndex: curruntIndex,
@@ -86,27 +84,32 @@ class _MainScreenState extends State<MainScreen> {
                 items: [
                   BottomNavigationBarItem(
                     icon: SvgPicture.asset("assets/images/home.svg"),
-                    activeIcon: SvgPicture.asset("assets/images/home_select.svg"),
+                    activeIcon:
+                        SvgPicture.asset("assets/images/home_select.svg"),
                     label: 'home',
                   ),
                   BottomNavigationBarItem(
                     icon: SvgPicture.asset("assets/images/fav.svg"),
-                    activeIcon: SvgPicture.asset("assets/images/fav_select.svg"),
+                    activeIcon:
+                        SvgPicture.asset("assets/images/fav_select.svg"),
                     label: 'fav',
                   ),
                   BottomNavigationBarItem(
                     icon: SvgPicture.asset("assets/images/cart.svg"),
-                    activeIcon: SvgPicture.asset("assets/images/cart_select.svg"),
+                    activeIcon:
+                        SvgPicture.asset("assets/images/cart_select.svg"),
                     label: 'cart',
                   ),
                   BottomNavigationBarItem(
                     icon: SvgPicture.asset("assets/images/order.svg"),
-                    activeIcon: SvgPicture.asset("assets/images/order_select.svg"),
+                    activeIcon:
+                        SvgPicture.asset("assets/images/order_select.svg"),
                     label: 'order',
                   ),
                   BottomNavigationBarItem(
                       icon: SvgPicture.asset("assets/images/profile.svg"),
-                      activeIcon: SvgPicture.asset("assets/images/person_select.svg"),
+                      activeIcon:
+                          SvgPicture.asset("assets/images/person_select.svg"),
                       label: 'profile'),
                 ],
               ),
@@ -119,7 +122,12 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
-class MenuScreen extends StatelessWidget{
+class MenuScreen extends StatefulWidget {
+  @override
+  State<MenuScreen> createState() => _MenuScreenState();
+}
+
+class _MenuScreenState extends State<MenuScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,18 +136,66 @@ class MenuScreen extends StatelessWidget{
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: ListView(
-        children: [
-          SvgPicture.asset("assets/images/60_60.svg"),
-          getSpace(h: 16.h),
-          Text("cat",style: TextStyle(
-            color: Colors.white,
-            fontSize: 20.sp,
-          ),
-          textAlign: TextAlign.center,).tr()
-        ],
-      ),
+      body: GetX<APIGetxController>(builder: (controller) {
+        return ListView(
+          children: [
+            SvgPicture.asset("assets/images/60_60.svg"),
+            getSpace(h: 16.h),
+            Text(
+              "cat",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20.sp,
+              ),
+              textAlign: TextAlign.center,
+            ).tr(),
+            getSpace(h:50.h),
+            ListView.builder(
+              itemCount: controller.cate.length,
+              shrinkWrap: true,
+              padding: EdgeInsets.symmetric(horizontal: 8.r),
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                if(controller.cate[index].subCategory!.isEmpty){
+                  return ListTile(
+                    onTap: () {
+                      controller.category = controller.cate[index];
+                      Navigator.pushNamed(context, '/cart_product_screen');
+                    },
+                    contentPadding: EdgeInsets.symmetric(horizontal: 8.r),
+                    title: Text(controller.cate[index].nameAr!),
+                    textColor: Colors.white,
+                    selectedColor: Colors.white,
+                  );
+                }else{
+                  return ExpansionTile(
+                    title: Text(controller.cate[index].nameAr!,style: TextStyle(color: Colors.white),),
+                    textColor: Colors.white,
+                    collapsedTextColor: Colors.white,
+                    iconColor: Colors.white,
+                    // backgroundColor: Colors.white,
+                    collapsedIconColor: Colors.white,
+                    // collapsedBackgroundColor: Colors.white,
+                    children: controller.cate[index].subCategory!.map((e){
+                      return ListTile(
+                        onTap: () {
+                          controller.category = e;
+                          Navigator.pushNamed(context, '/cart_product_screen');
+                        },
+                        title: Text(e.nameAr!),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 8.r),
+                        textColor: Colors.white,
+                        selectedColor: Colors.white,
+                      );
+                    }).toList(),
+                  );
+                }
+
+              },
+            )
+          ],
+        );
+      }),
     );
   }
-
 }
