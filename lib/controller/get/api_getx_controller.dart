@@ -9,13 +9,15 @@ import '../data/model/product.dart';
 
 class APIGetxController extends GetxController {
   RxList<Product> products = <Product>[].obs;
+  RxList<Product> orderProduct = <Product>[].obs;
   Map<String, List<Product>> productMap = {};
   RxList<Order> orders = <Order>[].obs;
   RxList<MySlider> sliders = <MySlider>[].obs;
   RxList<Category> cate = <Category>[].obs;
-  Product? product;
+  late Rx<Product> product = Product().obs;
   Category? category;
   bool flag = false;
+  int productId = 0;
 
   static APIGetxController get to => Get.find<APIGetxController>();
 
@@ -33,7 +35,7 @@ class APIGetxController extends GetxController {
 
   getProductDetails({productId}) {
     DataRepository().getProductDetails(productId: productId).then((value) {
-      product = value;
+      product.value = value;
     });
   }
 
@@ -97,5 +99,9 @@ class APIGetxController extends GetxController {
     }else{
       getProductByCateId(id: category!.id.toString());
     }
+  }
+
+  putOrderProduct({list}){
+    orderProduct.value = list;
   }
 }

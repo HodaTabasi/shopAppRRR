@@ -42,7 +42,7 @@ class ListItemWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "حذاء رياضي",
+                    "${product.productNameEn}",
                     style: TextStyle(fontSize: 12.sp),
                   ),
                   getSpace(h: 5.h),

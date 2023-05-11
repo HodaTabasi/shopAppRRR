@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
 import 'package:rrr_shop_app/controller/data/model/product.dart';
+import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
 import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
 
 import '../utils/constants.dart';
@@ -23,8 +24,8 @@ class _AppProductCardState extends State<AppProductCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        // Navigator.pushNamed(context, '/product_details_screen');
-        print(widget.product.productThumbnail);
+        APIGetxController.to.productId = widget.product.id!;
+        Navigator.pushNamed(context, '/product_details_screen');
       },
       child: GetX<HiveGetXController>(
         builder: (controller) {
