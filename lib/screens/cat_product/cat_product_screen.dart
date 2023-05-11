@@ -40,7 +40,7 @@ class _CatProductScreenState extends State<CatProductScreen> {
             actions: [
               InkWell(
                 onTap: (){
-                  print("object");
+                  Navigator.pushReplacementNamed(context, '/main_screen');
                 },
                 child: SvgPicture.asset("assets/images/menu1.svg"),
               )

@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             padding: EdgeInsets.all(16.0.r),
             child: InkWell(
               onTap: () {
-                ZoomDrawer.of(context)!.toggle();
+               ZoomDrawer.of(context)!.toggle();
               },
               child: SvgPicture.asset("assets/images/16_16.svg"),
             ),
