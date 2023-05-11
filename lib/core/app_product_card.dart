@@ -1,14 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
+import 'package:rrr_shop_app/controller/data/model/product.dart';
 
 import '../utils/constants.dart';
 import '../utils/helper.dart';
 
 class AppProductCard extends StatefulWidget {
-  const AppProductCard({
-    super.key,
-  });
+  Product product;
+
+  AppProductCard(this.product);
 
   @override
   State<AppProductCard> createState() => _AppProductCardState();
@@ -54,9 +56,10 @@ class _AppProductCardState extends State<AppProductCard> {
                             topLeft: Radius.circular(16.r),
                             topRight: Radius.circular(16.r)),
                         child: Image.network(
-                          "https://cdn.pixabay.com/photo/2019/11/26/19/47/angel-4655368__340.jpg",
+                          "${APISetting.IMAGE_BASE_URL}${widget.product.productThumbnail}",
                           height: 100.h,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
+                          width: double.infinity,
                         )),
                     Positioned(
                       bottom: 8.r,
@@ -67,6 +70,7 @@ class _AppProductCardState extends State<AppProductCard> {
                         MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
+                          if(widget.product.trend ==1)
                           Container(
                             padding: EdgeInsets.all(2.r),
                             decoration: BoxDecoration(
@@ -86,7 +90,9 @@ class _AppProductCardState extends State<AppProductCard> {
                               ],
                             ),
                           ),
+                          if(widget.product.offer ==1)
                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Container(
                                 padding: EdgeInsets.all(2.r),
@@ -103,6 +109,7 @@ class _AppProductCardState extends State<AppProductCard> {
                                 ),
                               ),
                               getSpace(h: 8.r),
+                              if(widget.product.newProduct ==1)
                               Container(
                                 padding: EdgeInsets.all(2.r),
                                 margin: EdgeInsets.symmetric(
@@ -136,14 +143,14 @@ class _AppProductCardState extends State<AppProductCard> {
                   padding: EdgeInsets.symmetric(
                       horizontal: 8.0.r, vertical: 5.r),
                   child: Text(
-                    "حذاء رياضي",
+                    widget.product.productNameAr!,
                     style: TextStyle(fontSize: 12.sp),
                   ),
                 ),
                 Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0.r),
                     child: Text(
-                      "نايكي",
+                      widget.product.brandAr!,
                       style: TextStyle(
                           fontSize: 12.sp,
                           color: Colors.black,
@@ -154,13 +161,13 @@ class _AppProductCardState extends State<AppProductCard> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      Text("\$28",
+                      Text("\$${widget.product.basePrice}",
                           style: TextStyle(
                               decoration: TextDecoration.lineThrough,
                               color: thirdColor)),
                       getSpace(w: 5.w),
                       Text(
-                        "\$18",
+                        "\$${widget.product.discountPrice}",
                         style: TextStyle(
                             color: mainColor,
                             fontWeight: FontWeight.bold,

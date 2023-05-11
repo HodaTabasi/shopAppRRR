@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:rrr_shop_app/controller/get/all_binding_controller.dart';
+import 'package:rrr_shop_app/controller/hive/hice_operations.dart';
 import 'package:rrr_shop_app/screens/cat_product/cat_product_screen.dart';
 import 'package:rrr_shop_app/screens/complete_order/complete_order_screen.dart';
 import 'package:rrr_shop_app/screens/fillter/fillter_page.dart';
@@ -19,7 +21,9 @@ import 'screens/complete_profile/complete_profile.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefController().initPref();
+  await HiveOperations().openBox();
   await EasyLocalization.ensureInitialized();
+
   runApp(
     EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],

@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:rrr_shop_app/controller/data/model/product.dart';
+import 'package:rrr_shop_app/controller/hive/hice_operations.dart';
 import 'package:rrr_shop_app/screens/home/tebs/cart_tab/cart_page.dart';
 import 'package:rrr_shop_app/screens/home/tebs/fav_tab/fav_screen.dart';
 import 'package:rrr_shop_app/screens/home/tebs/home_tab/home_page.dart';

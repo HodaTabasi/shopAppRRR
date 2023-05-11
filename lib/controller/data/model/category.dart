@@ -5,6 +5,7 @@ class Category {
   String? nameAr;
   String? createdAt;
   String? updatedAt;
+  List<Category>? subCategory;
 
   Category(
       {this.id,
@@ -12,7 +13,8 @@ class Category {
         this.nameEn,
         this.nameAr,
         this.createdAt,
-        this.updatedAt});
+        this.updatedAt,
+        this.subCategory});
 
   Category.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -23,6 +25,12 @@ class Category {
     nameAr = json['name_ar'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    if (json['sub_category'] != null && json.containsKey('sub_category') ) {
+      subCategory = <Category>[];
+      json['sub_category'].forEach((v) {
+        subCategory!.add(new Category.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -35,6 +43,13 @@ class Category {
     data['name_ar'] = this.nameAr;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    if (this.subCategory != null && data.containsKey('sub_category')) {
+      data['sub_category'] = this.subCategory!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
+
+
+/*
+*/

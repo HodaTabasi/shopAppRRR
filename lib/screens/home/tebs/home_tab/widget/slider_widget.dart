@@ -33,7 +33,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(15.r),
                     child: Image.network(
-                      "${e.image}",
+                      "${APISetting.IMAGE_BASE_URL}${e.image}",
                       fit: BoxFit.fill,
                     )),
               );

@@ -9,6 +9,7 @@ import '../data/model/product.dart';
 
 class APIGetxController extends GetxController{
   RxList<Product> products = <Product>[].obs;
+  Map<String,List<Product>> productMap = {};
   RxList<Order> orders = <Order>[].obs;
   RxList<MySlider> sliders = <MySlider>[].obs;
   RxList<Category> cate = <Category>[].obs;
@@ -19,7 +20,10 @@ class APIGetxController extends GetxController{
 
   getAllProduct(){
     DataRepository().getAllProduct().then((value){
-      products.value = value;
+      productMap.addAll({"trend":value.where((element) => element.trend == 1).toList()});
+      productMap.addAll({"new":value.where((element) => element.newProduct == 1).toList()});
+      productMap.addAll({"offers":value.where((element) => element.offer == 1).toList()});
+      products.value = productMap["new"]??[];
     });
   }
 
@@ -32,6 +36,10 @@ class APIGetxController extends GetxController{
   getNewProducts(){
     DataRepository().getNewProduct().then((value){
       products.value = value;
+      productMap.addAll({"trend":value.where((element) => element.trend == 1).toList()});
+      productMap.addAll({"new":value.where((element) => element.newProduct == 1).toList()});
+      productMap.addAll({"offers":value.where((element) => element.offer == 1).toList()});
+
     });
   }
 

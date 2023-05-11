@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:rrr_shop_app/controller/data/model/product.dart';
 import 'package:rrr_shop_app/core/app_button.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
@@ -107,7 +108,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
               itemBuilder: (context, index) {
                 return Stack(
                   children: [
-                    ListItemWidget(isOrder: false),
+                    ListItemWidget(isOrder: false,product: Product()),
                     Positioned(
                         top: 8,
                         left: 8,

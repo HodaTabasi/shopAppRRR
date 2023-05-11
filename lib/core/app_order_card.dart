@@ -2,12 +2,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../controller/data/api/api_setting.dart';
+import '../controller/data/model/product.dart';
 import '../utils/constants.dart';
 import '../utils/helper.dart';
 
 class ListItemWidget extends StatelessWidget {
   bool isOrder;
-  ListItemWidget({required this.isOrder,
+  Product product;
+  ListItemWidget({required this.isOrder,required this.product
   });
 
   @override
@@ -29,7 +32,7 @@ class ListItemWidget extends StatelessWidget {
             child: ClipRRect(
                 clipBehavior: Clip.antiAlias,
                 borderRadius: BorderRadius.circular(8.r),
-                child: Image.network("https://media.istockphoto.com/id/1146517111/photo/taj-mahal-mausoleum-in-agra.jpg?s=612x612&w=0&k=20&c=vcIjhwUrNyjoKbGbAQ5sOcEzDUgOfCsm9ySmJ8gNeRk=",height: 80.h,width: 110.w,fit: BoxFit.fill,)),
+                child: Image.network("${APISetting.IMAGE_BASE_URL}${product.productThumbnail}",height: 80.h,width: 110.w,fit: BoxFit.fill,)),
           ),
           Expanded(
             child: Padding(

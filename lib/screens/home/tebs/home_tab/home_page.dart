@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:get/get.dart';
+import 'package:rrr_shop_app/controller/data/model/product.dart';
 import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
 import 'package:rrr_shop_app/screens/home/tebs/home_tab/widget/search_widget.dart';
 import 'package:rrr_shop_app/screens/home/tebs/home_tab/widget/slider_widget.dart';
@@ -28,6 +30,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void initState() {
     controller = TabController(length: l.length, vsync: this);
     tabController = TabController(length: 3, vsync: this);
+    APIGetxController.to.getAllProduct();
     super.initState();
   }
 
@@ -62,25 +65,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           )
         ],
       ),
-      body: ListView(
-        padding: EdgeInsets.all(16.r),
-        children: [
-          SearchWidget(),
-          getSpace(h: 10.h),
-          SliderWidget(controller: controller, l: APIGetxController.to.sliders),
-          getSpace(h: 10.h),
-          buildContainer(),
-          getSpace(h: 10.h),
-          GridView.builder(
-            itemCount: l.length,
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            gridDelegate: sliver,
-            itemBuilder: (context, index) {
-              return AppProductCard();
-            },
-          )
-        ],
+      body: GetX<APIGetxController>(
+        builder: (controller1) {
+          return ListView(
+            padding: EdgeInsets.all(16.r),
+            children: [
+              SearchWidget(),
+              getSpace(h: 10.h),
+              SliderWidget(controller: controller, l: APIGetxController.to.sliders),
+              getSpace(h: 10.h),
+              buildContainer(),
+              getSpace(h: 10.h),
+              GridView.builder(
+                itemCount: controller1.products.length,
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: sliver,
+                itemBuilder: (context, index) {
+                  return AppProductCard(controller1.products[index]);
+                },
+              )
+            ],
+          );
+        }
       ),
     );
   }
@@ -95,6 +102,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             onTap: (value) {
               setState(() {
                 currentIndex = value;
+                String key = "";
+                switch(value){
+                  case 0:
+                    key = "trend";
+                     break;
+                  case 1:
+                    key = "offers";
+                     break;
+                  case 2:
+                    key = "trend";
+                    break;
+                }
+                APIGetxController.to.products.value = APIGetxController.to.productMap[key]??[];
               });
             },
             indicator: BoxDecoration(

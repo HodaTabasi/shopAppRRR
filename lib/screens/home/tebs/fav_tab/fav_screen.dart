@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
 
 import '../../../../core/app_product_card.dart';
@@ -30,29 +32,33 @@ class _FavPageState extends State<FavPage> {
         ).tr(),
         centerTitle: true,
       ),
-      body: Padding(
-        padding:  EdgeInsets.all(16.r),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "04 منتجات ",
-              style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
-            ).tr(),
-            getSpace(h: 10.h),
-            Expanded(
-              child: GridView.builder(
-                itemCount: l.length,
-                gridDelegate: sliver,
-                itemBuilder: (context, index) {
-                  return Transform.translate(
-                      offset: Offset(0.0, index.isEven ? 50 : 0.0),
-                      child: AppProductCard());
-                },
-              ),
-            )
-          ],
-        ),
+      body: GetX<HiveGetXController>(
+        builder: (controller) {
+          return Padding(
+            padding:  EdgeInsets.all(16.r),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${controller.favProducts.length} منتجات ",
+                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+                ).tr(),
+                getSpace(h: 10.h),
+                Expanded(
+                  child: GridView.builder(
+                    itemCount: controller.favProducts.length,
+                    gridDelegate: sliver,
+                    itemBuilder: (context, index) {
+                      return Transform.translate(
+                          offset: Offset(0.0, index.isEven ? 50 : 0.0),
+                          child: AppProductCard(controller.favProducts[index]));
+                    },
+                  ),
+                )
+              ],
+            ),
+          );
+        }
       ),
     );
   }

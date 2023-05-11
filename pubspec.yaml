@@ -44,11 +44,14 @@ dependencies:
   http: ^0.13.6
   shared_preferences: ^2.1.1
   flutter_spinkit: ^5.2.0
-  time_picker_spinner_pop_up: any
+  hive: ^2.2.3
+  hive_flutter:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  hive_generator:
+  build_runner:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
