@@ -67,6 +67,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
       body: GetX<APIGetxController>(
         builder: (controller1) {
+          controller1.products.value =  APIGetxController.to.productMap["new"]??[];
           return ListView(
             padding: EdgeInsets.all(16.r),
             children: [

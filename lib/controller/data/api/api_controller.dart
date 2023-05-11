@@ -175,4 +175,37 @@ dynamic updateUser({user}) async {
   return null;
 }
 
+
+dynamic getProductByCateId({id}) async {
+  Uri uri = Uri.parse(APISetting.get_all_product_by_category.replaceFirst('{id}',id ));
+  var response = await http.get(uri, headers: headersWithOutToken);
+
+  print(response.body);
+
+  if (response.statusCode == 200 || response.statusCode == 400) {
+    var jsonResponse = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      return jsonResponse;
+    }
+  }
+  return null;
+}
+
+dynamic getProductBySubCateId({id,subId}) async {
+  String s = APISetting.get_all_product_by_subcategory.replaceFirst('{id}',id );
+   s = APISetting.get_all_product_by_subcategory.replaceFirst('{sub_id}',subId );
+  Uri uri = Uri.parse(s);
+  var response = await http.get(uri, headers: headersWithOutToken);
+
+  print(response.body);
+
+  if (response.statusCode == 200 || response.statusCode == 400) {
+    var jsonResponse = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      return jsonResponse;
+    }
+  }
+  return null;
+}
+
 }
