@@ -46,15 +46,18 @@ class _AppProductCardState extends State<AppProductCard> {
                        bool b = await controller.addToCart(p: widget.product);
                        showSnackBar(context: context,message: "done",error: !b);
                        },
-                      child: Container(
-                        padding: EdgeInsets.all(8.r),
-                        decoration: BoxDecoration(
-                            color: Color.fromRGBO(149, 114, 85, 0.2),
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(18.r),
-                                bottomLeft: Radius.circular(16.r))),
-                        child: Icon(Icons.add_shopping_cart_sharp,
-                            color: mainColor, size: 20),
+                      child: Visibility(
+                        visible: false,
+                        child: Container(
+                          padding: EdgeInsets.all(8.r),
+                          decoration: BoxDecoration(
+                              color: Color.fromRGBO(149, 114, 85, 0.2),
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(18.r),
+                                  bottomLeft: Radius.circular(16.r))),
+                          child: Icon(Icons.add_shopping_cart_sharp,
+                              color: mainColor, size: 20),
+                        ),
                       ),
                     )),
                 Column(

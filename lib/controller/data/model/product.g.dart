@@ -22,20 +22,27 @@ class ProductAdapter extends TypeAdapter<Product> {
       productNameAr: fields[2] as String?,
       brandEn: fields[3] as String?,
       brandAr: fields[4] as String?,
-      basePrice: fields[5] as String?,
-      discountPrice: fields[11] as String?,
-      productThumbnail: fields[6] as String?,
-      trend: fields[7] as int?,
-      newProduct: fields[8] as int?,
-      offer: fields[9] as int?,
-      status: fields[10] as int?,
-    );
+      productQty: fields[5] as String?,
+      productSize: fields[6] as String?,
+      basePrice: fields[7] as String?,
+      sellingPrice: fields[8] as String?,
+      discountPrice: fields[9] as String?,
+      descriptionEn: fields[10] as String?,
+      descriptionAr: fields[11] as String?,
+      productThumbnail: fields[12] as String?,
+      trend: fields[13] as int?,
+      newProduct: fields[14] as int?,
+      offer: fields[15] as int?,
+    )
+      ..selectedColor = fields[16] as String?
+      ..selectedSize = fields[17] as String?
+      ..selectedQty = fields[18] as int?;
   }
 
   @override
   void write(BinaryWriter writer, Product obj) {
     writer
-      ..writeByte(12)
+      ..writeByte(19)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -47,19 +54,33 @@ class ProductAdapter extends TypeAdapter<Product> {
       ..writeByte(4)
       ..write(obj.brandAr)
       ..writeByte(5)
-      ..write(obj.basePrice)
-      ..writeByte(11)
-      ..write(obj.discountPrice)
+      ..write(obj.productQty)
       ..writeByte(6)
-      ..write(obj.productThumbnail)
+      ..write(obj.productSize)
       ..writeByte(7)
-      ..write(obj.trend)
+      ..write(obj.basePrice)
       ..writeByte(8)
-      ..write(obj.newProduct)
+      ..write(obj.sellingPrice)
       ..writeByte(9)
-      ..write(obj.offer)
+      ..write(obj.discountPrice)
       ..writeByte(10)
-      ..write(obj.status);
+      ..write(obj.descriptionEn)
+      ..writeByte(11)
+      ..write(obj.descriptionAr)
+      ..writeByte(12)
+      ..write(obj.productThumbnail)
+      ..writeByte(13)
+      ..write(obj.trend)
+      ..writeByte(14)
+      ..write(obj.newProduct)
+      ..writeByte(15)
+      ..write(obj.offer)
+      ..writeByte(16)
+      ..write(obj.selectedColor)
+      ..writeByte(17)
+      ..write(obj.selectedSize)
+      ..writeByte(18)
+      ..write(obj.selectedQty);
   }
 
   @override

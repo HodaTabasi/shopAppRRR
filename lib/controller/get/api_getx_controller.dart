@@ -18,6 +18,8 @@ class APIGetxController extends GetxController {
   Category? category;
   bool flag = false;
   int productId = 0;
+  String color = "";
+  String size = "";
 
   static APIGetxController get to => Get.find<APIGetxController>();
 

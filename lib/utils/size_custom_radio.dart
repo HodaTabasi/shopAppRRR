@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rrr_shop_app/controller/data/model/product.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
 
-class RadioItem extends StatelessWidget {
-  final MyColors _item;
+class SizeRadioItem extends StatelessWidget {
+  final RadioModel _item;
 
-  RadioItem(this._item);
+  SizeRadioItem(this._item);
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +21,13 @@ class RadioItem extends StatelessWidget {
             padding:  EdgeInsets.all(2.0.r),
             child: CircleAvatar(
               radius: 12.r,
-              backgroundColor: getColor(_item.color!),
+              child: Text(_item.text,style: TextStyle(color: Colors.black)),
+              backgroundColor: Colors.white,
             ),
             decoration:  BoxDecoration(
                 border:  Border.all(
                     width: 2.0.r,
-                    color: _item.isSelected! ? Colors.red: Colors.grey),
+                    color: _item.isSelected ? Colors.red: Colors.grey),
                 shape: BoxShape.circle
               // borderRadius:  BorderRadius.all( Radius.circular(50.r)),
             ),
@@ -36,18 +37,18 @@ class RadioItem extends StatelessWidget {
     );
   }
 
-  getColor(String hexColor) {
-    Color color =
-    Color(int.parse(hexColor.substring(1, 7), radix: 16) + 0xFF000000);
-    return color;
-  }
+  // getColor(String hexColor) {
+  //   Color color =
+  //   Color(int.parse(hexColor.substring(1, 7), radix: 16) + 0xFF000000);
+  //   return color;
+  // }
 }
 
-// class RadioModel {
-//   bool isSelected;
-//   final String buttonText;
-//   final String text;
-//
-//   RadioModel(this.isSelected, this.buttonText, this.text);
-// }
+class RadioModel {
+  bool isSelected;
+  final String buttonText;
+  final String text;
+
+  RadioModel(this.isSelected, this.buttonText, this.text);
+}
 

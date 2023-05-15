@@ -11,6 +11,7 @@ import 'package:rrr_shop_app/utils/constants.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
 
 import '../../utils/CustomRadio.dart';
+import '../../utils/size_custom_radio.dart';
 
 class ProductDetails extends StatefulWidget {
   @override
@@ -20,20 +21,19 @@ class ProductDetails extends StatefulWidget {
 class _ProductDetailsState extends State<ProductDetails> {
   List<RadioModel> sampleData =  [];
 
+  var value = 1;
+
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
-    sampleData.add(new RadioModel(false, 'A', 'April 18'));
-    sampleData.add(new RadioModel(false, 'B', 'April 17'));
-    sampleData.add(new RadioModel(false, 'C', 'April 16'));
-    sampleData.add(new RadioModel(false, 'D', 'April 15'));
-
     getData();
+    super.initState();
   }
   getData() async {
     await APIGetxController.to.getProductDetails(productId:APIGetxController.to.productId.toString());
-
+    APIGetxController.to.product.value.productSize!.split(",").forEach((element) {
+      sampleData.add(new RadioModel(false, element, element));
+      print(element);
+    });
   }
 
   @override
@@ -53,6 +53,9 @@ class _ProductDetailsState extends State<ProductDetails> {
             actions: [
               IconButton(
                   onPressed: () {
+                    APIGetxController.to.product.value.selectedColor = APIGetxController.to.color;
+                    APIGetxController.to.product.value.selectedSize = APIGetxController.to.size;
+                    APIGetxController.to.product.value.selectedQty = value;
                     HiveGetXController.to.addToCart(p: APIGetxController.to.product.value);
                   },
                   icon: SvgPicture.asset("assets/images/add_cart.svg")),
@@ -140,33 +143,51 @@ class _ProductDetailsState extends State<ProductDetails> {
                     padding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
                     child: Row(
                       children: [
-                        DecoratedBox(
-                          decoration: BoxDecoration(
-                              color: miniground,
-                              borderRadius: BorderRadius.circular(5.r)),
-                          child: Padding(
-                            padding: EdgeInsets.fromLTRB(3.0.r, 0.r, 3.r, 8.r),
-                            child: Icon(Icons.minimize_outlined,
-                                color: Colors.white, size: 12.r),
+                        InkWell(
+                          onTap: (){
+                            if(value>1){
+                              value--;
+                              setState(() {
+                              });
+                            }
+
+                          },
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                                color: miniground,
+                                borderRadius: BorderRadius.circular(5.r)),
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(3.0.r, 0.r, 3.r, 8.r),
+                              child: Icon(Icons.minimize_outlined,
+                                  color: Colors.white, size: 12.r),
+                            ),
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.all(5.0.r),
                           child: Text(
-                            "1",
+                            "$value",
                             style: TextStyle(
                                 color: mainColor,
                                 fontWeight: FontWeight.normal,
                                 fontSize: 15.sp),
                           ),
                         ),
-                        DecoratedBox(
-                          decoration: BoxDecoration(
-                              color: mainColor,
-                              borderRadius: BorderRadius.circular(5.r)),
-                          child: Padding(
-                            padding: EdgeInsets.all(3.0.r),
-                            child: Icon(Icons.add, color: Colors.white, size: 13.r),
+                        InkWell(
+                          onTap: (){
+                            value++;
+                            setState(() {
+
+                            });
+                          },
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                                color: mainColor,
+                                borderRadius: BorderRadius.circular(5.r)),
+                            child: Padding(
+                              padding: EdgeInsets.all(3.0.r),
+                              child: Icon(Icons.add, color: Colors.white, size: 13.r),
+                            ),
                           ),
                         ),
                       ],
@@ -193,18 +214,19 @@ class _ProductDetailsState extends State<ProductDetails> {
                 height: 50.h,
                 child:ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: sampleData.length,
+                  itemCount: APIGetxController.to.product.value.colors!.length,
                   itemBuilder: (BuildContext context, int index) {
                     return  InkWell(
                       //highlightColor: Colors.red,
                       splashColor: Colors.blueAccent,
                       onTap: () {
                         setState(() {
-                          sampleData.forEach((element) => element.isSelected = false);
-                          sampleData[index].isSelected = true;
+                          APIGetxController.to.product.value.colors!.forEach((element) => element.isSelected = false);
+                          APIGetxController.to.product.value.colors![index].isSelected = true;
+                          APIGetxController.to.color = APIGetxController.to.product.value.colors![index].color!;
                         });
                       },
-                      child:  RadioItem(sampleData[index]),
+                      child:  RadioItem(APIGetxController.to.product.value.colors![index]),
                     );
                   },
                 ),
@@ -222,18 +244,19 @@ class _ProductDetailsState extends State<ProductDetails> {
                 height: 50.h,
                 child:ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: APIGetxController.to.product.value.productSize!.split(",").length,
+                  itemCount: sampleData.length,
                   itemBuilder: (BuildContext context, int index) {
                     return  InkWell(
                       //highlightColor: Colors.red,
-                      splashColor: Colors.blueAccent,
+                      splashColor: Colors.white,
                       onTap: () {
                         setState(() {
-                          // APIGetxController.to.product!.productSize!.split(",").forEach((element) => element.isSelected = false);
-                          // sampleData[index].isSelected = true;
+                          APIGetxController.to.size = sampleData[index].text;
+                          sampleData.forEach((element) => element.isSelected = false);
+                          sampleData[index].isSelected = true;
                         });
                       },
-                      child:  RadioItem(sampleData[index]),
+                      child:  SizeRadioItem(sampleData[index]),
                     );
                   },
                 ),
@@ -258,7 +281,10 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
               getSpace(h: 8.r),
               BtnApp(title: data.tr("buy"), prsee: (){
-                // APIGetxController.to.flag = false;
+                APIGetxController.to.product.value.selectedColor = APIGetxController.to.color;
+                APIGetxController.to.product.value.selectedSize = APIGetxController.to.size;
+                APIGetxController.to.product.value.selectedQty = value;
+
                 APIGetxController.to.putOrderProduct(list: [APIGetxController.to.product.value]);
                 Navigator.pushNamed(context, '/complete_buy_screen');
               })

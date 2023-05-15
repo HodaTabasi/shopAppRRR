@@ -16,28 +16,39 @@ class Product {
   String? brandEn;
   @HiveField(4)
   String? brandAr;
-  String? productQty;
-  String? productSize;
-  String? productColors;
   @HiveField(5)
-  String? basePrice;
-  String? sellingPrice;
-  @HiveField(11)
-  String? discountPrice;
-  String? descriptionEn;
-  String? descriptionAr;
+  String? productQty;
   @HiveField(6)
-  String? productThumbnail;
+  String? productSize;
   @HiveField(7)
-  int? trend;
+  String? basePrice;
   @HiveField(8)
-  int? newProduct;
+  String? sellingPrice;
   @HiveField(9)
-  int? offer;
+  String? discountPrice;
   @HiveField(10)
-  int? status;
+  String? descriptionEn;
+  @HiveField(11)
+  String? descriptionAr;
+  @HiveField(12)
+  String? productThumbnail;
+  @HiveField(13)
+  int? trend;
+  @HiveField(14)
+  int? newProduct;
+  @HiveField(15)
+  int? offer;
   String? createdAt;
   String? updatedAt;
+
+  List<MyColors>? colors;
+  List<String>? multiImg;
+  @HiveField(16)
+  String? selectedColor;
+  @HiveField(17)
+  String? selectedSize;
+  @HiveField(18)
+  int? selectedQty;
 
   Product(
       {this.id,
@@ -49,7 +60,6 @@ class Product {
         this.brandAr,
         this.productQty,
         this.productSize,
-        this.productColors,
         this.basePrice,
         this.sellingPrice,
         this.discountPrice,
@@ -59,9 +69,10 @@ class Product {
         this.trend,
         this.newProduct,
         this.offer,
-        this.status,
         this.createdAt,
-        this.updatedAt});
+        this.updatedAt,
+        this.colors,
+        this.multiImg});
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -73,7 +84,6 @@ class Product {
     brandAr = json['brand_ar'];
     productQty = json['product_qty'];
     productSize = json['product_size'];
-    productColors = json['product_colors'];
     basePrice = json['base_price'];
     sellingPrice = json['selling_price'];
     discountPrice = json['discount_price'];
@@ -83,9 +93,20 @@ class Product {
     trend = json['trend'];
     newProduct = json['new_product'];
     offer = json['offer'];
-    status = json['status'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    if (json['colors'] != null) {
+      colors = <MyColors>[];
+      json['colors'].forEach((v) {
+        colors!.add(new MyColors.fromJson(v));
+      });
+    }
+    if (json['multi_img'] != null) {
+      multiImg = <String>[];
+      json['multi_img'].forEach((v) {
+        multiImg!.add(v);
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -99,7 +120,6 @@ class Product {
     data['brand_ar'] = this.brandAr;
     data['product_qty'] = this.productQty;
     data['product_size'] = this.productSize;
-    data['product_colors'] = this.productColors;
     data['base_price'] = this.basePrice;
     data['selling_price'] = this.sellingPrice;
     data['discount_price'] = this.discountPrice;
@@ -109,7 +129,42 @@ class Product {
     data['trend'] = this.trend;
     data['new_product'] = this.newProduct;
     data['offer'] = this.offer;
-    data['status'] = this.status;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    if (this.colors != null) {
+      data['colors'] = this.colors!.map((v) => v.toJson()).toList();
+    }
+    if (this.multiImg != null) {
+      data['multi_img'] = this.multiImg!.map((v) => v).toList();
+    }
+    return data;
+  }
+}
+
+class MyColors {
+  int? id;
+  int? productId;
+  String? color;
+  String? createdAt;
+  String? updatedAt;
+  bool? isSelected;
+
+  MyColors({this.id, this.productId, this.color, this.createdAt, this.updatedAt});
+
+  MyColors.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    productId = json['product_id'];
+    color = json['color'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    isSelected = false;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['product_id'] = this.productId;
+    data['color'] = this.color;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     return data;

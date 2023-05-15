@@ -7,6 +7,7 @@ import 'package:rrr_shop_app/utils/helper.dart';
 
 import '../../utils/CustomRadio.dart';
 import '../../utils/constants.dart';
+import '../../utils/size_custom_radio.dart';
 
 class FillterScreen extends StatefulWidget {
   @override
@@ -31,10 +32,10 @@ class _FillterScreenState extends State<FillterScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    sampleData.add(new RadioModel(false, 'A', 'April 18'));
-    sampleData.add(new RadioModel(false, 'B', 'April 17'));
-    sampleData.add(new RadioModel(false, 'C', 'April 16'));
-    sampleData.add(new RadioModel(false, 'D', 'April 15'));
+    // sampleData.add(new RadioModel(false, 'A', 'April 18'));
+    // sampleData.add(new RadioModel(false, 'B', 'April 17'));
+    // sampleData.add(new RadioModel(false, 'C', 'April 16'));
+    // sampleData.add(new RadioModel(false, 'D', 'April 15'));
   }
   @override
   Widget build(BuildContext context) {
@@ -108,7 +109,7 @@ class _FillterScreenState extends State<FillterScreen> {
                         sampleData[index].isSelected = true;
                       });
                     },
-                    child:  RadioItem(sampleData[index]),
+                    // child:  RadioItem(sampleData[index]),
                   );
                 },
               ),
