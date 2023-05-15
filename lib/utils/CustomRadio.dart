@@ -36,11 +36,7 @@ class RadioItem extends StatelessWidget {
     );
   }
 
-  getColor(String hexColor) {
-    Color color =
-    Color(int.parse(hexColor.substring(1, 7), radix: 16) + 0xFF000000);
-    return color;
-  }
+
 }
 
 // class RadioModel {

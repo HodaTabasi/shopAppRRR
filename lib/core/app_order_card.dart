@@ -7,12 +7,17 @@ import '../controller/data/model/product.dart';
 import '../utils/constants.dart';
 import '../utils/helper.dart';
 
-class ListItemWidget extends StatelessWidget {
+class ListItemWidget extends StatefulWidget {
   bool isOrder;
   Product product;
   ListItemWidget({required this.isOrder,required this.product
   });
 
+  @override
+  State<ListItemWidget> createState() => _ListItemWidgetState();
+}
+
+class _ListItemWidgetState extends State<ListItemWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,16 +28,16 @@ class ListItemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Visibility(
-            visible:isOrder,
+            visible:widget.isOrder,
             child: Checkbox(value: false, onChanged: (value) {
             },),
           ),
           Padding(
-            padding:  isOrder ?EdgeInsets.zero:EdgeInsets.all(8.0),
+            padding:  widget.isOrder ?EdgeInsets.zero:EdgeInsets.all(8.0),
             child: ClipRRect(
                 clipBehavior: Clip.antiAlias,
                 borderRadius: BorderRadius.circular(8.r),
-                child: Image.network("${APISetting.IMAGE_BASE_URL}${product.productThumbnail}",height: 80.h,width: 110.w,fit: BoxFit.fill,)),
+                child: Image.network("${APISetting.IMAGE_BASE_URL}${widget.product.productThumbnail}",height: 80.h,width: 110.w,fit: BoxFit.fill,)),
           ),
           Expanded(
             child: Padding(
@@ -42,7 +47,7 @@ class ListItemWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "${product.productNameEn}",
+                    "${widget.product.productNameEn}",
                     style: TextStyle(fontSize: 12.sp),
                   ),
                   getSpace(h: 5.h),
@@ -53,7 +58,7 @@ class ListItemWidget extends StatelessWidget {
                               fontSize: 12.sp,
                               color: thirdColor)).tr(),
                       getSpace(w: 5.w),
-                      Text("42",
+                      Text("${widget.product.selectedSize}",
                           style: TextStyle(
                               fontSize: 12.sp,
                               color: thirdColor)).tr(),
@@ -65,7 +70,7 @@ class ListItemWidget extends StatelessWidget {
                       getSpace(w: 5.w),
                       CircleAvatar(
                         radius: 5,
-                        backgroundColor: Colors.green,
+                        backgroundColor: getColor(widget.product.selectedColor!),
                       ),
                     ],
                   ),
@@ -75,7 +80,7 @@ class ListItemWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "\$18",
+                        "\$${widget.product.basePrice}",
                         style: TextStyle(
                             color: mainColor,
                             fontWeight: FontWeight.bold,
@@ -83,34 +88,50 @@ class ListItemWidget extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: miniground,
-                                borderRadius: BorderRadius.circular(5.r)
-                            ),
-                            child: Padding(
-                              padding:  EdgeInsets.fromLTRB(3.0.r,0.r,3.r,8.r),
-                              child: Icon(Icons.minimize_outlined,color: Colors.white,size: 12.r),
-                            ),),
+                          InkWell(
+                            onTap:(){
+                              if(widget.product.selectedQty! >1){
+                                widget.product.selectedQty = widget.product.selectedQty! - 1;
+                                setState(() {
+                                });
+                              }
+                            },
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: miniground,
+                                  borderRadius: BorderRadius.circular(5.r)
+                              ),
+                              child: Padding(
+                                padding:  EdgeInsets.fromLTRB(3.0.r,0.r,3.r,8.r),
+                                child: Icon(Icons.minimize_outlined,color: Colors.white,size: 12.r),
+                              ),),
+                          ),
                           Padding(
                             padding:  EdgeInsets.all(5.0.r),
                             child: Text(
-                              "1",
+                              "${widget.product.selectedQty}",
                               style: TextStyle(
                                   color: mainColor,
                                   fontWeight: FontWeight.normal,
                                   fontSize: 15.sp),
                             ),
                           ),
-                          DecoratedBox(
-                            decoration: BoxDecoration(
-                                color: mainColor,
-                                borderRadius: BorderRadius.circular(5.r)
-                            ),
-                            child: Padding(
-                              padding:  EdgeInsets.all(3.0.r),
-                              child: Icon(Icons.add,color: Colors.white,size: 13.r),
-                            ),),
+                          InkWell(
+                            onTap: (){
+                              widget.product.selectedQty = widget.product.selectedQty! + 1;
+                              setState(() {
+                              });
+                            },
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: mainColor,
+                                  borderRadius: BorderRadius.circular(5.r)
+                              ),
+                              child: Padding(
+                                padding:  EdgeInsets.all(3.0.r),
+                                child: Icon(Icons.add,color: Colors.white,size: 13.r),
+                              ),),
+                          ),
                         ],
                       )
 

@@ -253,7 +253,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                     ),
                   ),
                   getSpace(h: 8.0.r),
-                  BtnApp(title: data.tr("buy"), prsee: (){})
+                  BtnApp(title: data.tr("buy"), prsee: (){
+
+                  })
                 ],
               ),)
             ],
