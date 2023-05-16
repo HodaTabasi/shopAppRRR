@@ -69,8 +69,9 @@ dynamic getOrders({statusId}) async {
 }
 
 dynamic addOrder({order}) async {
+  print(order.toJson1());
   Uri uri = Uri.parse(APISetting.add_order);
-  var response = await http.post(uri, headers: headersWithOutToken,body: {});
+  var response = await http.post(uri, headers: headersWithOutToken,body: order.toJson1());
 
   print(response.body);
 

@@ -44,7 +44,7 @@ class Product {
   List<MyColors>? colors;
   List<String>? multiImg;
   @HiveField(16)
-  String? selectedColor;
+  String? selectedColor = "#000000";
   @HiveField(17)
   String? selectedSize;
   @HiveField(18)
