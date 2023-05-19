@@ -14,9 +14,13 @@ import 'package:rrr_shop_app/screens/otp/otp_screen.dart';
 import 'package:rrr_shop_app/screens/product_details/product_details.dart';
 import 'package:rrr_shop_app/screens/setting/setting_screen.dart';
 import 'package:rrr_shop_app/screens/splach_screen.dart';
-import 'package:rrr_shop_app/utils/l10n.dart';
+import 'package:rrr_shop_app/utils/l10n1.dart';
 
+import 'controller/get/api_auth_getx_controller.dart';
+import 'controller/get/api_getx_controller.dart';
+import 'controller/get/hive_getx_controller.dart';
 import 'controller/get/languages_getx_controoler.dart';
+import 'controller/get/loading_getx_controller.dart';
 import 'controller/preferences/shared_pref_controller.dart';
 import 'screens/complete_profile/complete_profile.dart';
 
@@ -38,7 +42,7 @@ void main() async {
         supportedLocales: L10n.all,
         path: 'assets/l10n',
         // <-- change the path of the translation files
-        fallbackLocale: L10n.all[1],
+        // fallbackLocale: L10n.all[1],
         child: MyApp()),
   );
 }
@@ -46,6 +50,10 @@ void main() async {
 class MyApp extends StatelessWidget {
 
   LanguageGETXController controller = Get.put<LanguageGETXController>(LanguageGETXController());
+  APIGetxController controller1 = Get.put<APIGetxController>(APIGetxController());
+  AuthGETXController controller2 = Get.put<AuthGETXController>(AuthGETXController());
+  LoadingController controller3 = Get.put<LoadingController>(LoadingController());
+  HiveGetXController controller4 = Get.put<HiveGetXController>(HiveGetXController());
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -54,16 +62,19 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
-          return GetX<LanguageGETXController>(
-            builder: (controller) => GetMaterialApp(
-              initialBinding: AllBindingController(),
-              smartManagement: SmartManagement.full,
+          return GetBuilder<LanguageGETXController>(
+            builder: (controller){
+              context.setLocale(Locale(controller.language));
+              print(controller.language);
+              return MaterialApp(
+              // initialBinding: AllBindingController(),
+              // smartManagement: SmartManagement.full,
               title: 'Flutter Demo',
               theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'avenir'),
 
               localizationsDelegates: context.localizationDelegates,
               supportedLocales: context.supportedLocales,
-              locale: Locale(controller.language.value),
+              locale: context.locale,
               initialRoute: '/splash_screen',
               // home: FillterScreen(),
               routes: {
@@ -78,7 +89,8 @@ class MyApp extends StatelessWidget {
                 '/cart_product_screen': (context) => CatProductScreen(),
                 '/fillter_screen': (context) => FillterScreen(),
               },
-            ),
+            );
+            }
           );
         });
   }
