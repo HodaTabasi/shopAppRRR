@@ -14,6 +14,8 @@ Color miniground = Color(0xffC6B48C);
 Color divider = Color(0xffD0D0D0);
 Color textColor = Color(0xff636363);
 
+const double defaultPadding = 16.0;
+
 decoration({double blurRadius = 0.0,double radius = 0.0}){
   return BoxDecoration(
       color: Colors.white,

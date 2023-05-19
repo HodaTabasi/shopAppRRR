@@ -7,6 +7,7 @@ import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
 import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
 import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
 import 'package:rrr_shop_app/core/app_button.dart';
+import 'package:rrr_shop_app/core/skeleton.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
 
@@ -19,20 +20,22 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-  List<RadioModel> sampleData =  [];
+  // List<RadioModel> sampleData =  [];
 
   var value = 1;
 
   @override
   void initState() {
-    getData();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getData();
+    });
     super.initState();
   }
   getData() async {
     await APIGetxController.to.getProductDetails(productId:APIGetxController.to.productId.toString());
     APIGetxController.to.product.value.productSize!.split(",").forEach((element) {
-      sampleData.add(new RadioModel(false, element, element));
-      print(element);
+      // sampleData.add(new RadioModel(false, element, element));
+      // print(element);
     });
   }
 
@@ -46,7 +49,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             elevation: 0,
             toolbarHeight: 60.h,
             title: Text(
-              "المنتج",
+              "${APIGetxController.to.product.value.productNameAr??''}",
               style: TextStyle(color: Colors.black, fontSize: 18.sp),
             ),
             centerTitle: true,
@@ -78,7 +81,10 @@ class _ProductDetailsState extends State<ProductDetails> {
               icon: Icon(Icons.arrow_back_ios, color: Colors.black),
             ),
           ),
-          body: ListView(
+          body:
+          APIGetxController.to.isLoading.value?
+              buildProductDetailsShimmer()
+              : ListView(
             children: [
               Stack(
                 children: [
@@ -244,19 +250,19 @@ class _ProductDetailsState extends State<ProductDetails> {
                 height: 50.h,
                 child:ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: sampleData.length,
+                  itemCount: APIGetxController.to.sampleData.length,
                   itemBuilder: (BuildContext context, int index) {
                     return  InkWell(
                       //highlightColor: Colors.red,
                       splashColor: Colors.white,
                       onTap: () {
                         setState(() {
-                          APIGetxController.to.size = sampleData[index].text;
-                          sampleData.forEach((element) => element.isSelected = false);
-                          sampleData[index].isSelected = true;
+                          APIGetxController.to.size = APIGetxController.to.sampleData[index].text;
+                          APIGetxController.to.sampleData.forEach((element) => element.isSelected = false);
+                          APIGetxController.to.sampleData[index].isSelected = true;
                         });
                       },
-                      child:  SizeRadioItem(sampleData[index]),
+                      child:  SizeRadioItem(APIGetxController.to.sampleData[index]),
                     );
                   },
                 ),
@@ -293,5 +299,58 @@ class _ProductDetailsState extends State<ProductDetails> {
         );
       }
     );
+  }
+
+  Padding buildProductDetailsShimmer() {
+    return Padding(
+              padding:  EdgeInsets.all(16.0.r),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Skeleton(
+                    height: 120.h,
+                  ),
+                  getSpace(h: 8.h),
+                  Skeleton(
+                    height: 30.h,
+                  ),
+                  getSpace(h: 8.h),
+                  Skeleton(
+                    height: 30.h,
+                  ),
+                  getSpace(h: 8.h),
+                  Skeleton(
+                    height: 30.h,
+                    width: 100.w,
+                  ),
+                  getSpace(h: 8.h),
+                  Skeleton(
+                    height: 30.h,
+                  ),
+                  getSpace(h: 8.h),
+                  Skeleton(
+                    height: 30.h,
+                    width: 100.w,
+                  ),
+                  getSpace(h: 8.h),
+                  Skeleton(
+                    height: 30.h,
+                  ),
+                  getSpace(h: 8.h),
+                  Skeleton(
+                    height: 30.h,
+                    width: 100.w,
+                  ),
+                  getSpace(h: 8.h),
+                  Skeleton(
+                    height: 100.h,
+                  ),
+                  getSpace(h: 15.h),
+                  Skeleton(
+                    height: 40.h,
+                  ),
+                ],
+              ),
+            );
   }
 }

@@ -4,6 +4,7 @@ import 'package:rrr_shop_app/controller/data/model/category.dart';
 import 'package:rrr_shop_app/controller/data/model/slider.dart';
 import 'package:rrr_shop_app/controller/data/reposetory/data_repo.dart';
 
+import '../../utils/size_custom_radio.dart';
 import '../data/model/order.dart';
 import '../data/model/product.dart';
 
@@ -21,9 +22,14 @@ class APIGetxController extends GetxController {
   String color = "#000000";
   String size = "36";
 
+  RxBool isLoading = false.obs;
+
+  List<RadioModel> sampleData = [];
+
   static APIGetxController get to => Get.find<APIGetxController>();
 
   getAllProduct() {
+    isLoading.value = true;
     DataRepository().getAllProduct().then((value) {
       productMap.addAll(
           {"trend": value.where((element) => element.trend == 1).toList()});
@@ -32,12 +38,19 @@ class APIGetxController extends GetxController {
       productMap.addAll(
           {"offers": value.where((element) => element.offer == 1).toList()});
       products.value = productMap["new"] ?? [];
+      isLoading.value = false;
     });
   }
 
   getProductDetails({productId}) {
+    isLoading.value = true;
     DataRepository().getProductDetails(productId: productId).then((value) {
       product.value = value;
+      sampleData.clear();
+      product.value.productSize!.split(",").forEach((element) {
+        sampleData.add(RadioModel(false, element, element));
+      });
+      isLoading.value = false;
     });
   }
 
@@ -86,16 +99,19 @@ class APIGetxController extends GetxController {
   getProductByCateId({id}) async {
     DataRepository().getProductByCateId(id: id).then((value) {
       products.value = value;
+      isLoading.value = false;
     });
   }
 
   getProductBySubCateId({id, subId}) async {
     DataRepository().getProductBySubCateId(id: id, subId: subId).then((value) {
       products.value = value;
+      isLoading.value = false;
     });
   }
 
   getProduct(){
+    isLoading.value = true;
     if(flag){
       getProductBySubCateId(id: category!.id.toString(),subId: category!.subCategory.toString());
     }else{

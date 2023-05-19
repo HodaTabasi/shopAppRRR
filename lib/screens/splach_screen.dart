@@ -14,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration.zero,() async {
       await APIGetxController.to.getSliders();
       await APIGetxController.to.getAllCategory();
-      String route = SharedPrefController().loggedIn?'/main_screen':'/login_screen';
+      String route =  SharedPrefController().loggedIn?'/main_screen':'/login_screen';
       Navigator.pushReplacementNamed(context,route);
     } );
     return Scaffold(
