@@ -16,8 +16,8 @@ class LanguageGETXController extends GetxController{
     // language = language == 'ar'.obs ? 'en'.obs : 'ar'.obs;
     language.value = langValue;
     SharedPrefController().changeLanguage(language: language.value);
-    var locale = Locale(language.value);
-    Get.updateLocale(locale);
+    // var locale = Locale(language.value);
+    // Get.updateLocale(locale);
     // language.refresh();
     print(language.value);
   }
