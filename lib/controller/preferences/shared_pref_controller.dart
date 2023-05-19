@@ -6,23 +6,7 @@ import '../data/model/user.dart';
 
 enum PrefKeys {loggedIn, lang ,user}
 
-enum PrefKeysPatient {
-  id,
-  firstName,
-  secondName,
-  thirdName,
-  lastName,
-  identityNumber,
-  mobile,
-  email,
-  patientType,
-  payingType,
-  insuranceNumber,
-  insuranceDate,
-  insuranceName,
-  isLoggedIn,
-  token
-}
+
 
 class SharedPrefController {
   SharedPrefController._internal();
@@ -36,6 +20,8 @@ class SharedPrefController {
 
   Future<void> initPref() async {
     _sharedPreferences = await SharedPreferences.getInstance();
+    if(_sharedPreferences.get(PrefKeys.lang.name) == null)
+      await _sharedPreferences.setString(PrefKeys.lang.name, 'ar');
   }
 
   set user(user){
@@ -58,7 +44,7 @@ class SharedPrefController {
     return null;
   }
   Future<bool> changeLanguage({required String language}) async {
-    return _sharedPreferences.setString(PrefKeys.lang.name, language);
+    return await _sharedPreferences.setString(PrefKeys.lang.name, language);
   }
 
   Future<bool> removeValueFor({required String key}) async {
@@ -69,7 +55,7 @@ class SharedPrefController {
   }
 
   Future<void> logout() async {
-    _sharedPreferences.remove(PrefKeysPatient.isLoggedIn.name);
+    _sharedPreferences.remove(PrefKeys.loggedIn.name);
   }
 
   Future<bool> clear() async {

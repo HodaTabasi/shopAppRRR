@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rrr_shop_app/controller/data/api/api_response.dart';
 import 'package:rrr_shop_app/controller/data/model/category.dart';
 import 'package:rrr_shop_app/controller/data/model/slider.dart';
@@ -26,8 +27,15 @@ class APIGetxController extends GetxController {
 
   List<RadioModel> sampleData = [];
 
+  XFile? pickedFile;
+  late Rx<XFile> picke =  XFile("").obs ;
+
   static APIGetxController get to => Get.find<APIGetxController>();
 
+  changeFile(XFile? xFile){
+    picke.value = XFile(xFile!.path);
+
+  }
   getAllProduct() {
     isLoading.value = true;
     DataRepository().getAllProduct().then((value) {

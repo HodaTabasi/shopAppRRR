@@ -15,8 +15,12 @@ import 'package:rrr_shop_app/screens/product_details/product_details.dart';
 import 'package:rrr_shop_app/screens/setting/setting_screen.dart';
 import 'package:rrr_shop_app/screens/splach_screen.dart';
 
+import 'controller/get/languages_getx_controoler.dart';
 import 'controller/preferences/shared_pref_controller.dart';
 import 'screens/complete_profile/complete_profile.dart';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,19 +28,23 @@ void main() async {
   await HiveOperations().openBox();
   await EasyLocalization.ensureInitialized();
 
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(
     EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],
         path: 'assets/translations',
         // <-- change the path of the translation files
-        fallbackLocale: const Locale('ar'),
+        // fallbackLocale: const Locale('ar'),
         child: MyApp()),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
 
+  LanguageGETXController controller = Get.put<LanguageGETXController>(LanguageGETXController());
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -45,28 +53,30 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
-          return GetMaterialApp(
-            initialBinding: AllBindingController(),
-            smartManagement: SmartManagement.full,
-            title: 'Flutter Demo',
-            theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'avenir'),
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            initialRoute: '/splash_screen',
-            // home: FillterScreen(),
-            routes: {
-              '/splash_screen': (context) => SplashScreen(),
-              '/login_screen': (context) => LoginScreen(),
-              '/otp_screen': (context) => OTPScreen(),
-              '/complete_screen': (context) => CompleteProfile(),
-              '/main_screen': (context) => MainScreen(),
-              '/complete_buy_screen': (context) => CompleteOrderScreen(),
-              '/setting_screen': (context) => SettingScreen(),
-              '/product_details_screen': (context) => ProductDetails(),
-              '/cart_product_screen': (context) => CatProductScreen(),
-              '/fillter_screen': (context) => FillterScreen(),
-            },
+          return GetX<LanguageGETXController>(
+            builder: (controller) => GetMaterialApp(
+              initialBinding: AllBindingController(),
+              smartManagement: SmartManagement.full,
+              title: 'Flutter Demo',
+              theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'avenir'),
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: Locale(controller.language.value),
+              initialRoute: '/splash_screen',
+              // home: FillterScreen(),
+              routes: {
+                '/splash_screen': (context) => SplashScreen(),
+                '/login_screen': (context) => LoginScreen(),
+                '/otp_screen': (context) => OTPScreen(),
+                '/complete_screen': (context) => CompleteProfile(),
+                '/main_screen': (context) => MainScreen(),
+                '/complete_buy_screen': (context) => CompleteOrderScreen(),
+                '/setting_screen': (context) => SettingScreen(),
+                '/product_details_screen': (context) => ProductDetails(),
+                '/cart_product_screen': (context) => CatProductScreen(),
+                '/fillter_screen': (context) => FillterScreen(),
+              },
+            ),
           );
         });
   }

@@ -78,5 +78,7 @@
   "upgrade": "Upgrade Application",
   "disc": "description",
   "colors": "Colors",
-  "update": "Update Profile"
+  "update": "Update Profile",
+  "from_galary": "From Gallery",
+  "from_camera": "From Camera"
 }

@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
 
@@ -161,6 +163,65 @@ dynamic register({required User user}) async {
   return null;
 }
 
+registerWithImage({required String path,required User user}) async {
+  var url = Uri.parse(APISetting.register);
+  var request = http.MultipartRequest('POST', url);
+  http.MultipartFile imageFile =
+  await http.MultipartFile.fromPath('profile_image', path);
+  request.files.add(imageFile);
+  request.headers[HttpHeaders.acceptHeader] = 'application/json';
+  request.fields['name'] = user.name!;
+  request.fields['email'] = user.email!;
+  request.fields['phone_number'] = user.phoneNumber.toString();
+  request.fields['id_number'] = user.idNumber.toString();
+  request.fields['date_of_birth'] = user.dateOfBirth!;
+  request.fields['gender'] = user.gender!;
+  request.fields['token'] = '';
+  request.fields['lang'] = 'ar';
+
+  var response = await request.send();
+  response.stream.transform(utf8.decoder).listen((value) {
+    print('StatusCOde: ${response.statusCode}');
+    // if (response.statusCode == 201) {
+      return jsonDecode(value);
+
+    // }
+    // else if (response.statusCode == 400) {
+    // } else if (response.statusCode == 500) {
+    // }
+  });
+}
+
+
+ updateUserWithImage({required String path,required User user}) async {
+  var url = Uri.parse(APISetting.update_user);
+  var request = http.MultipartRequest('POST', url);
+  http.MultipartFile imageFile =
+  await http.MultipartFile.fromPath('profile_image', path);
+  request.files.add(imageFile);
+  request.headers[HttpHeaders.acceptHeader] = 'application/json';
+  request.fields['name'] = user.name!;
+  request.fields['email'] = user.email!;
+  request.fields['phone_number'] = user.phoneNumber.toString();
+  request.fields['id_number'] = user.idNumber.toString();
+  request.fields['date_of_birth'] = user.dateOfBirth!;
+  request.fields['gender'] = user.gender!;
+  request.fields['token'] = '';
+  request.fields['lang'] = 'ar';
+
+  var response = await request.send();
+  response.stream.transform(utf8.decoder).listen((value) {
+    print('StatusCOde: ${response.statusCode}');
+    // if (response.statusCode == 201) {
+      return jsonDecode(value);
+
+    // } else if (response.statusCode == 400) {
+    // } else if (response.statusCode == 500) {
+    // }
+  });
+}
+
+
 dynamic updateUser({user}) async {
   Uri uri = Uri.parse(APISetting.update_user);
   var response = await http.post(uri, headers: headersWithOutToken,body:user.toJsonRegister());
@@ -175,6 +236,9 @@ dynamic updateUser({user}) async {
   }
   return null;
 }
+
+
+
 
 
 dynamic getProductByCateId({id}) async {

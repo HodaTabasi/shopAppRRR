@@ -11,7 +11,7 @@ class AllBindingController extends Bindings {
   void dependencies() {
     Get.put<APIGetxController>(APIGetxController());
     Get.put<AuthGETXController>(AuthGETXController());
-    Get.put<LanguageGETXController>(LanguageGETXController());
+    // Get.put<LanguageGETXController>(LanguageGETXController());
     Get.put<LoadingController>(LoadingController());
     Get.put<HiveGetXController>(HiveGetXController());
   }

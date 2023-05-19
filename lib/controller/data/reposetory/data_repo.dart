@@ -93,6 +93,25 @@ class DataRepository with ApiHelper{
     return failedResponse;
   }
 
+  dynamic registerWithImage({path,user}) async {
+    final jsonResponse = await _apiController.registerWithImage(path:path,user: user);
+    if(jsonResponse['success']){
+      SharedPrefController().user = jsonResponse['data'];
+      SharedPrefController().loggedIn = true;
+      return successResponce;
+    }
+    return failedResponse;
+  }
+
+  dynamic updateUserWithImage({path,user}) async {
+    final jsonResponse = await _apiController.updateUserWithImage(path:path,user: user);
+    if(jsonResponse['success']){
+      SharedPrefController().user = jsonResponse['data'];
+      return successResponce;
+    }
+    return failedResponse;
+  }
+
   Future<List<Product>> getProductByCateId({id}) async {
     final jsonResponse = await _apiController.getProductByCateId(id: id);
     var jsonArray = jsonResponse['data'] as List;

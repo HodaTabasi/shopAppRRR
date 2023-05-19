@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart' as data;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rrr_shop_app/controller/data/model/user.dart';
+import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 import 'package:rrr_shop_app/core/app_button.dart';
 import 'package:rrr_shop_app/screens/complete_profile/done_registration_sheet.dart';
@@ -25,6 +27,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
   late TextEditingController _emailController;
   late TextEditingController _idController;
   late TextEditingController _birthdayController;
+
+
 
   @override
   void initState() {
@@ -76,7 +80,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
         return ListView(
           padding: EdgeInsets.all(16.r),
           children: [
-            buildStack(),
+            buildStack(context),
             AppTextFiled(
               title: 'name',
               icon: Icons.person,
@@ -175,9 +179,19 @@ class _CompleteProfileState extends State<CompleteProfile> {
     LoadingController.to.changeLoading(true);
     late ApiResponse isSucess;
     if(AuthGETXController.to.flag){
-      isSucess = await AuthGETXController.to.updateUser(user: user);
+      if(APIGetxController.to.picke.value.path.isNotEmpty){
+        isSucess = await AuthGETXController.to.updateUser(user: user);
+      }else {
+        isSucess = await AuthGETXController.to.updateUserWithImage(path:APIGetxController.to.picke.value.path,user: user);
+      }
+
     }else{
-      isSucess = await AuthGETXController.to.register(user: user);
+      if(APIGetxController.to.picke.value.path.isNotEmpty){
+        isSucess = await AuthGETXController.to.register(user: user);
+      }else {
+        isSucess = await AuthGETXController.to.registerWithImage(path:APIGetxController.to.picke.value.path,user: user);
+
+      }
     }
 
     LoadingController.to.changeLoading(false);

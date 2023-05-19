@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
 
+import '../../controller/get/languages_getx_controoler.dart';
+import '../../controller/preferences/shared_pref_controller.dart';
 import '../../utils/helper.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -15,10 +17,15 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   // Country value = Country();
   int  langValue = 0;
-  // SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name)=='ar'?0:1;
-
 
   var isExpand1 = false;
+
+@override
+  void initState() {
+  langValue = SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name)=='ar'?0:1;
+  super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -103,8 +110,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                   value: 0,
                                   groupValue: langValue,
                                   onChanged: (int? value) {
-                                    // langValue = value!;
-                                    // LanguageGetxController.to.changeLanguage(langValue);
+                                    langValue = value!;
+                                    LanguageGETXController.to.changeLanguage('ar');
 
                                   },
                                 ),
@@ -128,6 +135,8 @@ class _SettingScreenState extends State<SettingScreen> {
                                   value: 1,
                                   groupValue: langValue,
                                   onChanged: (int? value) {
+                                    langValue = value!;
+                                    LanguageGETXController.to.changeLanguage('en');
                                   },
                                 ),
                               ),
@@ -148,7 +157,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                       fontWeight: FontWeight.bold)).tr(),
                             ),
                             Text(
-                              "ar",
+                              langValue ==0 ?"ar":"en",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 11.sp,)
