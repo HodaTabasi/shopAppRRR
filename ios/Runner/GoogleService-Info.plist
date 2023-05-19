@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>612944244381-6kbh8ufb19tu117p35jv9mbd495pfg30.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.612944244381-6kbh8ufb19tu117p35jv9mbd495pfg30</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDnDu2_b7rwJYb4gWH9VekhLLZPdMF1l00</string>
+	<key>GCM_SENDER_ID</key>
+	<string>612944244381</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.rrr.shop.app.rrrShopApp</string>
+	<key>PROJECT_ID</key>
+	<string>rrrstore</string>
+	<key>STORAGE_BUCKET</key>
+	<string>rrrstore.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:612944244381:ios:6bece6c0be55cbc776ee74</string>
+</dict>
+</plist>
