@@ -42,7 +42,7 @@ void main() async {
         supportedLocales: L10n.all,
         path: 'assets/l10n',
         // <-- change the path of the translation files
-        // fallbackLocale: L10n.all[1],
+        fallbackLocale: L10n.all[1],
         child: MyApp()),
   );
 }
@@ -64,8 +64,7 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return GetBuilder<LanguageGETXController>(
             builder: (controller){
-              context.setLocale(Locale(controller.language));
-              print(controller.language);
+              // context.setLocale(Locale(controller.language));
               return MaterialApp(
               // initialBinding: AllBindingController(),
               // smartManagement: SmartManagement.full,

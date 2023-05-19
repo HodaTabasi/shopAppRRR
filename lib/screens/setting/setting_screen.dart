@@ -111,6 +111,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   groupValue: langValue,
                                   onChanged: (int? value) {
                                     langValue = value!;
+                                    context.setLocale(Locale('ar'));
                                     LanguageGETXController.to.changeLanguage('ar',context);
 
                                   },
@@ -136,6 +137,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   groupValue: langValue,
                                   onChanged: (int? value) {
                                     langValue = value!;
+                                    context.setLocale(Locale('en'));
                                     LanguageGETXController.to.changeLanguage('en',context);
                                   },
                                 ),
