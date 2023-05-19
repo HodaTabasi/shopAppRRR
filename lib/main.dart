@@ -14,6 +14,7 @@ import 'package:rrr_shop_app/screens/otp/otp_screen.dart';
 import 'package:rrr_shop_app/screens/product_details/product_details.dart';
 import 'package:rrr_shop_app/screens/setting/setting_screen.dart';
 import 'package:rrr_shop_app/screens/splach_screen.dart';
+import 'package:rrr_shop_app/utils/l10n.dart';
 
 import 'controller/get/languages_getx_controoler.dart';
 import 'controller/preferences/shared_pref_controller.dart';
@@ -24,9 +25,9 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await SharedPrefController().initPref();
   await HiveOperations().openBox();
-  await EasyLocalization.ensureInitialized();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -34,10 +35,10 @@ void main() async {
 
   runApp(
     EasyLocalization(
-        supportedLocales: const [Locale('en'), Locale('ar')],
-        path: 'assets/translations',
+        supportedLocales: L10n.all,
+        path: 'assets/l10n',
         // <-- change the path of the translation files
-        // fallbackLocale: const Locale('ar'),
+        fallbackLocale: L10n.all[1],
         child: MyApp()),
   );
 }
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
               smartManagement: SmartManagement.full,
               title: 'Flutter Demo',
               theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'avenir'),
+
               localizationsDelegates: context.localizationDelegates,
               supportedLocales: context.supportedLocales,
               locale: Locale(controller.language.value),

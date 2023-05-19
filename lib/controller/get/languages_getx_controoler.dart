@@ -19,6 +19,6 @@ class LanguageGETXController extends GetxController{
     var locale = Locale(language.value);
     Get.updateLocale(locale);
     // language.refresh();
-    print(language);
+    print(language.value);
   }
 }

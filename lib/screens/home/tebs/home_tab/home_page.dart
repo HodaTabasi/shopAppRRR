@@ -160,7 +160,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         unselectedLabelColor: thirdColor,
         tabs: [
           Tab(
-            icon: Text("new").tr(),
+            icon: Text("new2").tr(),
           ),
           Tab(
             icon: Text("offer").tr(),
