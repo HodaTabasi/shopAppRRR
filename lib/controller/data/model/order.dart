@@ -13,6 +13,7 @@ class Order {
   String? createdAt;
   String? updatedAt;
   List<OrderProducts>? orderProducts;
+  bool isExpanded = false;
 
   Order(
       {this.id,
@@ -26,7 +27,9 @@ class Order {
         this.deletedAt,
         this.createdAt,
         this.updatedAt,
-        this.orderProducts});
+        this.orderProducts,
+        this.isExpanded = false
+      });
 
   Order.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -40,6 +43,7 @@ class Order {
     deletedAt = json['deleted_at'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    this.isExpanded = false;
     if (json['order_products'] != null) {
       orderProducts = <OrderProducts>[];
       json['order_products'].forEach((v) {
@@ -73,6 +77,9 @@ class Order {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['customer_id'] = this.customerId.toString();
     data['total_price'] = this.totalPrice.toString();
+    data['address'] = this.address.toString();
+    data['username'] = this.username.toString();
+    data['phone'] = this.phone.toString();
     if (this.orderProducts != null) {
       data['products'] =json.encode(this.orderProducts!.map((v) => v.toJson1()).toList());
     }
@@ -81,7 +88,7 @@ class Order {
 
   @override
   String toString() {
-    return '{customerId: $customerId,  address: $address,  totalPrice: $totalPrice, orderProducts: $orderProducts}';
+    return '{customerId: $customerId, username:$username , phone:$phone  address: $address,  totalPrice: $totalPrice, }'; //orderProducts: $orderProducts
   }
 }
 
@@ -95,6 +102,7 @@ class OrderProducts {
   int? productPrice;
   String? createdAt;
   String? updatedAt;
+  String? productImage;
 
   OrderProducts(
       {this.id,
@@ -117,6 +125,7 @@ class OrderProducts {
     productPrice = json['product_price'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+     this.productImage  = json['product_image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -130,6 +139,8 @@ class OrderProducts {
     data['product_price'] = this.productPrice;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    data['updated_at'] = this.updatedAt;
+    data['product_image'] = this.productImage;
     return data;
   }
 
@@ -140,6 +151,7 @@ class OrderProducts {
     data['product_color'] = this.productColor.toString();
     data['product_size'] = this.productSize.toString();
     data['product_price'] = this.productPrice.toString();
+    data['product_image'] = this.productImage.toString();
     return data;
   }
 

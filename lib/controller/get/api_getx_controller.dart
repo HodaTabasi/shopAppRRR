@@ -75,9 +75,16 @@ class APIGetxController extends GetxController {
   }
 
   getOrders({statusId}) {
+    isLoading.value = true;
+    orders.clear();
     DataRepository().getOrders(statusId: statusId).then((value) {
       orders.value = value;
+      isLoading.value = false;
     });
+  }
+
+  changeExpanded(index,isExpanded){
+    orders[index].isExpanded = isExpanded;
   }
 
   Future<ApiResponse> addOrder({order}) async {

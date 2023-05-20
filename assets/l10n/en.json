@@ -80,5 +80,6 @@
   "colors": "Colors",
   "update": "Update Profile",
   "from_galary": "From Gallery",
-  "from_camera": "From Camera"
+  "from_camera": "From Camera",
+  "no_data_found": "No Data Found"
 }

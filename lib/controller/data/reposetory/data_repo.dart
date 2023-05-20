@@ -38,11 +38,11 @@ class DataRepository with ApiHelper{
     final jsonResponse = await _apiController.getOrders(statusId: statusId);
     var jsonArray = jsonResponse['data'] as List;
     return jsonArray.map((jsonObject) => Order.fromJson(jsonObject)).toList();
-
   }
 
  Future<ApiResponse> addOrder({order}) async {
     final jsonResponse = await _apiController.addOrder(order: order);
+    // return failedResponse;
     return jsonResponse['success'] ?successResponce:failedResponse;
   }
 

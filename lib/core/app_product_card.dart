@@ -176,7 +176,7 @@ class _AppProductCardState extends State<AppProductCard> {
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
-                          Text("\$${widget.product.basePrice}",
+                          Text("\$${widget.product.sellingPrice}",
                               style: TextStyle(
                                   decoration: TextDecoration.lineThrough,
                                   color: thirdColor)),

@@ -33,7 +33,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
   getTotalPrice() {
     APIGetxController.to.orderProduct.forEach((element) {
-      total += element.selectedQty! * int.parse(element.basePrice!);
+      total += element.selectedQty! * int.parse(element.sellingPrice!);
     });
   }
 
@@ -320,17 +320,20 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
   Order get order {
     Order order1 = Order();
-    order1.customerId = user.idNumber;
+    order1.customerId = user.id;
     order1.totalPrice = total.toInt();
     order1.address = "الخرطوم";
+    order1.phone = user.phoneNumber.toString();
+    order1.username = user.name.toString();
     order1.orderProducts = APIGetxController.to.orderProduct
         .map<OrderProducts>((element) {
       OrderProducts orderProducts = OrderProducts();
       orderProducts.productId = element.id;
       orderProducts.productSize = int.parse(element.selectedSize!);
       orderProducts.productColor = element.selectedColor;
-      orderProducts.productPrice = int.parse(element.basePrice!);
+      orderProducts.productPrice = int.parse(element.sellingPrice!);
       orderProducts.qty = element.selectedQty!;
+      orderProducts.productImage = element.productThumbnail;
 
       return orderProducts;
     })

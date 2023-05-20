@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
+import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
 import '../model/user.dart';
 import 'api_helper.dart';
@@ -56,7 +57,8 @@ dynamic getNewProduct() async {
 }
 
 dynamic getOrders({statusId}) async {
-  Uri uri = Uri.parse(APISetting.get_orders.replaceFirst('{status_id}',statusId ));
+  User u = SharedPrefController().user;
+  Uri uri = Uri.parse(APISetting.get_orders.replaceFirst('{customer_id}/{status_id}','${u.id}/$statusId' ));
   var response = await http.get(uri, headers: headersWithOutToken);
 
   print(response.body);

@@ -2,6 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
+import 'package:rrr_shop_app/controller/data/model/order.dart';
+import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
+import 'package:rrr_shop_app/core/skeleton.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
 
@@ -17,10 +22,12 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   late TabController tabController;
 
   int currentIndex = 0;
+  int expandIndex = -1;
 
   @override
   void initState() {
     tabController = TabController(length: 4, vsync: this);
+    APIGetxController.to.getOrders(statusId: currentIndex + 1);
     super.initState();
   }
 
@@ -42,437 +49,219 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
         children: [
           buildContainer(),
           getSpace(h: 16.r),
-          Padding(
-            padding:  EdgeInsets.all(16.0.r),
-            child: ExpansionPanelList(
-              expansionCallback: (panelIndex, isExpanded) {
-              },
-              dividerColor: divider,
-              children: [
-                ExpansionPanel(
-                  isExpanded:false,
-                  headerBuilder: (context, isExpanded) {
-                    return Row(
-                      children: [
-                        Padding(
-                          padding:  EdgeInsets.symmetric(vertical: 5.0.r,horizontal: 8.r),
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10.r),
-                              child: Image.network(
-                                "https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg",
-                                height: 55,
-                                width: 66,
-                                fit: BoxFit.fill,
-                              )),
-                        ),
-                        Text(
-                          "345568#",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16.sp,
-                          ),
-                        )
-                      ],
-                    );
-                  },
-                  body: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5.r),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.r),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "product_name",
-                                style: TextStyle(color: textColor,),
-                              ).tr(),
-                              getSpace(w:5.r),
-                              Text(
-                                "حذاء",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.sp),
+          GetX<APIGetxController>(builder: (controller) {
+            return controller.isLoading.value
+                ? buildShimmer()
+                : Padding(
+                    padding: EdgeInsets.all(16.0.r),
+                    child: controller.orders.isEmpty ?
+                        Center(child: Text("no_data_found",style: TextStyle(fontSize: 18.sp,color: mainColor),).tr(),)
+                        :ExpansionPanelList(
+                        expansionCallback: (panelIndex, isExpanded) {
+                          setState(() {
+                            controller.changeExpanded(panelIndex, !isExpanded);
+                          });
+                        },
+                        dividerColor: divider,
+                        expandedHeaderPadding: EdgeInsets.all(16.r),
+                        children: controller.orders.map((order) {
+                          return ExpansionPanel(
+                            isExpanded: order.isExpanded,
+                            canTapOnHeader: true,
+                            headerBuilder: (context, isExpanded) {
+                              return Row(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 5.0.r, horizontal: 8.r),
+                                    child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(10.r),
+                                        child: Image.network(
+                                          "${APISetting.IMAGE_BASE_URL}${order.orderProducts![0].productImage}",
+                                          height: 55,
+                                          width: 66,
+                                          fit: BoxFit.fill,
+                                        )),
+                                  ),
+                                  Text(
+                                    "${order.id}#",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16.sp,
+                                    ),
+                                  )
+                                ],
+                              );
+                            },
+                            body: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 5.r),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8.r),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "product_name",
+                                          style: TextStyle(
+                                            color: textColor,
+                                          ),
+                                        ).tr(),
+                                        getSpace(w: 5.r),
+                                        Text(
+                                          "${order.orderProducts!.map((e) {
+                                            return e.productId.toString();
+                                          }).toList()}",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15.sp),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  getSpace(h: 15.0.r),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8.r),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "product_price",
+                                          style: TextStyle(
+                                            color: textColor,
+                                          ),
+                                        ).tr(),
+                                        getSpace(w: 5.r),
+                                        Text(
+                                          "${order.totalPrice}",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15.sp),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  getSpace(h: 15.0.r),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8.r),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "order_status",
+                                          style: TextStyle(
+                                            color: textColor,
+                                          ),
+                                        ).tr(),
+                                        getSpace(w: 5.r),
+                                        Text(
+                                          "${order.statusId}",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15.sp),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  getSpace(h: 15.0.r),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8.r),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "t_address",
+                                          style: TextStyle(
+                                            color: textColor,
+                                          ),
+                                        ).tr(),
+                                        getSpace(w: 5.r),
+                                        Text(
+                                          " ${order.address} ",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15.sp),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  getSpace(h: 15.0.r),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8.r),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "data_f",
+                                          style: TextStyle(
+                                            color: textColor,
+                                          ),
+                                        ).tr(),
+                                        getSpace(w: 5.r),
+                                        Text(
+                                          "${order.username}",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15.sp),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  getSpace(h: 15.0.r),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8.r),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "phone",
+                                          style: TextStyle(
+                                            color: textColor,
+                                          ),
+                                        ).tr(),
+                                        getSpace(w: 5.r),
+                                        Text(
+                                          "${order.phone}",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15.sp),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  getSpace(h: 15.0.r),
+                                  Divider(
+                                    color: divider,
+                                    thickness: 1,
+                                  )
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                        getSpace(h: 15.0.r),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.r),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "product_price",
-                                style: TextStyle(color: textColor,),
-                              ).tr(),
-                              getSpace(w:5.r),
-                              Text(
-                                "200",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                        getSpace(h: 15.0.r),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.r),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "brand",
-                                style: TextStyle(color: textColor,),
-                              ).tr(),
-                              getSpace(w:5.r),
-                              Text(
-                                "Naike",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                        getSpace(h: 15.0.r),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.r),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "size",
-                                style: TextStyle(color: textColor,),
-                              ).tr(),
-                              getSpace(w:5.r),
-                              Text(
-                                "36",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                        getSpace(h: 15.0.r),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.r),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "color",
-                                style: TextStyle(color: textColor,),
-                              ).tr(),
-                              getSpace(w:5.r),
-                              CircleAvatar(
-                                radius: 5,
-
-                              )
-                            ],
-                          ),
-                        ),
-                        getSpace(h: 15.0.r),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.r),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "t_address",
-                                style: TextStyle(color: textColor,),
-                              ).tr(),
-                              getSpace(w:5.r),
-                              Text(
-                                " soufadf ",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                        getSpace(h: 15.0.r),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.r),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "data_f",
-                                style: TextStyle(color: textColor,),
-                              ).tr(),
-                              getSpace(w:5.r),
-                              Text(
-                                "احمد العتيبي",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                        getSpace(h: 15.0.r),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.r),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "phone",
-                                style: TextStyle(color: textColor,),
-                              ).tr(),
-                              getSpace(w:5.r),
-                              Text(
-                                "0596523584",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                        getSpace(h: 15.0.r),
-                        Divider(
-                          color: divider,
-                          thickness: 1,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                ExpansionPanel(
-                isExpanded:true,
-                  headerBuilder: (context, isExpanded) {
-                    return Row(
-                      children: [
-                        Padding(
-                          padding:  EdgeInsets.symmetric(vertical: 5.0.r,horizontal: 8.r),
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10.r),
-                              child: Image.network(
-                                "https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg",
-                                height: 55,
-                                width: 66,
-                                fit: BoxFit.fill,
-                              )),
-                        ),
-                        Text(
-                          "345568#",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16.sp,
-                          ),
-                        )
-                      ],
-                    );
-                  },
-                  body: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5.r),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.r),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "product_name",
-                                style: TextStyle(color: textColor,),
-                              ).tr(),
-                              getSpace(w:5.r),
-                              Text(
-                                "حذاء",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                        getSpace(h: 15.0.r),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.r),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "product_price",
-                                style: TextStyle(color: textColor,),
-                              ).tr(),
-                              getSpace(w:5.r),
-                              Text(
-                                "200",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                        getSpace(h: 15.0.r),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.r),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "brand",
-                                style: TextStyle(color: textColor,),
-                              ).tr(),
-                              getSpace(w:5.r),
-                              Text(
-                                "Naike",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                        getSpace(h: 15.0.r),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.r),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "size",
-                                style: TextStyle(color: textColor,),
-                              ).tr(),
-                              getSpace(w:5.r),
-                              Text(
-                                "36",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                        getSpace(h: 15.0.r),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.r),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "color",
-                                style: TextStyle(color: textColor,),
-                              ).tr(),
-                              getSpace(w:5.r),
-                              CircleAvatar(
-                                radius: 5,
-
-                              )
-                            ],
-                          ),
-                        ),
-                        getSpace(h: 15.0.r),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.r),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "t_address",
-                                style: TextStyle(color: textColor,),
-                              ).tr(),
-                              getSpace(w:5.r),
-                              Text(
-                                " soufadf ",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                        getSpace(h: 15.0.r),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.r),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "data_f",
-                                style: TextStyle(color: textColor,),
-                              ).tr(),
-                              getSpace(w:5.r),
-                              Text(
-                                "احمد العتيبي",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                        getSpace(h: 15.0.r),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.r),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "phone",
-                                style: TextStyle(color: textColor,),
-                              ).tr(),
-                              getSpace(w:5.r),
-                              Text(
-                                "0596523584",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.sp),
-                              ),
-                            ],
-                          ),
-                        ),
-                        getSpace(h: 15.0.r),
-                        Divider(
-                          color: divider,
-                          thickness: 1,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset("assets/images/clear.svg"),
-                              Text(
-                                "الغاء الطلب",
-                                style: TextStyle(color: textColor,),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          )
+                            ),
+                          );
+                        }).toList()),
+                  );
+          })
         ],
       ),
     );
@@ -489,6 +278,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
         onTap: (value) {
           setState(() {
             currentIndex = value;
+            APIGetxController.to.getOrders(statusId: currentIndex + 1);
           });
         },
         indicator: BoxDecoration(
@@ -510,6 +300,25 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
           Tab(
             icon: Text("cancel").tr(),
           )
+        ],
+      ),
+    );
+  }
+
+  buildShimmer() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Skeleton(
+            height: 50.h,
+            width: double.infinity,
+          ),
+          getSpace(h: 20.0.h),
+          Skeleton(
+            height: MediaQuery.of(context).size.height - 200.h,
+            width: double.infinity,
+          ),
         ],
       ),
     );
