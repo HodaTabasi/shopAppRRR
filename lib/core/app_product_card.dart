@@ -7,6 +7,7 @@ import 'package:rrr_shop_app/controller/data/model/product.dart';
 import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
 import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
 
+import '../controller/preferences/shared_pref_controller.dart';
 import '../utils/constants.dart';
 import '../utils/helper.dart';
 
@@ -158,14 +159,14 @@ class _AppProductCardState extends State<AppProductCard> {
                       padding: EdgeInsets.symmetric(
                           horizontal: 8.0.r, vertical: 5.r),
                       child: Text(
-                        widget.product.productNameAr!,
+                        SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar'?widget.product.productNameAr!:widget.product.productNameEn!,
                         style: TextStyle(fontSize: 12.sp),
                       ),
                     ),
                     Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0.r),
                         child: Text(
-                          widget.product.brandAr??"",
+                          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar'?widget.product.brandAr??"":widget.product.brandEn??'',
                           style: TextStyle(
                               fontSize: 12.sp,
                               color: Colors.black,

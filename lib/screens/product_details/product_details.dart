@@ -11,6 +11,7 @@ import 'package:rrr_shop_app/core/skeleton.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
 
+import '../../controller/preferences/shared_pref_controller.dart';
 import '../../utils/CustomRadio.dart';
 import '../../utils/size_custom_radio.dart';
 
@@ -49,7 +50,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             elevation: 0,
             toolbarHeight: 60.h,
             title: Text(
-              "${APIGetxController.to.product.value.productNameAr??''}",
+              "${SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar'?APIGetxController.to.product.value.productNameAr??'':APIGetxController.to.product.value.productNameEn??''}",
               style: TextStyle(color: Colors.black, fontSize: 18.sp),
             ),
             centerTitle: true,
@@ -119,14 +120,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
                     child: Text(
-                      "${APIGetxController.to.product.value.productNameAr}",
+                      "${SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar'?APIGetxController.to.product.value.productNameAr:APIGetxController.to.product.value.productNameEn}",
                       style: TextStyle(color: Colors.black, fontSize: 17.sp),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
                     child: Text(
-                      "${APIGetxController.to.product.value.basePrice}\$",
+                      "${APIGetxController.to.product.value.sellingPrice}\$",
                       style: TextStyle(
                           color: mainColor,
                           fontSize: 16.sp,
@@ -141,7 +142,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
                     child: Text(
-                      "${APIGetxController.to.product.value.brandAr}",
+                      "${SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar'?APIGetxController.to.product.value.brandAr:APIGetxController.to.product.value.brandEn}",
                       style: TextStyle(color: textColor, fontSize: 14.sp),
                     ),
                   ),
@@ -279,7 +280,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
                 child: Text(
-                  "${APIGetxController.to.product.value.descriptionAr}",
+                  "${SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar'?APIGetxController.to.product.value.descriptionAr:APIGetxController.to.product.value.descriptionEn}",
                   style: TextStyle(
                     color: Colors.black,
                   ),

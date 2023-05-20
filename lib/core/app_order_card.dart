@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
 import '../controller/data/api/api_setting.dart';
 import '../controller/data/model/product.dart';
@@ -47,7 +48,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "${widget.product.productNameEn}",
+                    "${SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar'?widget.product.productNameAr:widget.product.productNameEn}",
                     style: TextStyle(fontSize: 12.sp),
                   ),
                   getSpace(h: 5.h),
