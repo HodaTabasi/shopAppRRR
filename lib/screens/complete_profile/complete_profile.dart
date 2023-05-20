@@ -190,7 +190,6 @@ class _CompleteProfileState extends State<CompleteProfile> {
         isSucess = await AuthGETXController.to.register(user: user);
       }else {
         isSucess = await AuthGETXController.to.registerWithImage(path:APIGetxController.to.picke.value.path,user: user);
-
       }
     }
 

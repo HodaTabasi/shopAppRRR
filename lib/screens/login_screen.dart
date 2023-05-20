@@ -11,7 +11,6 @@ import '../controller/data/api/api_response.dart';
 import '../controller/get/api_auth_getx_controller.dart';
 import '../controller/get/loading_getx_controller.dart';
 import '../utils/constants.dart';
-import 'home/navigation_buttom.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -128,7 +127,6 @@ class _LoginScreenState extends State<LoginScreen> {
     ApiResponse isSucess = await AuthGETXController.to.login(phone:_phoneController.text);
     LoadingController.to.changeLoading(false);
     if(isSucess.success){
-      // Get.offAll(()=>MainScreen());
       Navigator.pushNamedAndRemoveUntil(
           context, "/main_screen", (route) => false);
     } else {

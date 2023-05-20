@@ -1,10 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
-import 'package:rrr_shop_app/controller/data/model/order.dart';
 import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
 import 'package:rrr_shop_app/core/skeleton.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
