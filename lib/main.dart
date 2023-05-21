@@ -7,6 +7,7 @@ import 'package:rrr_shop_app/controller/get/all_binding_controller.dart';
 import 'package:rrr_shop_app/controller/hive/hice_operations.dart';
 import 'package:rrr_shop_app/screens/cat_product/cat_product_screen.dart';
 import 'package:rrr_shop_app/screens/complete_order/complete_order_screen.dart';
+import 'package:rrr_shop_app/screens/complete_order/google_map_location.dart';
 import 'package:rrr_shop_app/screens/fillter/fillter_page.dart';
 import 'package:rrr_shop_app/screens/home/navigation_buttom.dart';
 import 'package:rrr_shop_app/screens/login_screen.dart';
@@ -87,6 +88,7 @@ class MyApp extends StatelessWidget {
                 '/product_details_screen': (context) => ProductDetails(),
                 '/cart_product_screen': (context) => CatProductScreen(),
                 '/fillter_screen': (context) => FillterScreen(),
+                '/map_screen': (context) => GoogleMapLcationPage(),
               },
             );
             }

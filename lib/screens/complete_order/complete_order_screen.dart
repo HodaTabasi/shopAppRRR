@@ -33,7 +33,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
   getTotalPrice() {
     APIGetxController.to.orderProduct.forEach((element) {
-      total += element.selectedQty! * int.parse(element.sellingPrice!);
+      total += element.selectedQty! * num.parse(element.sellingPrice!);
     });
   }
 
@@ -77,18 +77,23 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
               padding: EdgeInsets.symmetric(horizontal: 16.r),
               child: DecoratedBox(
                 decoration: decoration(radius: 25.0.r, blurRadius: 2),
-                child: Padding(
-                  padding: EdgeInsets.all(12.0.r),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "الخرطوم السودان شارع سنجانة",
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.w600),
-                      ).tr(),
-                      SvgPicture.asset("assets/images/address.svg")
-                    ],
+                child: InkWell(
+                  onTap: (){
+                    Navigator.pushNamed(context, '/map_screen');
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.all(12.0.r),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "${controller.address}",
+                          style: const TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.w600),
+                        ).tr(),
+                        SvgPicture.asset("assets/images/address.svg")
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -331,7 +336,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       orderProducts.productId = element.id;
       orderProducts.productSize = int.parse(element.selectedSize!);
       orderProducts.productColor = element.selectedColor;
-      orderProducts.productPrice = int.parse(element.sellingPrice!);
+      orderProducts.productPrice = num.parse(element.sellingPrice!).toInt();
       orderProducts.qty = element.selectedQty!;
       orderProducts.productImage = element.productThumbnail;
 

@@ -13,6 +13,11 @@
         android:label="rrr_shop_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <!-- TODO: Add your Google Maps API key here -->
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBd1GjUWzt9hpwY2am4bUO3IolX7w8rAPQ"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -31,7 +31,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void initState() {
     controller = TabController(length: l.length, vsync: this);
     tabController = TabController(length: 3, vsync: this);
-    APIGetxController.to.getAllProduct();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      APIGetxController.to.getAllProduct();
+    });
+
     super.initState();
   }
 

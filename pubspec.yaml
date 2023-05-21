@@ -48,9 +48,13 @@ dependencies:
   hive_flutter:
   path_provider: ^2.0.15
   google_maps_flutter: ^2.2.6
+  geolocator: ^8.2.0
+  geocoding: ^2.0.4
   shimmer: ^2.0.0
   image_picker: ^0.8.7+5
   firebase_core: ^2.13.0
+  app_settings: ^4.2.0
+  permission_handler: ^10.2.0
 
 dev_dependencies:
   flutter_test:
