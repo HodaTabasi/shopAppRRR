@@ -11,6 +11,7 @@ import 'package:rrr_shop_app/screens/complete_order/google_map_location.dart';
 import 'package:rrr_shop_app/screens/fillter/fillter_page.dart';
 import 'package:rrr_shop_app/screens/home/navigation_buttom.dart';
 import 'package:rrr_shop_app/screens/login_screen.dart';
+import 'package:rrr_shop_app/screens/notification/notification_screen.dart';
 import 'package:rrr_shop_app/screens/otp/otp_screen.dart';
 import 'package:rrr_shop_app/screens/product_details/product_details.dart';
 import 'package:rrr_shop_app/screens/setting/setting_screen.dart';
@@ -89,6 +90,7 @@ class MyApp extends StatelessWidget {
                 '/cart_product_screen': (context) => CatProductScreen(),
                 '/fillter_screen': (context) => FillterScreen(),
                 '/map_screen': (context) => GoogleMapLcationPage(),
+                '/notification_screen': (context) => MyNotificationScreen(),
               },
             );
             }

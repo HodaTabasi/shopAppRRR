@@ -52,7 +52,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ).tr(),
         centerTitle: true,
         leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/notification_screen');
+            },
             icon: SvgPicture.asset(
               "assets/images/18 _ 20.svg",
               color: secondColor,

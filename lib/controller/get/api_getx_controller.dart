@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rrr_shop_app/controller/data/api/api_response.dart';
 import 'package:rrr_shop_app/controller/data/model/category.dart';
+import 'package:rrr_shop_app/controller/data/model/notification.dart';
 import 'package:rrr_shop_app/controller/data/model/slider.dart';
 import 'package:rrr_shop_app/controller/data/reposetory/data_repo.dart';
 
@@ -82,6 +83,10 @@ class APIGetxController extends GetxController {
       orders.value = value;
       isLoading.value = false;
     });
+  }
+
+  Future<List<MyNotification>> getNotification() async {
+    return await DataRepository().getNotifications();
   }
 
   changeExpanded(index,isExpanded){

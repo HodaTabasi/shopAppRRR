@@ -7,6 +7,8 @@ import 'package:rrr_shop_app/controller/data/model/product.dart';
 import 'package:rrr_shop_app/controller/data/model/slider.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
+import '../model/notification.dart';
+
 class DataRepository with ApiHelper{
   final _apiController = APIController();
   DataRepository._();
@@ -62,6 +64,12 @@ class DataRepository with ApiHelper{
     final jsonResponse = await _apiController.getSubCategory();
     var jsonArray = jsonResponse['data'] as List;
     return jsonArray.map((jsonObject) => Category.fromJson(jsonObject)).toList();
+  }
+
+  Future<List<MyNotification>> getNotifications() async {
+    final jsonResponse = await _apiController.getNotifications();
+    var jsonArray = jsonResponse['data'] as List;
+    return jsonArray.map((jsonObject) => MyNotification.fromJson(jsonObject)).toList();
   }
 
   dynamic login({phone}) async {

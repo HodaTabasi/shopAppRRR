@@ -133,6 +133,22 @@ dynamic getSubCategory() async {
   return null;
 }
 
+dynamic getNotifications() async {
+  User u = SharedPrefController().user;
+  Uri uri = Uri.parse(APISetting.get_notifications.replaceFirst('{customer_id}','${u.id}' ));
+  var response = await http.get(uri, headers: headersWithOutToken);
+
+  print(response.body);
+
+  if (response.statusCode == 200 || response.statusCode == 400) {
+    var jsonResponse = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      return jsonResponse;
+    }
+  }
+  return null;
+}
+
 dynamic login({phone}) async {
   Uri uri = Uri.parse(APISetting.login);
   var response = await http.post(uri, headers: headersWithOutToken,body: {

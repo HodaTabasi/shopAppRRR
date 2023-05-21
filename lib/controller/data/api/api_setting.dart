@@ -10,6 +10,7 @@ class APISetting {
   static String get_all_product_by_subcategory = "${BASE_URL}products/get_product_by_subcategory_id/{id}/{sub_id}";
   static String get_sliders = "${BASE_URL}sliders/get_sliders";
   static String get_orders = "${BASE_URL}orders/get_orders/{customer_id}/{status_id}";
+  static String get_notifications = "${BASE_URL}notifications/get_all_notifications/{customer_id}";
   static String add_order = "${BASE_URL}orders/add_order";
   static String login = "${BASE_URL}customers/login";
   static String register = "${BASE_URL}customers/register";
