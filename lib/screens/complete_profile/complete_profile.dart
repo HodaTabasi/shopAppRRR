@@ -171,7 +171,9 @@ class _CompleteProfileState extends State<CompleteProfile> {
     u.email = _emailController.text;
     u.dateOfBirth = _birthdayController.text;
     u.gender = AuthGETXController.to.groupValue.value == 1 ? "male" : "female";
-    u.lang = "ar";
+    u.lang = SharedPrefController().getValueFor(key: PrefKeys.lang.name);
+    u.token = SharedPrefController().token;
+    print(SharedPrefController().token);
     return u;
   }
 
@@ -179,14 +181,14 @@ class _CompleteProfileState extends State<CompleteProfile> {
     LoadingController.to.changeLoading(true);
     late ApiResponse isSucess;
     if(AuthGETXController.to.flag){
-      if(APIGetxController.to.picke.value.path.isNotEmpty){
+      if(APIGetxController.to.picke.value.path.isEmpty){
         isSucess = await AuthGETXController.to.updateUser(user: user);
       }else {
         isSucess = await AuthGETXController.to.updateUserWithImage(path:APIGetxController.to.picke.value.path,user: user);
       }
 
     }else{
-      if(APIGetxController.to.picke.value.path.isNotEmpty){
+      if(APIGetxController.to.picke.value.path.isEmpty){
         isSucess = await AuthGETXController.to.register(user: user);
       }else {
         isSucess = await AuthGETXController.to.registerWithImage(path:APIGetxController.to.picke.value.path,user: user);

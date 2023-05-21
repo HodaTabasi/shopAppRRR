@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -17,9 +21,12 @@ import 'package:rrr_shop_app/screens/product_details/product_details.dart';
 import 'package:rrr_shop_app/screens/setting/setting_screen.dart';
 import 'package:rrr_shop_app/screens/splach_screen.dart';
 import 'package:rrr_shop_app/utils/l10n1.dart';
+import 'package:rrr_shop_app/utils/notification/fb_notifications.dart';
 
+import 'controller/get/Notification_getx_controller.dart';
 import 'controller/get/api_auth_getx_controller.dart';
 import 'controller/get/api_getx_controller.dart';
+import 'controller/get/general_controler.dart';
 import 'controller/get/hive_getx_controller.dart';
 import 'controller/get/languages_getx_controoler.dart';
 import 'controller/get/loading_getx_controller.dart';
@@ -39,23 +46,40 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(
-    EasyLocalization(
-        supportedLocales: L10n.all,
-        path: 'assets/l10n',
-        // <-- change the path of the translation files
-        fallbackLocale: L10n.all[1],
-        child: MyApp()),
-  );
+  await FbNotifications.initNotifications();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(
+      EasyLocalization(
+          supportedLocales: L10n.all,
+          path: 'assets/l10n',
+          // <-- change the path of the translation files
+          fallbackLocale: L10n.all[1],
+          child: MyApp()),
+    );
+  });
+
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with FbNotifications{
   LanguageGETXController controller = Get.put<LanguageGETXController>(LanguageGETXController());
+
   APIGetxController controller1 = Get.put<APIGetxController>(APIGetxController());
+
   AuthGETXController controller2 = Get.put<AuthGETXController>(AuthGETXController());
+
   LoadingController controller3 = Get.put<LoadingController>(LoadingController());
+
   HiveGetXController controller4 = Get.put<HiveGetXController>(HiveGetXController());
+  NotificationGetxController controller5 = Get.put<NotificationGetxController>(NotificationGetxController());
+  GeneralDataController controller6 = Get.put<GeneralDataController>(GeneralDataController());
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -98,24 +122,20 @@ class MyApp extends StatelessWidget {
         });
   }
 
-/*
-  ScreenUtilInit(
-      designSize: const Size(360, 690),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context , child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'First Method',
-          // You can use the library anywhere in the app even in theme
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
-          ),
-          home: child,
-        );
-      },
-      child: const HomePage(title: 'First Method'),
-    );
-   */
+  rigister() async {
+    String? token = await FirebaseMessaging.instance.getToken();
+
+    SharedPrefController().saveUserDeviceId(token);
+    // await FirebaseMessaging.instance.subscribeToTopic("all");
+  }
+
+  @override
+  void initState() {
+    requestNotificationPermissions();
+    rigister();
+    initializeForegroundNotificationForAndroid();
+    controller6.getLocalNotification();
+    manageNotificationAction();
+    super.initState();
+  }
 }

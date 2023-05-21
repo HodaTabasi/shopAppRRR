@@ -12,6 +12,7 @@ class User {
   String? createdAt;
   String? updatedAt;
   String? deletedAt;
+  String? token;
 
   User(
       {this.id,
@@ -23,6 +24,7 @@ class User {
         this.dateOfBirth,
         this.gender,
         this.lang,
+        this.token,
         this.verifiedAt,
         this.createdAt,
         this.updatedAt,
@@ -55,12 +57,14 @@ class User {
     data['date_of_birth'] = this.dateOfBirth;
     data['gender'] = this.gender;
     data['lang'] = this.lang;
+    data['token'] = this.token;
     data['verified_at'] = this.verifiedAt;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     data['deleted_at'] = this.deletedAt;
     return data;
   }
+
   Map<String, dynamic> toJsonRegister() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name;
@@ -70,6 +74,12 @@ class User {
     data['date_of_birth'] = this.dateOfBirth;
     data['gender'] = this.gender;
     data['lang'] = this.lang;
+    data['token'] = this.token;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'User{id: $id, name: $name, email: $email, profileImage: $profileImage, phoneNumber: $phoneNumber, idNumber: $idNumber, dateOfBirth: $dateOfBirth, gender: $gender, lang: $lang, token: $token}';
   }
 }

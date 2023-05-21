@@ -10,6 +10,7 @@ import 'package:rrr_shop_app/screens/home/tebs/home_tab/widget/search_widget.dar
 import 'package:rrr_shop_app/screens/home/tebs/home_tab/widget/slider_widget.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
 
+import '../../../../controller/get/Notification_getx_controller.dart';
 import '../../../../core/app_product_card.dart';
 import '../../../../core/skeleton.dart';
 import '../../../../utils/constants.dart';
@@ -51,14 +52,31 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w900),
         ).tr(),
         centerTitle: true,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/notification_screen');
-            },
-            icon: SvgPicture.asset(
-              "assets/images/18 _ 20.svg",
-              color: secondColor,
-            )),
+        leading: GetBuilder<NotificationGetxController>(
+          builder:(controller) =>  Stack(
+            children: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/notification_screen');
+                  },
+                  icon: SvgPicture.asset(
+                    "assets/images/18 _ 20.svg",
+                    color: secondColor,
+                  )),
+              Positioned(
+                top: 7,
+                right: 8,
+                child: Visibility(
+                  visible: controller.notificationNumber > 0 ,
+                  child: const CircleAvatar(
+                    backgroundColor: Colors.amber,
+                    radius: 3,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
         actions: [
           Padding(
             padding: EdgeInsets.all(16.0.r),

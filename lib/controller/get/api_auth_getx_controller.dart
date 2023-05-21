@@ -24,11 +24,11 @@ class AuthGETXController extends GetxController {
   }
 
   Future<ApiResponse> registerWithImage({path,user}) async {
-    return await DataRepository().registerWithImage(user: user);
+    return await DataRepository().registerWithImage(path:path,user: user);
   }
 
   Future<ApiResponse> updateUserWithImage({path,user}) async {
-    return await DataRepository().registerWithImage(user: user);
+    return await DataRepository().updateUserWithImage(path:path,user: user);
   }
 
   changeValue(value){

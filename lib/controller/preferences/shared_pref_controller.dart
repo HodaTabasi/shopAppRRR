@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/model/user.dart';
 
-enum PrefKeys {loggedIn, lang ,user}
+enum PrefKeys {loggedIn, lang ,user,token,notificaionNumber}
 
 
 
@@ -23,6 +23,19 @@ class SharedPrefController {
     if(_sharedPreferences.get(PrefKeys.lang.name) == null)
       await _sharedPreferences.setString(PrefKeys.lang.name, 'ar');
   }
+
+  Future<void> saveUserDeviceId(token) async {
+    await _sharedPreferences.setString(PrefKeys.token.name, token);
+  }
+
+  bool? getLocalNotification() {
+    return _sharedPreferences.getBool('localNotification');
+  }
+
+  setLocalNotification(bool value) {
+    return _sharedPreferences.setBool('localNotification', value);
+  }
+
 
   set user(user){
     String encodedMap = json.encode(user);
@@ -61,5 +74,16 @@ class SharedPrefController {
   Future<bool> clear() async {
     return _sharedPreferences.clear();
   }
+
+  addNotification() async {
+    int number = notificaionNumber;
+    number ++;
+    await setNotificaionNumber(number);
+  }
+  setNotificaionNumber(number) async {
+    await _sharedPreferences.setInt(PrefKeys.notificaionNumber.name,number);
+  }
+  int get notificaionNumber =>_sharedPreferences.getInt(PrefKeys.notificaionNumber.name) ?? 0;
+  String get token =>_sharedPreferences.getString(PrefKeys.token.name) ?? '';
 }
 

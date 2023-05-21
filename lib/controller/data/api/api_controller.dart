@@ -198,16 +198,13 @@ registerWithImage({required String path,required User user}) async {
   request.fields['lang'] = 'ar';
 
   var response = await request.send();
-  response.stream.transform(utf8.decoder).listen((value) {
-    print('StatusCOde: ${response.statusCode}');
-    // if (response.statusCode == 201) {
-      return jsonDecode(value);
+  if (response.statusCode == 200) {
+    var body = await response.stream.transform(utf8.decoder).first;
+    var jsonResponse = jsonDecode(body);
+    print("$jsonResponse");
 
-    // }
-    // else if (response.statusCode == 400) {
-    // } else if (response.statusCode == 500) {
-    // }
-  });
+    return jsonResponse;
+  }
 }
 
 
@@ -228,15 +225,13 @@ registerWithImage({required String path,required User user}) async {
   request.fields['lang'] = 'ar';
 
   var response = await request.send();
-  response.stream.transform(utf8.decoder).listen((value) {
-    print('StatusCOde: ${response.statusCode}');
-    // if (response.statusCode == 201) {
-      return jsonDecode(value);
+  if (response.statusCode == 200) {
+    var body = await response.stream.transform(utf8.decoder).first;
+    var jsonResponse = jsonDecode(body);
+    print("$jsonResponse");
 
-    // } else if (response.statusCode == 400) {
-    // } else if (response.statusCode == 500) {
-    // }
-  });
+    return jsonResponse;
+  }
 }
 
 

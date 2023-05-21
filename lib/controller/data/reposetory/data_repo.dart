@@ -102,6 +102,7 @@ class DataRepository with ApiHelper{
   }
 
   dynamic registerWithImage({path,user}) async {
+    print("dfgdf $path");
     final jsonResponse = await _apiController.registerWithImage(path:path,user: user);
     if(jsonResponse['success']){
       SharedPrefController().user = jsonResponse['data'];
