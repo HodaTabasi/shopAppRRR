@@ -103,6 +103,8 @@ class OrderProducts {
   String? createdAt;
   String? updatedAt;
   String? productImage;
+  String? productNameAr;
+  String? productNameEn;
 
   OrderProducts(
       {this.id,
@@ -113,7 +115,9 @@ class OrderProducts {
         this.productSize,
         this.productPrice,
         this.createdAt,
-        this.updatedAt});
+        this.updatedAt,
+        this.productNameAr,
+        this.productNameEn});
 
   OrderProducts.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -126,6 +130,8 @@ class OrderProducts {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
      this.productImage  = json['product_image'];
+    productNameAr = json['product_name_ar'];
+    productNameEn = json['product_name_en'];
   }
 
   Map<String, dynamic> toJson() {
@@ -141,6 +147,8 @@ class OrderProducts {
     data['updated_at'] = this.updatedAt;
     data['updated_at'] = this.updatedAt;
     data['product_image'] = this.productImage;
+    data['product_name_ar'] = this.productNameAr;
+    data['product_name_en'] = this.productNameEn;
     return data;
   }
 

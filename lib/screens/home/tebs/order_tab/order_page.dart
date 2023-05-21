@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
 import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
+import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 import 'package:rrr_shop_app/core/skeleton.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
@@ -113,7 +114,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
                                         getSpace(w: 5.r),
                                         Text(
                                           "${order.orderProducts!.map((e) {
-                                            return e.productId.toString();
+                                            return SharedPrefController().getValueFor(key: PrefKeys.lang.name) == 'ar'?e.productNameAr:e.productNameEn;
                                           }).toList()}",
                                           style: TextStyle(
                                               color: Colors.black,
