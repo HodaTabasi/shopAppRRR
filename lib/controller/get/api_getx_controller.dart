@@ -148,5 +148,6 @@ class APIGetxController extends GetxController {
 
   putOrderProduct({list}){
     orderProduct.value = list;
+    // print(orderProduct.value);
   }
 }

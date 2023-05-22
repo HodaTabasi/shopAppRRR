@@ -59,6 +59,7 @@ dynamic getNewProduct() async {
 dynamic getOrders({statusId}) async {
   User u = SharedPrefController().user;
   Uri uri = Uri.parse(APISetting.get_orders.replaceFirst('{customer_id}/{status_id}','${u.id}/$statusId' ));
+  print(uri.path);
   var response = await http.get(uri, headers: headersWithOutToken);
 
   print(response.body);

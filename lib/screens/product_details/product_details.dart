@@ -336,7 +336,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
                         APIGetxController.to.putOrderProduct(
                             list: [APIGetxController.to.product.value]);
-                        Navigator.pushNamed(context, '/complete_buy_screen');
+                       Navigator.pushNamed(context, '/complete_buy_screen');
                       })
                 ],
               ),

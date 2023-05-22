@@ -282,9 +282,9 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
                                                 Visibility(
                                                   visible:controller.flagLoad.value,
                                                   child: SizedBox(
-                                                    height: 30.r,
-                                                      width: 30.r,
-                                                      child: CircularProgressIndicator()),
+                                                    height: 20.r,
+                                                      width: 20.r,
+                                                      child: CircularProgressIndicator(color: mainColor,)),
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsets.symmetric(horizontal: 8.0.r),
@@ -321,6 +321,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
           setState(() {
             currentIndex = value;
             APIGetxController.to.getOrders(statusId: currentIndex + 1);
+            print(currentIndex);
           });
         },
         indicator: BoxDecoration(

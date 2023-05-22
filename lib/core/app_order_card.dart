@@ -32,7 +32,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
         children: [
           Visibility(
             visible:widget.isOrder,
-            child: Checkbox(value: HiveGetXController.to.cartProducts[widget.index].itemCartFlag,
+            child: Checkbox(value: widget.index == 0?false:HiveGetXController.to.cartProducts[widget.index].itemCartFlag,
               onChanged: (value) {
                 HiveGetXController.to.cartProducts[widget.index].itemCartFlag= value!;
                 setState(() {

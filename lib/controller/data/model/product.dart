@@ -140,6 +140,11 @@ class Product {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Product{id: $id, categoryId: $categoryId, subcategoryId: $subcategoryId, productNameEn: $productNameEn, productNameAr: $productNameAr, brandEn: $brandEn, brandAr: $brandAr, productQty: $productQty, productSize: $productSize, basePrice: $basePrice, sellingPrice: $sellingPrice, discountPrice: $discountPrice, descriptionEn: $descriptionEn, descriptionAr: $descriptionAr, productThumbnail: $productThumbnail, trend: $trend, newProduct: $newProduct, offer: $offer, createdAt: $createdAt, updatedAt: $updatedAt, colors: $colors, multiImg: $multiImg, selectedColor: $selectedColor, selectedSize: $selectedSize, selectedQty: $selectedQty, itemCartFlag: $itemCartFlag}';
+  }
 }
 
 class MyColors {
