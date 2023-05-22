@@ -6,22 +6,40 @@ class HiveGetXController extends GetxController {
   final hive = HiveOperations();
   RxList<Product> cartProducts = <Product>[].obs;
   RxList<Product> favProducts = <Product>[].obs;
+  RxInt total = 0.obs;
+
+  getTotal(){
+    total.value = 0;
+    cartProducts.forEach((element) {
+      total.value += num.parse(element.sellingPrice!).toInt() * element.selectedQty!;
+    });
+    return total.value;
+  }
+  // RxList<bool> flag = <bool>[].obs;
+  RxBool allValue = false.obs;
 
   static HiveGetXController get to => Get.find<HiveGetXController>();
 
 
   Future<bool> addToCart({required Product p}) async {
     Product product = Product(id: p.id,trend: p.trend,productNameEn: p.productNameEn,productNameAr: p.productNameAr,offer: p.offer,newProduct: p.newProduct,brandAr: p.brandAr,brandEn: p.brandEn,productThumbnail: p.productThumbnail,discountPrice: p.discountPrice);
-    bool b = await hive.addToCart(product).then((value) => true);
-    cartProducts.add(product);
-    return b;
+    if(!hive.isInCart(id:p.id)){
+      bool b = await hive.addToCart(p).then((value) => true);
+      cartProducts.add(p);
+      return b;
+    }
+    return false;
   }
 
   Future<bool> addToFav({required Product p}) async {
     Product product = Product(id: p.id,trend: p.trend,productNameEn: p.productNameEn,productNameAr: p.productNameAr,offer: p.offer,newProduct: p.newProduct,brandAr: p.brandAr,brandEn: p.brandEn,productThumbnail: p.productThumbnail,discountPrice: p.discountPrice);
-    bool b =  await hive.addToFav(product).then((value) => true);
-    favProducts.add(product);
-    return b;
+    if(!hive.isInFav(id:p.id)){
+      bool b =  await hive.addToFav(p).then((value) => true);
+      favProducts.add(p);
+      return b;
+    }
+    return false;
+
   }
 
   Future<bool> deleteFromCart({required int id}) async {

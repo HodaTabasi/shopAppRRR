@@ -37,10 +37,14 @@ class HiveOperations {
   _cartBox.flush();
  }
 
+
  Future<void> deleteFromCart(int id) async {
   _cartBox = Hive.box('cart');
   await _cartBox.delete(id.toString());
   _cartBox.flush();
+ }
+ isInCart({id}){
+  return _cartBox.containsKey(id.toString());
  }
 
  Future<void> addToFav(Product product) async {
@@ -53,6 +57,9 @@ class HiveOperations {
   _favBox = Hive.box('fav');
   await _favBox.delete(id.toString());
   _cartBox.flush();
+ }
+ isInFav({id}){
+  return _favBox.containsKey(id.toString());
  }
 
 

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
 import '../controller/data/api/api_setting.dart';
@@ -11,8 +12,9 @@ import '../utils/helper.dart';
 class ListItemWidget extends StatefulWidget {
   bool isOrder;
   Product product;
-  ListItemWidget({required this.isOrder,required this.product
-  });
+  int index = 0;
+  ListItemWidget({required this.isOrder,required this.product,
+  this.index = 0});
 
   @override
   State<ListItemWidget> createState() => _ListItemWidgetState();
@@ -30,7 +32,11 @@ class _ListItemWidgetState extends State<ListItemWidget> {
         children: [
           Visibility(
             visible:widget.isOrder,
-            child: Checkbox(value: false, onChanged: (value) {
+            child: Checkbox(value: HiveGetXController.to.cartProducts[widget.index].itemCartFlag,
+              onChanged: (value) {
+                HiveGetXController.to.cartProducts[widget.index].itemCartFlag= value!;
+                setState(() {
+                });
             },),
           ),
           Padding(

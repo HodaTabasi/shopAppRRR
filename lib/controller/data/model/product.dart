@@ -40,7 +40,6 @@ class Product {
   int? offer;
   String? createdAt;
   String? updatedAt;
-
   List<MyColors>? colors;
   List<String>? multiImg;
   @HiveField(16)
@@ -49,6 +48,8 @@ class Product {
   String? selectedSize;
   @HiveField(18)
   int? selectedQty;
+  @HiveField(19)
+  bool itemCartFlag = false;
 
   Product(
       {this.id,

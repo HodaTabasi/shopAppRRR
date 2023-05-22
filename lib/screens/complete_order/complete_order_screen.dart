@@ -319,8 +319,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   performBuying() async {
     ApiResponse response = await APIGetxController.to.addOrder(order: order);
     showSnackBar(context: context,message: response.message,error: !response.success);
-    if(response.success)
+    if(response.success){
       Navigator.pushNamedAndRemoveUntil(context, '/main_screen', (route) => false);
+    }
   }
 
   Order get order {
