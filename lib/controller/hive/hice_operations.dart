@@ -73,4 +73,10 @@ class HiveOperations {
   return _favBox.values.toList();
  }
 
+ deleteAllProductFromCart() async {
+  _cartBox = Hive.box('cart');
+  await _cartBox.clear();
+  _cartBox.flush();
+ }
+
 }

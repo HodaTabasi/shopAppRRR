@@ -11,6 +11,7 @@ class HiveGetXController extends GetxController {
   getTotal(){
     total.value = 0;
     cartProducts.forEach((element) {
+      element.selectedQty??=1;
       total.value += num.parse(element.sellingPrice!).toInt() * element.selectedQty!;
     });
     return total.value;
@@ -56,6 +57,10 @@ class HiveGetXController extends GetxController {
       favProducts.removeWhere((element) => element.id == id);
     }
     return b;
+  }
+
+  deleteAllProductFromCart(){
+    hive.deleteAllProductFromCart();
   }
 
   readFromCart(){

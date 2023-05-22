@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
+import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -14,6 +15,8 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration.zero,() async {
       await APIGetxController.to.getSliders();
       await APIGetxController.to.getAllCategory();
+      await HiveGetXController.to.readFromCart();
+      await HiveGetXController.to.readFromFav();
       String route =  SharedPrefController().loggedIn?'/main_screen':'/login_screen';
       Navigator.pushReplacementNamed(context,route);
     } );

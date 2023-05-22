@@ -327,6 +327,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   BtnApp(
                       title: data.tr("buy"),
                       prsee: () {
+                        APIGetxController.to.cartFlag = false;
                         APIGetxController.to.product.value.selectedColor =
                             APIGetxController.to.color;
                         APIGetxController.to.product.value.selectedSize =

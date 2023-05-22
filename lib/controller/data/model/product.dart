@@ -45,7 +45,7 @@ class Product {
   @HiveField(16)
   String? selectedColor = "#000000";
   @HiveField(17)
-  String? selectedSize;
+  String? selectedSize = "36";
   @HiveField(18)
   int? selectedQty;
   @HiveField(19)

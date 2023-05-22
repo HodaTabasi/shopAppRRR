@@ -20,6 +20,7 @@ class APIGetxController extends GetxController {
   late Rx<Product> product = Product().obs;
   Category? category;
   bool flag = false;
+  bool cartFlag = false;
   int productId = 0;
   String color = "#000000";
   String size = "36";
