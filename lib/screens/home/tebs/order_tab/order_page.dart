@@ -9,6 +9,8 @@ import 'package:rrr_shop_app/core/skeleton.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
 
+import '../../../../controller/data/api/api_response.dart';
+
 class OrderPage extends StatefulWidget {
   @override
   State<OrderPage> createState() => _OrderPageState();
@@ -22,6 +24,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
 
   int currentIndex = 0;
   int expandIndex = -1;
+
 
   @override
   void initState() {
@@ -253,6 +256,46 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
                                   Divider(
                                     color: divider,
                                     thickness: 1,
+                                  ),
+                                  Stack(
+                                    children: [
+                                      Visibility(
+                                        visible:(currentIndex + 1) == 1,
+                                        child: Padding(
+                                          padding: EdgeInsets.all(8.0.r),
+                                          child: InkWell(
+                                            onTap: () async {
+                                              controller.flagLoad.value = true;
+                                              ApiResponse responce = await controller.cancelOrder(id:order.id.toString());
+                                              if(responce.success){
+                                                controller.orders.remove(order);
+                                                controller.flagLoad.value = false;
+                                              }
+                                            },
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Visibility(
+                                                 visible:!controller.flagLoad.value,
+                                                    child: Icon(Icons.clear,size: 20.r,color: Colors.red,)),
+                                                Visibility(
+                                                  visible:controller.flagLoad.value,
+                                                  child: SizedBox(
+                                                    height: 30.r,
+                                                      width: 30.r,
+                                                      child: CircularProgressIndicator()),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.symmetric(horizontal: 8.0.r),
+                                                  child: Text("cancel_order",style: TextStyle(color: Color(0xff4D4D4D),fontSize: 14.sp),).tr(),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   )
                                 ],
                               ),

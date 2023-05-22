@@ -72,6 +72,14 @@ class DataRepository with ApiHelper{
     return jsonArray.map((jsonObject) => MyNotification.fromJson(jsonObject)).toList();
   }
 
+  dynamic cancelOrder({id}) async {
+    final jsonResponse = await _apiController.cancelOrder(id: id);
+    if(jsonResponse['status']){
+      return successResponce;
+    }
+    return failedResponse;
+  }
+
   dynamic login({phone}) async {
     final jsonResponse = await _apiController.login(phone: phone);
     if(jsonResponse['success']){

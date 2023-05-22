@@ -148,6 +148,22 @@ dynamic getNotifications() async {
   }
   return null;
 }
+dynamic cancelOrder({id}) async {
+  Uri uri = Uri.parse(APISetting.cancel_order.replaceFirst("{id}", id));
+  var response = await http.post(uri, headers: headersWithOutToken);
+
+  print(response.body);
+
+  if (response.statusCode == 200 || response.statusCode == 400) {
+    var jsonResponse = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      return jsonResponse;
+    }
+  }
+  return null;
+}
+
+///////////////////////Auth/////////////////////////
 
 dynamic login({phone}) async {
   Uri uri = Uri.parse(APISetting.login);

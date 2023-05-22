@@ -125,7 +125,7 @@ class _GoogleMapLcationPageState extends State<GoogleMapLcationPage> {
               left: 10.w,
               right: 10.w,
               child: BtnApp(
-                  title: "select",
+                  title: "select".tr(),
                   prsee: () {
                     Navigator.pop(context);
                   }),

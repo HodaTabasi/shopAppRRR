@@ -15,4 +15,5 @@ class APISetting {
   static String login = "${BASE_URL}customers/login";
   static String register = "${BASE_URL}customers/register";
   static String update_user = "${BASE_URL}customers/update";
+  static String cancel_order = "${BASE_URL}orders/cancel_order/{id}";
 }

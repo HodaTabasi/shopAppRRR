@@ -26,6 +26,7 @@ class APIGetxController extends GetxController {
   String size = "36";
 
   RxBool isLoading = false.obs;
+  RxBool flagLoad = false.obs;
 
   List<RadioModel> sampleData = [];
   RxString address = "الخرطوم السودان شارع سنجانة".obs;
@@ -88,6 +89,10 @@ class APIGetxController extends GetxController {
 
   Future<List<MyNotification>> getNotification() async {
     return await DataRepository().getNotifications();
+  }
+
+  Future<ApiResponse> cancelOrder({id}) async {
+    return await DataRepository().cancelOrder(id: id);
   }
 
   changeExpanded(index,isExpanded){

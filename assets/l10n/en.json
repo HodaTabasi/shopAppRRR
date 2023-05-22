@@ -81,5 +81,7 @@
   "update": "Update Profile",
   "from_galary": "From Gallery",
   "from_camera": "From Camera",
-  "no_data_found": "No Data Found"
+  "no_data_found": "No Data Found",
+  "cancel_order": "Cancel Order",
+  "select": "Select"
 }
