@@ -36,13 +36,14 @@ class ProductAdapter extends TypeAdapter<Product> {
     )
       ..selectedColor = fields[16] as String?
       ..selectedSize = fields[17] as String?
-      ..selectedQty = fields[18] as int?;
+      ..selectedQty = fields[18] as int?
+      ..itemCartFlag = fields[19] as bool;
   }
 
   @override
   void write(BinaryWriter writer, Product obj) {
     writer
-      ..writeByte(19)
+      ..writeByte(20)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -80,7 +81,9 @@ class ProductAdapter extends TypeAdapter<Product> {
       ..writeByte(17)
       ..write(obj.selectedSize)
       ..writeByte(18)
-      ..write(obj.selectedQty);
+      ..write(obj.selectedQty)
+      ..writeByte(19)
+      ..write(obj.itemCartFlag);
   }
 
   @override
