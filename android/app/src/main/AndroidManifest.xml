@@ -10,9 +10,9 @@
 
 
     <application
-        android:label="rrr_shop_app"
+        android:label="RRR Shop"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/logo">
 
         <!-- TODO: Add your Google Maps API key here -->
         <meta-data android:name="com.google.android.geo.API_KEY"

@@ -45,10 +45,7 @@ class APIGetxController extends GetxController {
   }
 
   getAllProduct() {
-    print(SharedPrefController().lastUpdate);
-    print(DateFormat('yyyy-MM-dd – kk:mm')
-        .parse(SharedPrefController().lastUpdate)
-        .isBefore(DateTime.now()));
+
 
     if (SharedPrefController().lastUpdate.isEmpty) {
       get();
@@ -71,7 +68,6 @@ class APIGetxController extends GetxController {
   }
 
   get() {
-    print(SharedPrefController().lastUpdate);
     isLoading.value = true;
     DataRepository().getAllProduct().then((value) async {
       productMap.addAll(
