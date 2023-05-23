@@ -12,6 +12,7 @@ import '../data/model/product.dart';
 
 class APIGetxController extends GetxController {
   RxList<Product> products = <Product>[].obs;
+  RxList<Product> FillterResult = <Product>[].obs;
   RxList<Product> orderProduct = <Product>[].obs;
   Map<String, List<Product>> productMap = {};
   RxList<Order> orders = <Order>[].obs;
@@ -101,6 +102,15 @@ class APIGetxController extends GetxController {
 
   Future<ApiResponse> addOrder({order}) async {
     return await DataRepository().addOrder(order: order);
+  }
+
+  getFiltter({search}) {
+    isLoading.value = true;
+    DataRepository().Filtter(search: search).then((value) {
+      FillterResult.value = value;
+
+      isLoading.value = false;
+    });
   }
 
   getSliders() async {

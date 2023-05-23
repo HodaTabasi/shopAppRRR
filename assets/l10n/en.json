@@ -83,5 +83,12 @@
   "from_camera": "From Camera",
   "no_data_found": "No Data Found",
   "cancel_order": "Cancel Order",
-  "select": "Select"
+  "select": "Select",
+  "search1": "Show Result",
+  "fiha": "Category",
+  "type": "Product Type",
+  "price": "Price",
+  "filtering": "Filtering",
+  "search2": "search",
+  "result": "result"
 }

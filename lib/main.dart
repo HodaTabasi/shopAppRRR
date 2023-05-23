@@ -13,6 +13,7 @@ import 'package:rrr_shop_app/screens/cat_product/cat_product_screen.dart';
 import 'package:rrr_shop_app/screens/complete_order/complete_order_screen.dart';
 import 'package:rrr_shop_app/screens/complete_order/google_map_location.dart';
 import 'package:rrr_shop_app/screens/fillter/fillter_page.dart';
+import 'package:rrr_shop_app/screens/fillter/result_page.dart';
 import 'package:rrr_shop_app/screens/home/navigation_buttom.dart';
 import 'package:rrr_shop_app/screens/login_screen.dart';
 import 'package:rrr_shop_app/screens/notification/notification_screen.dart';
@@ -26,6 +27,7 @@ import 'package:rrr_shop_app/utils/notification/fb_notifications.dart';
 import 'controller/get/Notification_getx_controller.dart';
 import 'controller/get/api_auth_getx_controller.dart';
 import 'controller/get/api_getx_controller.dart';
+import 'controller/get/fillter_getx.dart';
 import 'controller/get/general_controler.dart';
 import 'controller/get/hive_getx_controller.dart';
 import 'controller/get/languages_getx_controoler.dart';
@@ -79,6 +81,7 @@ class _MyAppState extends State<MyApp> with FbNotifications{
   HiveGetXController controller4 = Get.put<HiveGetXController>(HiveGetXController());
   NotificationGetxController controller5 = Get.put<NotificationGetxController>(NotificationGetxController());
   GeneralDataController controller6 = Get.put<GeneralDataController>(GeneralDataController());
+  FillterGetXController controller7 = Get.put<FillterGetXController>(FillterGetXController());
 
   // This widget is the root of your application.
   @override
@@ -115,6 +118,7 @@ class _MyAppState extends State<MyApp> with FbNotifications{
                 '/fillter_screen': (context) => FillterScreen(),
                 '/map_screen': (context) => GoogleMapLcationPage(),
                 '/notification_screen': (context) => MyNotificationScreen(),
+                '/result_screen': (context) => ResultPage(),
               },
             );
             }
@@ -126,7 +130,7 @@ class _MyAppState extends State<MyApp> with FbNotifications{
     String? token = await FirebaseMessaging.instance.getToken();
 
     SharedPrefController().saveUserDeviceId(token);
-    // await FirebaseMessaging.instance.subscribeToTopic("all");
+    await FirebaseMessaging.instance.subscribeToTopic("all");
   }
 
   @override

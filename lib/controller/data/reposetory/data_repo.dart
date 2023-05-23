@@ -80,6 +80,12 @@ class DataRepository with ApiHelper{
     return failedResponse;
   }
 
+  Future<List<Product>> Filtter({search}) async {
+    final jsonResponse = await _apiController.Filtter(search:search);
+    var jsonArray = jsonResponse['data'] as List;
+    return jsonArray.map((jsonObject) => Product.fromJson(jsonObject)).toList();
+  }
+
   dynamic login({phone}) async {
     final jsonResponse = await _apiController.login(phone: phone);
     if(jsonResponse['success']){

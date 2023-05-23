@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart' as data;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rrr_shop_app/controller/get/fillter_getx.dart';
 
 import '../../core/btn_layout.dart';
 
@@ -20,28 +22,31 @@ class _ChoosereState extends State<Choosere> {
         children: [
           Flexible(
               child: BtnLayout(
-                title: "trend",
+                title: data.tr("trend"),
                 value: 0,
                 groupValue: _value,
                 onChanged: (value) => setState(() {
                   _value = value;
+                  FillterGetXController.to.valueType = _value;
                    }),
               )),
           Flexible(
               child: BtnLayout(
-                  title: "new",
+                  title: data.tr("new2"),
                   value: 1,
                   groupValue: _value,
                   onChanged: (value) => setState(() {
                     _value = value;
+                    FillterGetXController.to.valueType = _value;
                   } ))),
           Flexible(
               child: BtnLayout(
-                  title: "offers",
+                  title: data.tr("offer"),
                   value: 2,
                   groupValue: _value,
                   onChanged: (value) => setState(() {
                     _value = value;
+                    FillterGetXController.to.valueType = _value;
                   } ))),
         ],
       ),

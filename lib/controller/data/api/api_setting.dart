@@ -16,4 +16,6 @@ class APISetting {
   static String register = "${BASE_URL}customers/register";
   static String update_user = "${BASE_URL}customers/update";
   static String cancel_order = "${BASE_URL}orders/cancel_order/{id}";
+  static String fillter = "${BASE_URL}products/search";
+  static String delete_user = "${BASE_URL}customers/destroy/{phone_number}";
 }

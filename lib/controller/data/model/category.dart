@@ -48,6 +48,11 @@ class Category {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'Category{id: $id, categoryId: $categoryId, nameEn: $nameEn, nameAr: $nameAr, createdAt: $createdAt, updatedAt: $updatedAt, subCategory: $subCategory}';
+  }
 }
 
 

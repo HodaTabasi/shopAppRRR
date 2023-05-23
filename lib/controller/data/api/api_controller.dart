@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
+import 'package:rrr_shop_app/controller/data/model/search.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
 import '../model/user.dart';
@@ -72,6 +73,9 @@ dynamic getOrders({statusId}) async {
   }
   return null;
 }
+
+
+
 
 dynamic addOrder({order}) async {
   print(order.toJson1());
@@ -152,6 +156,22 @@ dynamic getNotifications() async {
 dynamic cancelOrder({id}) async {
   Uri uri = Uri.parse(APISetting.cancel_order.replaceFirst("{id}", id));
   var response = await http.post(uri, headers: headersWithOutToken);
+
+  print(response.body);
+
+  if (response.statusCode == 200 || response.statusCode == 400) {
+    var jsonResponse = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      return jsonResponse;
+    }
+  }
+  return null;
+}
+
+dynamic Filtter({required Search search}) async {
+
+  Uri uri = Uri.parse(APISetting.fillter);
+  var response = await http.post(uri, headers: headersWithOutToken,body: search.toJson());
 
   print(response.body);
 

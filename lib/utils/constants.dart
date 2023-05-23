@@ -14,6 +14,21 @@ Color miniground = Color(0xffC6B48C);
 Color divider = Color(0xffD0D0D0);
 Color textColor = Color(0xff636363);
 
+getColorCode(pickerColor){
+  var color =
+  pickerColor.toString().replaceAll(RegExp(r'(?:_|[^\w\s])+'), '');
+  var rSpaceColor = color.replaceAll(RegExp(r'(\s)'), '');
+
+  var rcolorText = rSpaceColor.toLowerCase().replaceAll(RegExp(r'color'), '');
+
+  var materialPrimaryvalue = 'materialprimaryvalue'.toLowerCase();
+  var replaceWith = '';
+  var colorCode = rcolorText.replaceAll(materialPrimaryvalue, replaceWith);
+
+  int colorCodeInt = num.tryParse(colorCode) as int;
+  return colorCode;
+}
+
 const double defaultPadding = 16.0;
 
 decoration({double blurRadius = 0.0,double radius = 0.0}){

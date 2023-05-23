@@ -58,7 +58,9 @@ class _CatProductScreenState extends State<CatProductScreen> {
                     Padding(
                       padding: EdgeInsets.all(8.0.r),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, '/fillter_screen');
+                        },
                         child: SvgPicture.asset("assets/images/fillter.svg"),
                       ),
                     )

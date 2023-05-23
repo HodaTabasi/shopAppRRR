@@ -1,6 +1,12 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' as data;
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:rrr_shop_app/controller/data/model/search.dart';
+import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
+import 'package:rrr_shop_app/controller/get/fillter_getx.dart';
+import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 import 'package:rrr_shop_app/core/app_button.dart';
 import 'package:rrr_shop_app/screens/fillter/toggle_button.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
@@ -8,6 +14,7 @@ import 'package:rrr_shop_app/utils/helper.dart';
 import '../../utils/CustomRadio.dart';
 import '../../utils/constants.dart';
 import '../../utils/size_custom_radio.dart';
+import 'package:rrr_shop_app/controller/data/model/category.dart';
 
 class FillterScreen extends StatefulWidget {
   @override
@@ -16,27 +23,27 @@ class FillterScreen extends StatefulWidget {
 
 class _FillterScreenState extends State<FillterScreen> {
   // Initial Selected Value
-  String dropdownvalue = 'Item 1';
+  Category dropdownvalue = APIGetxController.to.cate[0];
+  RangeValues values = RangeValues(0.0, 1.0);
 
   // List of items in our dropdown menu
-  var items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-  ];
-  List<RadioModel> sampleData =  [];
+  // var items = [
+  //   'Item 1',
+  //   'Item 2',
+  //   'Item 3',
+  //   'Item 4',
+  //   'Item 5',
+  // ];
+  // List<RadioModel> sampleData = [];
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // sampleData.add(new RadioModel(false, 'A', 'April 18'));
-    // sampleData.add(new RadioModel(false, 'B', 'April 17'));
-    // sampleData.add(new RadioModel(false, 'C', 'April 16'));
-    // sampleData.add(new RadioModel(false, 'D', 'April 15'));
+  var pickerColor = Colors.black;
+
+  Color currentColor = const Color(0xff443a49);
+
+  void changeColor(Color color) {
+    setState(() => pickerColor = color);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +53,7 @@ class _FillterScreenState extends State<FillterScreen> {
           backgroundColor: background,
           toolbarHeight: 60.h,
           title: const Text(
-            "order",
+            "filtering",
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.w900),
           ).tr(),
           centerTitle: true,
@@ -68,21 +75,27 @@ class _FillterScreenState extends State<FillterScreen> {
             getSpace(h: 8.h),
             Text(
               "price",
-              style:
-                  TextStyle(color: Colors.black,),
+              style: TextStyle(
+                color: Colors.black,
+              ),
             ).tr(),
             RangeSlider(
-              values: RangeValues(0.0, 0.5),
-              onChanged: (value) {},
+              values: values,
+              onChanged: (value) {
+                setState(() {
+                  values = value;
+                  FillterGetXController.to.minPrice = values.start * 1000;
+                  FillterGetXController.to.maxPrice = values.end * 1000;
+                });
+              },
               activeColor: mainColor,
               inactiveColor: divider,
-              labels: RangeLabels('0','20'),
+              labels: RangeLabels('10', '1000'),
             ),
             getSpace(h: 8.0.h),
             Text(
               "type",
-              style:
-              TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.black),
             ).tr(),
             getSpace(h: 8.0.h),
             Choosere(),
@@ -94,24 +107,13 @@ class _FillterScreenState extends State<FillterScreen> {
               ),
             ).tr(),
             getSpace(h: 8.0.r),
-            SizedBox(
-              height: 50.h,
-              child:ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: sampleData.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return  InkWell(
-                    //highlightColor: Colors.red,
-                    splashColor: Colors.blueAccent,
-                    onTap: () {
-                      setState(() {
-                        sampleData.forEach((element) => element.isSelected = false);
-                        sampleData[index].isSelected = true;
-                      });
-                    },
-                    // child:  RadioItem(sampleData[index]),
-                  );
-                },
+            InkWell(
+              onTap: () {
+                colorPickerDialog();
+              },
+              child: CircleAvatar(
+                backgroundColor: pickerColor,
+                radius: 25,
               ),
             ),
             getSpace(h: 8.0.r),
@@ -122,7 +124,7 @@ class _FillterScreenState extends State<FillterScreen> {
               ),
             ).tr(),
             getSpace(h: 8.0.r),
-            DropdownButton(
+            DropdownButton<Category>(
               isExpanded: true,
               // Initial Value
               value: dropdownvalue,
@@ -131,10 +133,14 @@ class _FillterScreenState extends State<FillterScreen> {
               icon: const Icon(Icons.keyboard_arrow_down),
 
               // Array list of items
-              items: items.map((String items) {
+              items: APIGetxController.to.cate.map((Category items) {
                 return DropdownMenuItem(
                   value: items,
-                  child: Text(items),
+                  child: Text(SharedPrefController()
+                              .getValueFor(key: PrefKeys.lang.name) ==
+                          'ar'
+                      ? items.nameAr!
+                      : items.nameEn!),
                 );
               }).toList(),
               // After selecting the desired option,it will
@@ -142,14 +148,106 @@ class _FillterScreenState extends State<FillterScreen> {
               onChanged: (newValue) {
                 setState(() {
                   dropdownvalue = newValue!;
+                  print(newValue);
+                  FillterGetXController.to.categoryId =
+                      newValue.categoryId ?? newValue.id!;
                 });
               },
             ),
             Spacer(),
-            BtnApp(title: "search".tr(), prsee: (){})
+            GetX<APIGetxController>(builder: (controller) {
+              return Row(
+                children: [
+                  Expanded(
+                      child: BtnApp(
+                          title:
+                              "${data.tr("search1")} ${controller.FillterResult.length}",
+                          prsee: () => showResult())),
+                  SizedBox(
+                    width: 100.w,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.all(12.r),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25.r),
+                                side: BorderSide(color: mainColor, width: 1)),
+                            backgroundColor: Colors.white,
+                            elevation: 0),
+                        onPressed: () => performTask(),
+                        child: controller.isLoading.value
+                            ? SizedBox(
+                                width: 20.w,
+                                height: 20.h,
+                                child: CircularProgressIndicator(color: mainColor),
+                              )
+                            : Text(
+                                "search2",
+                                style: TextStyle(
+                                    fontSize: 15.sp,
+                                    color: mainColor,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'avenir'),
+                              ).tr()),
+                  )
+                ],
+              );
+            })
           ],
         ),
       ),
     );
+  }
+
+  Future colorPickerDialog() {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
+        content: SingleChildScrollView(
+          child: BlockPicker(
+            pickerColor: pickerColor,
+            onColorChanged: changeColor,
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0.0)),
+                padding: const EdgeInsets.only(
+                    left: 30.0, top: 0.0, right: 30.0, bottom: 0.0)),
+            onPressed: () {
+              FillterGetXController.to.color =
+                  getColorCode(pickerColor).toString();
+              Navigator.of(context).pop(false);
+            },
+            child: const Text('CLOSE', style: TextStyle(color: Colors.blue)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  performTask() {
+    APIGetxController.to.getFiltter(search: search);
+  }
+
+  Search get search {
+    Search s = Search();
+    s.categoryId = FillterGetXController.to.categoryId.toString();
+    s.productType = FillterGetXController.to.valueType.toString();
+    s.maxPrice = FillterGetXController.to.maxPrice.toString();
+    s.minPrice = FillterGetXController.to.minPrice.toString();
+    s.productColor = FillterGetXController.to.color;
+    // s.productColor = FillterGetXController.to.color;
+    return s;
+  }
+
+  showResult() {
+    if (APIGetxController.to.FillterResult.isNotEmpty) {
+      Navigator.pushNamed(context, '/result_screen');
+    } else {
+      showSnackBar(context: context, message: "search first", error: true);
+    }
   }
 }
