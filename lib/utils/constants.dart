@@ -1,8 +1,10 @@
 import 'dart:ui';
+import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
 import 'SizeConfig.dart';
 
@@ -28,6 +30,13 @@ getColorCode(pickerColor){
   int colorCodeInt = num.tryParse(colorCode) as int;
   return colorCode;
 }
+
+// DateTime toDateTime(){
+//   int ts = SharedPrefController().lastUpdate;
+//   print(ts);
+//   print(DateTime.now().millisecond);
+//   return DateTime.fromMillisecondsSinceEpoch(SharedPrefController().lastUpdate);
+// }
 
 const double defaultPadding = 16.0;
 

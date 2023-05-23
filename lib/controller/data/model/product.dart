@@ -1,58 +1,65 @@
 import 'package:hive/hive.dart';
 
+import 'MyColors.dart';
+
 part 'product.g.dart';
 
 @HiveType(typeId: 1)
 class Product {
   @HiveField(0)
   int? id;
-  int? categoryId;
-  int? subcategoryId;
   @HiveField(1)
-  String? productNameEn;
+  int? categoryId;
   @HiveField(2)
-  String? productNameAr;
+  int? subcategoryId;
   @HiveField(3)
-  String? brandEn;
+  String? productNameEn;
   @HiveField(4)
-  String? brandAr;
+  String? productNameAr;
   @HiveField(5)
-  String? productQty;
+  String? brandEn;
   @HiveField(6)
-  String? productSize;
+  String? brandAr;
   @HiveField(7)
-  String? basePrice;
+  String? productQty;
   @HiveField(8)
-  String? sellingPrice;
+  String? productSize;
   @HiveField(9)
-  String? discountPrice;
+  String? basePrice;
   @HiveField(10)
-  String? descriptionEn;
+  String? sellingPrice;
   @HiveField(11)
-  String? descriptionAr;
+  String? discountPrice;
   @HiveField(12)
-  String? productThumbnail;
+  String? descriptionEn;
   @HiveField(13)
-  int? trend;
+  String? descriptionAr;
   @HiveField(14)
-  int? newProduct;
+  String? productThumbnail;
   @HiveField(15)
-  int? offer;
-  String? createdAt;
-  String? updatedAt;
-  List<MyColors>? colors;
-  List<String>? multiImg;
+  int? trend;
   @HiveField(16)
-  String? selectedColor = "#000000";
+  int? newProduct;
   @HiveField(17)
-  String? selectedSize = "36";
+  int? offer;
   @HiveField(18)
-  int? selectedQty;
+  String? createdAt;
   @HiveField(19)
+  String? updatedAt;
+  @HiveField(20)
+  List<MyColors>? colors;
+  @HiveField(21)
+  List<String>? multiImg;
+  @HiveField(22)
+  String? selectedColor = "#000000";
+  @HiveField(23)
+  String? selectedSize = "36";
+  @HiveField(24)
+  int? selectedQty;
+  @HiveField(25)
   bool itemCartFlag = false;
 
-  Product(
-      {this.id,
+  Product({this.id,
         this.categoryId,
         this.subcategoryId,
         this.productNameEn,
@@ -144,35 +151,5 @@ class Product {
   @override
   String toString() {
     return 'Product{id: $id, categoryId: $categoryId, subcategoryId: $subcategoryId, productNameEn: $productNameEn, productNameAr: $productNameAr, brandEn: $brandEn, brandAr: $brandAr, productQty: $productQty, productSize: $productSize, basePrice: $basePrice, sellingPrice: $sellingPrice, discountPrice: $discountPrice, descriptionEn: $descriptionEn, descriptionAr: $descriptionAr, productThumbnail: $productThumbnail, trend: $trend, newProduct: $newProduct, offer: $offer, createdAt: $createdAt, updatedAt: $updatedAt, colors: $colors, multiImg: $multiImg, selectedColor: $selectedColor, selectedSize: $selectedSize, selectedQty: $selectedQty, itemCartFlag: $itemCartFlag}';
-  }
-}
-
-class MyColors {
-  int? id;
-  int? productId;
-  String? color;
-  String? createdAt;
-  String? updatedAt;
-  bool? isSelected;
-
-  MyColors({this.id, this.productId, this.color, this.createdAt, this.updatedAt});
-
-  MyColors.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    productId = json['product_id'];
-    color = json['color'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    isSelected = false;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['product_id'] = this.productId;
-    data['color'] = this.color;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    return data;
   }
 }

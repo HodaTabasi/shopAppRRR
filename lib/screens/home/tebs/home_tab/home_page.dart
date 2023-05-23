@@ -6,6 +6,7 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
 import 'package:rrr_shop_app/controller/data/model/product.dart';
 import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
+import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 import 'package:rrr_shop_app/screens/home/tebs/home_tab/widget/search_widget.dart';
 import 'package:rrr_shop_app/screens/home/tebs/home_tab/widget/slider_widget.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
@@ -32,6 +33,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void initState() {
     controller = TabController(length: l.length, vsync: this);
     tabController = TabController(length: 3, vsync: this);
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       APIGetxController.to.getAllProduct();
     });

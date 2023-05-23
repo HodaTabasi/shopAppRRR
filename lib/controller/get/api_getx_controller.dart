@@ -1,10 +1,13 @@
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:rrr_shop_app/controller/data/api/api_response.dart';
 import 'package:rrr_shop_app/controller/data/model/category.dart';
 import 'package:rrr_shop_app/controller/data/model/notification.dart';
 import 'package:rrr_shop_app/controller/data/model/slider.dart';
 import 'package:rrr_shop_app/controller/data/reposetory/data_repo.dart';
+import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
+import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
 import '../../utils/size_custom_radio.dart';
 import '../data/model/order.dart';
@@ -33,17 +36,44 @@ class APIGetxController extends GetxController {
   RxString address = "الخرطوم السودان شارع سنجانة".obs;
 
   XFile? pickedFile;
-  late Rx<XFile> picke =  XFile("").obs ;
+  late Rx<XFile> picke = XFile("").obs;
 
   static APIGetxController get to => Get.find<APIGetxController>();
 
-  changeFile(XFile? xFile){
+  changeFile(XFile? xFile) {
     picke.value = XFile(xFile!.path);
-
   }
+
   getAllProduct() {
+    print(SharedPrefController().lastUpdate);
+    print(DateFormat('yyyy-MM-dd – kk:mm')
+        .parse(SharedPrefController().lastUpdate)
+        .isBefore(DateTime.now()));
+
+    if (SharedPrefController().lastUpdate.isEmpty) {
+      get();
+    } else {
+      if (DateFormat('yyyy-MM-dd – kk:mm')
+          .parse(SharedPrefController().lastUpdate)
+          .isBefore(DateTime.now())) {
+        get();
+      } else {
+        List<Product> p = HiveGetXController.to.readAllProduct();
+        productMap.addAll(
+            {"trend": p.where((element) => element.trend == 1).toList()});
+        productMap.addAll(
+            {"new": p.where((element) => element.newProduct == 1).toList()});
+        productMap.addAll(
+            {"offers": p.where((element) => element.offer == 1).toList()});
+        products.value = productMap["new"] ?? [];
+      }
+    }
+  }
+
+  get() {
+    print(SharedPrefController().lastUpdate);
     isLoading.value = true;
-    DataRepository().getAllProduct().then((value) {
+    DataRepository().getAllProduct().then((value) async {
       productMap.addAll(
           {"trend": value.where((element) => element.trend == 1).toList()});
       productMap.addAll(
@@ -51,6 +81,9 @@ class APIGetxController extends GetxController {
       productMap.addAll(
           {"offers": value.where((element) => element.offer == 1).toList()});
       products.value = productMap["new"] ?? [];
+      await SharedPrefController().lastUpdate1(DateFormat('yyyy-MM-dd – kk:mm')
+          .format(DateTime.now().add(const Duration(days: 1))));
+      await HiveGetXController.to.addAllProduct(products.value);
       isLoading.value = false;
     });
   }
@@ -96,7 +129,7 @@ class APIGetxController extends GetxController {
     return await DataRepository().cancelOrder(id: id);
   }
 
-  changeExpanded(index,isExpanded){
+  changeExpanded(index, isExpanded) {
     orders[index].isExpanded = isExpanded;
   }
 
@@ -147,16 +180,17 @@ class APIGetxController extends GetxController {
     });
   }
 
-  getProduct(){
+  getProduct() {
     isLoading.value = true;
-    if(flag){
-      getProductBySubCateId(id: category!.id.toString(),subId: category!.subCategory.toString());
-    }else{
+    if (flag) {
+      getProductBySubCateId(
+          id: category!.id.toString(), subId: category!.subCategory.toString());
+    } else {
       getProductByCateId(id: category!.id.toString());
     }
   }
 
-  putOrderProduct({list}){
+  putOrderProduct({list}) {
     orderProduct.value = list;
     // print(orderProduct.value);
   }

@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/model/user.dart';
 
-enum PrefKeys {loggedIn, lang ,user,token,notificaionNumber}
+enum PrefKeys {loggedIn, lang ,user,token,notificaionNumber,lastUpdate}
 
 
 
@@ -22,6 +22,7 @@ class SharedPrefController {
     _sharedPreferences = await SharedPreferences.getInstance();
     if(_sharedPreferences.get(PrefKeys.lang.name) == null)
       await _sharedPreferences.setString(PrefKeys.lang.name, 'ar');
+
   }
 
   Future<void> saveUserDeviceId(token) async {
@@ -49,6 +50,11 @@ class SharedPrefController {
       _sharedPreferences.getBool(PrefKeys.loggedIn.name) ?? false;
 
   set loggedIn(b) => _sharedPreferences.setBool(PrefKeys.loggedIn.name, b) ;
+
+  String get lastUpdate =>
+      _sharedPreferences.getString(PrefKeys.lastUpdate.name) ?? "";
+
+   Future<bool> lastUpdate1(b) async => await _sharedPreferences.setString(PrefKeys.lastUpdate.name, b) ;
 
   T? getValueFor<T>({required String key}) {
     if (_sharedPreferences.containsKey(key)) {

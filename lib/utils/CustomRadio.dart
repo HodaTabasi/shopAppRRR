@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rrr_shop_app/controller/data/model/product.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
 
+import '../controller/data/model/MyColors.dart';
+
 class RadioItem extends StatelessWidget {
   final MyColors _item;
 

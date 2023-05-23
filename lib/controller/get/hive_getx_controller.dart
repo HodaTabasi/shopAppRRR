@@ -67,7 +67,17 @@ class HiveGetXController extends GetxController {
     cartProducts.value = hive.getAllCart();
   }
 
+  readAllProduct(){
+    return hive.getAllProduct();
+  }
+
+  addAllProduct(product){
+    return hive.addAllProduct(product);
+  }
+
   readFromFav(){
     favProducts.value = hive.getAllFav();
   }
+
+
 }
