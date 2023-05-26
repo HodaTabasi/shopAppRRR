@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../utils/constants.dart';
 
@@ -48,7 +49,9 @@ class SuppourtSheet extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
-                      onTap: (){},
+                      onTap: (){
+                        _launchUrl(Uri.parse("tel:0905305315"));
+                      },
                       child: SvgPicture.asset("assets/images/Telephone conversation 42_ 42.svg"),
                     ),
                   ),
@@ -62,24 +65,29 @@ class SuppourtSheet extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
-                      onTap: (){},
-                      child: SvgPicture.asset("assets/images/insta.svg"),
+                      onTap: (){
+                        print("object");
+                        _launchUrl(Uri.parse("https://instagram.com/rrr_store103?igshid=ZGUzMzM3NWJiOQ=="));
+                      },
+                      child: Image.asset("assets/images/instagram.png"),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
-                      onTap: (){},
+                      onTap: (){
+                        _launchUrl(Uri.parse("https://www.facebook.com/profile.php?id=100092446166287"));
+                      },
                       child: SvgPicture.asset("assets/images/facebook.svg"),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                      onTap: (){},
-                      child: SvgPicture.asset("assets/images/twitter.svg"),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: InkWell(
+                  //     onTap: (){},
+                  //     child: SvgPicture.asset("assets/images/twitter.svg"),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -97,5 +105,10 @@ class SuppourtSheet extends StatelessWidget {
         ),
       ),
     );
+  }
+  Future<void> _launchUrl(url) async {
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
   }
 }
