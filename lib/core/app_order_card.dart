@@ -87,7 +87,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "\$${widget.product.sellingPrice}",
+                        "\$${getDiscountPrice(widget.product.discountPrice!, widget.product.sellingPrice!)}",
                         style: TextStyle(
                             color: mainColor,
                             fontWeight: FontWeight.bold,

@@ -35,7 +35,12 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   getTotalPrice() {
     APIGetxController.to.orderProduct.forEach((element) {
       element.selectedQty??=1;
-      total += element.selectedQty! * num.parse(element.sellingPrice!);
+      if(element.discountPrice == 0){
+        total += element.selectedQty! * num.parse(element.sellingPrice!);
+      }else {
+        total += element.selectedQty! * num.parse(getDiscountPrice(element.discountPrice!, element.sellingPrice!));
+      }
+
     });
   }
 

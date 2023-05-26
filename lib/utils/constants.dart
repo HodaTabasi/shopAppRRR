@@ -31,6 +31,10 @@ getColorCode(pickerColor){
   return colorCode;
 }
 
+String getDiscountPrice(String price,String sellingPrice){
+  return (((100-num.parse(price))*num.parse(sellingPrice))/100).toStringAsFixed(2);
+}
+
 // DateTime toDateTime(){
 //   int ts = SharedPrefController().lastUpdate;
 //   print(ts);

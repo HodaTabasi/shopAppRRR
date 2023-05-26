@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:rrr_shop_app/controller/data/model/product.dart';
 import 'package:rrr_shop_app/controller/hive/hice_operations.dart';
 
+import '../../utils/constants.dart';
+
 class HiveGetXController extends GetxController {
   final hive = HiveOperations();
   RxList<Product> cartProducts = <Product>[].obs;
@@ -12,6 +14,11 @@ class HiveGetXController extends GetxController {
     total.value = 0;
     cartProducts.forEach((element) {
       element.selectedQty??=1;
+      if(element.discountPrice == 0){
+        total.value += element.selectedQty! * num.parse(element.sellingPrice!).toInt();
+      }else {
+        total.value += element.selectedQty! * num.parse(getDiscountPrice(element.discountPrice!, element.sellingPrice!)).toInt();
+      }
       total.value += num.parse(element.sellingPrice!).toInt() * element.selectedQty!;
     });
     return total.value;

@@ -24,12 +24,15 @@ class _ProductDetailsState extends State<ProductDetails> {
   // List<RadioModel> sampleData =  [];
 
   var value = 1;
+  var currentIndex = 0;
+  late PageController pageController;
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getData();
     });
+    pageController = PageController(initialPage: 0);
     super.initState();
   }
 
@@ -111,14 +114,25 @@ class _ProductDetailsState extends State<ProductDetails> {
                     children: [
                       SizedBox(
                         height: 230.h,
-                        child: PageView(
+                        child: APIGetxController.to.product.value.multiImg!.isEmpty?PageView(
                           children: [
                             Image.network(
                               "${APISetting.IMAGE_BASE_URL}${APIGetxController.to.product.value.productThumbnail}",
                               fit: BoxFit.fill,
                             )
                           ],
-                        ),
+                        ):PageView.builder(
+                          itemCount: APIGetxController.to.product.value.multiImg!.length,
+                          controller: pageController,
+                          onPageChanged: (value) {
+
+                          },
+                          itemBuilder: (context, index) {
+                          return  Image.network(
+                            "${APISetting.IMAGE_BASE_URL}${APIGetxController.to.product.value.multiImg![index]}",
+                            fit: BoxFit.fill,
+                          );
+                        },),
                       ),
                       Positioned(
                           right: MediaQuery.of(context).size.width / 2.2,
@@ -128,7 +142,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             child: Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 16.0.r, vertical: 8.r),
-                              child: Text("1/5"),
+                              child: APIGetxController.to.product.value.multiImg!.isEmpty?Text("1/1"):Text("${pageController.page}/${APIGetxController.to.product.value.multiImg!.length}"),
                             ),
                           ))
                     ],
@@ -150,7 +164,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         padding: EdgeInsets.symmetric(
                             horizontal: 16.r, vertical: 8.r),
                         child: Text(
-                          "${APIGetxController.to.product.value.sellingPrice}\$",
+                          "${APIGetxController.to.product.value.discountPrice != "0" ?getDiscountPrice(APIGetxController.to.product.value.discountPrice!, APIGetxController.to.product.value.sellingPrice!):APIGetxController.to.product.value.sellingPrice}\$",
                           style: TextStyle(
                               color: mainColor,
                               fontSize: 16.sp,

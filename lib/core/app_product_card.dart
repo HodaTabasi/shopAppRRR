@@ -86,24 +86,27 @@ class _AppProductCardState extends State<AppProductCard> {
                             MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              if(widget.product.trend ==1)
-                              Container(
-                                padding: EdgeInsets.all(2.r),
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius.circular(12.r),
-                                    color: Colors.yellow),
-                                child: Row(
-                                  children: [
-                                    image(path: "assets/images/trend.svg"),
-                                    getSpace(w: 5.w),
-                                    Text(
-                                      "trend",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 12.sp),
-                                    ).tr()
-                                  ],
+                              // if(widget.product.trend ==1)
+                              Opacity(
+                                opacity: widget.product.trend ==1 ?1:0,
+                                child: Container(
+                                  padding: EdgeInsets.all(2.r),
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                      BorderRadius.circular(12.r),
+                                      color: Colors.yellow),
+                                  child: Row(
+                                    children: [
+                                      image(path: "assets/images/trend.svg"),
+                                      getSpace(w: 5.w),
+                                      Text(
+                                        "trend",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 12.sp),
+                                      ).tr()
+                                    ],
+                                  ),
                                 ),
                               ),
                               if(widget.product.offer ==1)
@@ -118,7 +121,7 @@ class _AppProductCardState extends State<AppProductCard> {
                                         BorderRadius.circular(12.r),
                                         color: Colors.red),
                                     child: Text(
-                                      "20%",
+                                      "${widget.product.discountPrice}%",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 12.sp),
@@ -140,7 +143,7 @@ class _AppProductCardState extends State<AppProductCard> {
                                             path: "assets/images/new.svg"),
                                         getSpace(w: 5.w),
                                         Text(
-                                          "new",
+                                          "new1",
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 12.sp),
@@ -177,13 +180,16 @@ class _AppProductCardState extends State<AppProductCard> {
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
-                          Text("\$${widget.product.sellingPrice}",
-                              style: TextStyle(
-                                  decoration: TextDecoration.lineThrough,
-                                  color: thirdColor)),
+                          Visibility(
+                            visible :widget.product.discountPrice != 0,
+                            child: Text("\$${widget.product.sellingPrice}",
+                                style: TextStyle(
+                                    decoration: TextDecoration.lineThrough,
+                                    color: thirdColor)),
+                          ),
                           getSpace(w: 5.w),
                           Text(
-                            "\$${widget.product.discountPrice}",
+                            "\$${widget.product.discountPrice == "0"?widget.product.sellingPrice:getDiscountPrice(widget.product.discountPrice!,widget.product.sellingPrice!)}",
                             style: TextStyle(
                                 color: mainColor,
                                 fontWeight: FontWeight.bold,
