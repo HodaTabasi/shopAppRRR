@@ -339,7 +339,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     Order order1 = Order();
     order1.customerId = user.id;
     order1.totalPrice = total.toInt();
-    order1.address = "الخرطوم";
+    order1.address = APIGetxController.to.address.value;
     order1.phone = user.phoneNumber.toString();
     order1.username = user.name.toString();
     order1.orderProducts = APIGetxController.to.orderProduct

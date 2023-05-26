@@ -90,5 +90,7 @@
   "price": "Price",
   "filtering": "Filtering",
   "search2": "search",
-  "result": "result"
+  "result": "result",
+  "re_order": "Reorder",
+  "msg": "The product has been shipped and will be delivered to you within 2 days"
 }

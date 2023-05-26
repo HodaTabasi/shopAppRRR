@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
+import 'package:rrr_shop_app/controller/data/model/user.dart';
 import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 import 'package:rrr_shop_app/core/skeleton.dart';
@@ -10,6 +11,7 @@ import 'package:rrr_shop_app/utils/constants.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
 
 import '../../../../controller/data/api/api_response.dart';
+import '../../../../controller/data/model/order.dart';
 
 class OrderPage extends StatefulWidget {
   @override
@@ -295,6 +297,58 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
                                           ),
                                         ),
                                       ),
+                                      Visibility(
+                                        visible:(currentIndex + 1) == 3 || (currentIndex + 1) == 4,
+                                        child: Padding(
+                                          padding: EdgeInsets.all(8.0.r),
+                                          child: InkWell(
+                                            onTap: () async {
+                                              controller.flagLoad.value = true;
+
+                                              ApiResponse responce = await controller.addOrder(order:makeOrder(order));
+                                                showSnackBar(context: context,message: responce.message,error: !responce.success);
+                                                controller.flagLoad.value = false;
+
+                                            },
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Visibility(
+                                                    visible:!controller.flagLoad.value,
+                                                    child: Icon(Icons.refresh,size: 20.r,color:mainColor,)),
+                                                Visibility(
+                                                  visible:controller.flagLoad.value,
+                                                  child: SizedBox(
+                                                      height: 20.r,
+                                                      width: 20.r,
+                                                      child: CircularProgressIndicator(color: mainColor,)),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.symmetric(horizontal: 8.0.r),
+                                                  child: Text("re_order",style: TextStyle(color: Color(0xff4D4D4D),fontSize: 14.sp),).tr(),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible:(currentIndex + 1) == 2,
+                                        child: Padding(
+                                          padding: EdgeInsets.all(8.0.r),
+                                          child: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(horizontal: 8.0.r),
+                                                child: Text("msg",style: TextStyle(color: Color(0xff4D4D4D),fontSize: 14.sp),).tr(),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   )
                                 ],
@@ -307,6 +361,29 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
         ],
       ),
     );
+  }
+
+  Order makeOrder(Order order) {
+    User user = SharedPrefController().user;
+    Order order1 = Order();
+    order1.customerId = user.id;
+    order1.totalPrice = order.totalPrice;
+    order1.address = order.address;
+    order1.phone = user.phoneNumber.toString();
+    order1.username = user.name.toString();
+    order1.orderProducts = order.orderProducts!.map<OrderProducts>((element) {
+      OrderProducts orderProducts = OrderProducts();
+      orderProducts.productId = element.id;
+      orderProducts.productSize = element.productSize!;
+      orderProducts.productColor = element.productColor;
+      orderProducts.productPrice = element.productPrice!;
+      orderProducts.qty = element.qty!;
+      orderProducts.productImage = element.productImage;
+
+      return orderProducts;
+    }).toList();
+
+    return order1;
   }
 
   Container buildContainer() {
