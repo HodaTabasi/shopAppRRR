@@ -184,6 +184,21 @@ dynamic Filtter({required Search search}) async {
   return null;
 }
 
+deleteUser({phone}) async {
+  Uri uri = Uri.parse(APISetting.delete_user.replaceFirst("{phone_number}", phone));
+  var response = await http.delete(uri, headers: headersWithOutToken);
+
+  print(response.body);
+
+  if (response.statusCode == 200 || response.statusCode == 400) {
+    var jsonResponse = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      return jsonResponse;
+    }
+  }
+  return null;
+}
+
 ///////////////////////Auth/////////////////////////
 
 dynamic login({phone}) async {

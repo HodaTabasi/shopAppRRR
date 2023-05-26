@@ -86,6 +86,16 @@ class DataRepository with ApiHelper{
     return jsonArray.map((jsonObject) => Product.fromJson(jsonObject)).toList();
   }
 
+  deleteUser({phone}) async {
+    final jsonResponse = await _apiController.deleteUser(phone: phone);
+    if(jsonResponse['success']){
+      SharedPrefController().user = jsonResponse['data'];
+      SharedPrefController().loggedIn = true;
+      return successResponce;
+    }
+    return failedResponse;
+  }
+
   dynamic login({phone}) async {
     final jsonResponse = await _apiController.login(phone: phone);
     if(jsonResponse['success']){

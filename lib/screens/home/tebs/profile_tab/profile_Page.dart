@@ -2,8 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:rrr_shop_app/controller/data/api/api_response.dart';
+import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
 import 'package:rrr_shop_app/screens/home/tebs/profile_tab/setting_item.dart';
 import 'package:rrr_shop_app/screens/home/tebs/profile_tab/suppourt_sheet.dart';
+import 'package:rrr_shop_app/screens/login_screen.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -19,12 +22,14 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late User u ;
+  late User u;
+
   @override
   void initState() {
     u = SharedPrefController().user;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: SvgPicture.asset("assets/images/editprofile.svg"),
               ),
               title: Text(
-                u.name??"",
+                u.name ?? "",
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
@@ -110,7 +115,18 @@ class _ProfilePageState extends State<ProfilePage> {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return CoustomDialog(onClick: (){},title: "out",image: "ddd.svg",);
+                      return CoustomDialog(
+                        onClick: () {
+                          SharedPrefController().clear();
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen()),
+                                  (route) => false);
+                        },
+                        title: "out",
+                        image: "ddd.svg",
+                      );
                     });
               },
             ),
@@ -122,7 +138,24 @@ class _ProfilePageState extends State<ProfilePage> {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return CoustomDialog(onClick: (){},title: "delete",image: "ff.svg",);
+                      return CoustomDialog(
+                        onClick: () async {
+                          ApiResponse response = await AuthGETXController.to
+                              .deleteUser(phone: u.phoneNumber!);
+                          if (response.success) {
+                            SharedPrefController().clear();
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()),
+                                (route) => false);
+                          }else {
+                            showSnackBar(context: context,message: response.message,error: !response.success);
+                          }
+                        },
+                        title: "delete",
+                        image: "ff.svg",
+                      );
                     });
               },
             ),
