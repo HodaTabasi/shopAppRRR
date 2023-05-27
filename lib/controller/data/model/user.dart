@@ -1,3 +1,5 @@
+import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
+
 class User {
   int? id;
   String? name;
@@ -73,7 +75,7 @@ class User {
     data['id_number'] = this.idNumber.toString();
     data['date_of_birth'] = this.dateOfBirth;
     data['gender'] = this.gender;
-    data['lang'] = this.lang;
+    data['lang'] = SharedPrefController().getValueFor(key: PrefKeys.lang.name)??'ar';
     data['token'] = this.token;
     return data;
   }

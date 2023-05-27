@@ -219,7 +219,9 @@ dynamic login({phone}) async {
 }
 
 dynamic register({required User user}) async {
+  print(user.toString());
   Uri uri = Uri.parse(APISetting.register);
+
   var response = await http.post(uri, headers: headersWithOutToken,body: user.toJsonRegister());
 
   print(response.body);
@@ -246,7 +248,7 @@ registerWithImage({required String path,required User user}) async {
   request.fields['id_number'] = user.idNumber.toString();
   request.fields['date_of_birth'] = user.dateOfBirth!;
   request.fields['gender'] = user.gender!;
-  request.fields['token'] = '';
+  request.fields['token'] = user.token!;
   request.fields['lang'] = 'ar';
 
   var response = await request.send();
@@ -254,7 +256,6 @@ registerWithImage({required String path,required User user}) async {
     var body = await response.stream.transform(utf8.decoder).first;
     var jsonResponse = jsonDecode(body);
     print("$jsonResponse");
-
     return jsonResponse;
   }
 }
@@ -273,7 +274,7 @@ registerWithImage({required String path,required User user}) async {
   request.fields['id_number'] = user.idNumber.toString();
   request.fields['date_of_birth'] = user.dateOfBirth!;
   request.fields['gender'] = user.gender!;
-  request.fields['token'] = '';
+  request.fields['token'] = user.token!;
   request.fields['lang'] = 'ar';
 
   var response = await request.send();

@@ -109,10 +109,10 @@ class Product {
         colors!.add(new MyColors.fromJson(v));
       });
     }
-    if (json['multi_img'] != null) {
+    if (json['multi_img'] != null && json['multi_img'].isNotEmpty ) {
       multiImg = <String>[];
       json['multi_img'].forEach((v) {
-        multiImg!.add(v);
+        multiImg!.add(v['photo_name']);
       });
     }
   }

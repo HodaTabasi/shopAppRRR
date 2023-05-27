@@ -23,7 +23,7 @@ class AuthGETXController extends GetxController {
     return await DataRepository().updateUser(user: user);
   }
   deleteUser({phone}) async {
-    return await DataRepository().deleteUser(phone: phone);
+    return await DataRepository().deleteUser(phone: phone.toString());
   }
 
 

@@ -142,7 +142,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             child: Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 16.0.r, vertical: 8.r),
-                              child: APIGetxController.to.product.value.multiImg!.isEmpty?Text("1/1"):Text("${pageController.page}/${APIGetxController.to.product.value.multiImg!.length}"),
+                              child: APIGetxController.to.product.value.multiImg!.isEmpty?Text("1/1"):Text("${currentIndex+1}/${APIGetxController.to.product.value.multiImg!.length}"),
                             ),
                           ))
                     ],

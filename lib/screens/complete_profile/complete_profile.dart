@@ -173,7 +173,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
     u.gender = AuthGETXController.to.groupValue.value == 1 ? "male" : "female";
     u.lang = SharedPrefController().getValueFor(key: PrefKeys.lang.name);
     u.token = SharedPrefController().token;
-    print(SharedPrefController().token);
+    print("fffffffffff ${SharedPrefController().token}");
     return u;
   }
 

@@ -128,8 +128,8 @@ class _MyAppState extends State<MyApp> with FbNotifications{
 
   rigister() async {
     String? token = await FirebaseMessaging.instance.getToken();
-
-    SharedPrefController().saveUserDeviceId(token);
+    await SharedPrefController().saveUserDeviceId(token);
+    print(SharedPrefController().token);
     await FirebaseMessaging.instance.subscribeToTopic("all");
   }
 
