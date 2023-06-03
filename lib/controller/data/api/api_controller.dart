@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
+import 'package:rrr_shop_app/controller/data/model/rate.dart';
 import 'package:rrr_shop_app/controller/data/model/search.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
@@ -262,6 +263,8 @@ registerWithImage({required String path,required User user}) async {
 
 
  updateUserWithImage({required String path,required User user}) async {
+  print(user.toString());
+  print(path);
   var url = Uri.parse(APISetting.update_user);
   var request = http.MultipartRequest('POST', url);
   http.MultipartFile imageFile =
@@ -278,13 +281,14 @@ registerWithImage({required String path,required User user}) async {
   request.fields['lang'] = 'ar';
 
   var response = await request.send();
-  if (response.statusCode == 200) {
+  print(response.statusCode);
+  // if (response.statusCode == 200) {
     var body = await response.stream.transform(utf8.decoder).first;
     var jsonResponse = jsonDecode(body);
     print("$jsonResponse");
 
     return jsonResponse;
-  }
+  // }
 }
 
 
@@ -321,6 +325,36 @@ dynamic getProductByCateId({id}) async {
   }
   return null;
 }
+
+  dynamic getProductRate({id}) async {
+    Uri uri = Uri.parse(APISetting.get_rate_product.replaceFirst('{id}',id ));
+    var response = await http.get(uri, headers: headersWithOutToken);
+
+    print(response.body);
+
+    if (response.statusCode == 200 || response.statusCode == 400) {
+      var jsonResponse = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        return jsonResponse;
+      }
+    }
+    return null;
+  }
+
+  dynamic addProductRate({required Rating rate}) async {
+    Uri uri = Uri.parse(APISetting.add_rate_product);
+    var response = await http.get(uri, headers: headersWithOutToken);
+
+    print(response.body);
+
+    if (response.statusCode == 200 || response.statusCode == 400) {
+      var jsonResponse = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        return jsonResponse;
+      }
+    }
+    return null;
+  }
 
 dynamic getProductBySubCateId({id,subId}) async {
   String s = APISetting.get_all_product_by_subcategory.replaceFirst('{id}',id );

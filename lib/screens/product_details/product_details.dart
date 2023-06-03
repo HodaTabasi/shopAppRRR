@@ -64,6 +64,8 @@ class _ProductDetailsState extends State<ProductDetails> {
           actions: [
             IconButton(
                 onPressed: () async {
+                  APIGetxController.to.product.value.itemCartFlag =
+                      true;
                   APIGetxController.to.product.value.selectedColor =
                       APIGetxController.to.color;
                   APIGetxController.to.product.value.selectedSize =
@@ -342,6 +344,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       title: data.tr("buy"),
                       prsee: () {
                         APIGetxController.to.cartFlag = false;
+                        APIGetxController.to.product.value.itemCartFlag =false;
                         APIGetxController.to.product.value.selectedColor =
                             APIGetxController.to.color;
                         APIGetxController.to.product.value.selectedSize =

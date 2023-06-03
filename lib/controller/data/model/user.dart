@@ -37,8 +37,16 @@ class User {
     name = json['name'];
     email = json['email'];
     profileImage = json['profile_image'];
-    phoneNumber = json['phone_number'];
-    idNumber = json['id_number'];
+    if(json['phone_number'] is int){
+      phoneNumber = json['phone_number'];
+    }else {
+      phoneNumber = int.parse(json['phone_number']);
+    }
+    if(json['id_number'] is int){
+      idNumber = json['id_number'];
+    }else {
+      idNumber = int.parse(json['id_number']);
+    }
     dateOfBirth = json['date_of_birth'];
     gender = json['gender'];
     lang = json['lang'];

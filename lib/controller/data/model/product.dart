@@ -114,6 +114,8 @@ class Product {
       json['multi_img'].forEach((v) {
         multiImg!.add(v['photo_name']);
       });
+    }else{
+      multiImg = <String>[];
     }
   }
 

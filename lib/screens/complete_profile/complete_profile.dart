@@ -209,7 +209,6 @@ class _CompleteProfileState extends State<CompleteProfile> {
             builder: (context) => DoneRegisterSheet());
       }
       showSnackBar(context: context, message: isSucess.message, error: false);
-
     } else {
       showSnackBar(context: context, message: isSucess.message, error: true);
     }

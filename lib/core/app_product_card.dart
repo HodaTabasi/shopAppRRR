@@ -44,6 +44,7 @@ class _AppProductCardState extends State<AppProductCard> {
                     left: 0,
                     child: InkWell(
                       onTap: () async {
+                        widget.product.itemCartFlag = true;
                        bool b = await controller.addToCart(p: widget.product);
                        showSnackBar(context: context,message: b?"done":"exist before",error: !b);
                        },
@@ -166,15 +167,27 @@ class _AppProductCardState extends State<AppProductCard> {
                         style: TextStyle(fontSize: 12.sp),
                       ),
                     ),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0.r),
-                        child: Text(
-                          SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar'?widget.product.brandAr??"":widget.product.brandEn??'',
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w700),
-                        )),
+                    Visibility(
+                      visible: widget.product.brandAr != null && widget.product.brandEn != null,
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0.r),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar'?widget.product.brandAr??"":widget.product.brandEn??'',
+                                style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              Image.asset(
+                                "assets/images/trust1.png",
+                                color: Colors.green.shade900,
+                              )
+                            ],
+                          )),
+                    ),
                     Spacer(),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -219,7 +232,19 @@ class _AppProductCardState extends State<AppProductCard> {
                             Icons.favorite_border,
                             color: thirdColor,
                           )),
-                    ))
+                    )),
+                // Positioned(
+                //     left: 5.w,
+                //     top: 5.h,
+                //     child: Container(
+                //       padding: EdgeInsets.all(3.r),
+                //       decoration: BoxDecoration(
+                //           shape: BoxShape.circle, color: Colors.transparent),
+                //       child: Image.asset(
+                //         "assets/images/trust1.png",
+                //         color: Colors.green.shade900,
+                //       ),
+                //     )),
                 // Positioned(
                 //   left: 0,
                 //   top: 0,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rrr_shop_app/controller/data/api/api_response.dart';
+import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
 import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
 import 'package:rrr_shop_app/screens/home/tebs/profile_tab/setting_item.dart';
 import 'package:rrr_shop_app/screens/home/tebs/profile_tab/suppourt_sheet.dart';
@@ -52,7 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
               leading: CircleAvatar(
                 radius: 30.r,
                 backgroundImage: NetworkImage(
-                    "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Ym9va3xlbnwwfHwwfHw%3D&w=1000&q=80"),
+                    u.profileImage != null?"${APISetting.IMAGE_BASE_URL}${u.profileImage}":"https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Ym9va3xlbnwwfHwwfHw%3D&w=1000&q=80"),
               ),
               trailing: InkWell(
                 onTap: () {

@@ -8,6 +8,7 @@ import 'package:rrr_shop_app/controller/data/model/slider.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
 import '../model/notification.dart';
+import '../model/rate.dart';
 
 class DataRepository with ApiHelper{
   final _apiController = APIController();
@@ -156,6 +157,18 @@ class DataRepository with ApiHelper{
     final jsonResponse = await _apiController.getProductBySubCateId(id: id,subId: subId);
     var jsonArray = jsonResponse['data'] as List;
     return jsonArray.map((jsonObject) => Product.fromJson(jsonObject)).toList();
+  }
+
+  Future<List<Rating>> getProductRate({id}) async {
+    final jsonResponse = await _apiController.getProductRate(id: id);
+    var jsonArray = jsonResponse['data'] as List;
+    return jsonArray.map((jsonObject) => Rating.fromJson(jsonObject)).toList();
+  }
+
+  Future<ApiResponse> addProductRate({required Rating rating}) async {
+    final jsonResponse = await _apiController.addProductRate(rate: rating);
+    // return failedResponse;
+    return jsonResponse['success'] ?successResponce:failedResponse;
   }
 
 }
