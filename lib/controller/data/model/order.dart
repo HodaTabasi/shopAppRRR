@@ -12,6 +12,8 @@ class Order {
   String? deletedAt;
   String? createdAt;
   String? updatedAt;
+  num? deliverPrice;
+  bool? fastDeliver;
   List<OrderProducts>? orderProducts;
   bool isExpanded = false;
 
@@ -38,6 +40,8 @@ class Order {
     address = json['address'];
     phone = json['phone'];
     totalPrice = json['total_price'];
+    deliverPrice = json['deliver_price'];
+    fastDeliver = json['fast_deliver'];
     statusId = json['status_id'];
     token = json['token'];
     deletedAt = json['deleted_at'];
@@ -61,6 +65,8 @@ class Order {
     data['address'] = this.address;
     data['phone'] = this.phone;
     data['total_price'] = this.totalPrice;
+    data['deliver_price'] = this.deliverPrice;
+    data['fast_deliver'] = this.fastDeliver;
     data['status_id'] = this.statusId;
     data['token'] = this.token;
     data['deleted_at'] = this.deletedAt;
@@ -80,6 +86,8 @@ class Order {
     data['address'] = this.address.toString();
     data['username'] = this.username.toString();
     data['phone'] = this.phone.toString();
+    data['deliver_price'] = deliverPrice.toString();
+    data['fast_deliver'] = fastDeliver!?"1":"0";
     if (this.orderProducts != null) {
       data['products'] =json.encode(this.orderProducts!.map((v) => v.toJson1()).toList());
     }

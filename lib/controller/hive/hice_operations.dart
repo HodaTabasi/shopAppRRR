@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 
 import '../data/model/MyColors.dart';
 import '../data/model/product.dart';
+import '../data/model/rate.dart';
 
 class HiveOperations {
  static HiveOperations? _instance;
@@ -24,6 +25,7 @@ class HiveOperations {
   await Hive.initFlutter(dir.path);
   Hive.registerAdapter(ProductAdapter());
   Hive.registerAdapter(MyColorsAdapter());
+  Hive.registerAdapter(RatingAdapter());
 
   _favBox = await Hive.openBox<Product>('fav');
   _cartBox = await Hive.openBox<Product>('cart');

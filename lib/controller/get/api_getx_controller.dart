@@ -34,6 +34,7 @@ class APIGetxController extends GetxController {
 
   List<RadioModel> sampleData = [];
   RxString address = "الخرطوم السودان".obs;
+  var rate;
 
   XFile? pickedFile;
   late Rx<XFile> picke = XFile("").obs;
@@ -92,6 +93,7 @@ class APIGetxController extends GetxController {
       product.value.productSize!.split(",").forEach((element) {
         sampleData.add(RadioModel(false, element, element));
       });
+      rate = product.value.ratings!.isEmpty?4.5:product.value.ratings!.map((m) => m.starRating!).reduce((a, b) => a + b) / product.value.ratings!.length;
       isLoading.value = false;
     });
   }

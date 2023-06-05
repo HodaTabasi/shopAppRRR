@@ -1,6 +1,6 @@
 class APISetting {
   static String BASE_URL = "https://rrrstore103.com/api/";
-  static String IMAGE_BASE_URL = "https://rrrstore103.com/";
+  static String IMAGE_BASE_URL = "http://rrrstore103.com/";
   static String get_all_product = "${BASE_URL}products/get_all_products";
   static String get_new_product = "${BASE_URL}products/get_products/new_product";
   static String get_product_details = "${BASE_URL}products/get_product/{product_id}";

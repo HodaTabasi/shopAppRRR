@@ -375,6 +375,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     order1.address = APIGetxController.to.address.value;
     order1.phone = user.phoneNumber.toString();
     order1.username = user.name.toString();
+    order1.deliverPrice = delivery_cost;
+    order1.fastDeliver = valueDelevery;
     order1.orderProducts = APIGetxController.to.orderProduct
         .map<OrderProducts>((element) {
       OrderProducts orderProducts = OrderProducts();

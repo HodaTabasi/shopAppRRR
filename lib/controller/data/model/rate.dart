@@ -1,10 +1,22 @@
+import 'package:hive/hive.dart';
+
+part 'rate.g.dart';
+
+@HiveType(typeId: 3)
 class Rating {
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   int? productId;
+  @HiveField(2)
   int? customerId;
+  @HiveField(3)
   String? comments;
+  @HiveField(4)
   int? starRating;
+  @HiveField(5)
   String? createdAt;
+  @HiveField(6)
   String? updatedAt;
 
   Rating(

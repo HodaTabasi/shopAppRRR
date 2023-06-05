@@ -8,6 +8,7 @@ import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
 import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
 import 'package:rrr_shop_app/core/app_button.dart';
 import 'package:rrr_shop_app/core/skeleton.dart';
+import 'package:rrr_shop_app/screens/product_details/rating_sheer.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
 
@@ -153,13 +154,50 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 16.r, vertical: 8.r),
-                        child: Text(
-                          "${SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar' ? APIGetxController.to.product.value.productNameAr : APIGetxController.to.product.value.productNameEn}",
-                          style:
-                              TextStyle(color: Colors.black, fontSize: 17.sp),
+                      IntrinsicHeight(
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16.r, vertical: 8.r),
+                              child: Text(
+                                "${SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar' ? APIGetxController.to.product.value.productNameAr : APIGetxController.to.product.value.productNameEn}",
+                                style:
+                                    TextStyle(color: Colors.black, fontSize: 17.sp),
+                              ),
+                            ),
+                            VerticalDivider(
+                              width: 1,
+                              color: divider,
+                              indent: 5,
+                              endIndent: 5,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    isScrollControlled: false,
+                                    backgroundColor: Colors.white,
+                                    context: context,
+                                    shape: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15.r),
+                                        borderSide: BorderSide(color: Colors.transparent)),
+                                    builder: (context) => RatingSheet());
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 16.r, vertical: 8.r),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text("${APIGetxController.to.rate}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
+                                    getSpace(w: 5.0.w),
+                                    Icon(Icons.star,color: Colors.yellow.shade700,size: 25),
+
+                                  ],
+                                  ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       Padding(

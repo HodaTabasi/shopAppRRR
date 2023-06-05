@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:rrr_shop_app/controller/data/model/rate.dart';
 
 import 'MyColors.dart';
 
@@ -58,6 +59,8 @@ class Product {
   int? selectedQty;
   @HiveField(25)
   bool itemCartFlag = false;
+  @HiveField(26)
+  List<Rating>? ratings;
 
   Product({this.id,
         this.categoryId,
@@ -117,6 +120,12 @@ class Product {
     }else{
       multiImg = <String>[];
     }
+    if (json['ratings'] != null) {
+      ratings = <Rating>[];
+      json['ratings'].forEach((v) {
+        ratings!.add(new Rating.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -146,6 +155,9 @@ class Product {
     }
     if (this.multiImg != null) {
       data['multi_img'] = this.multiImg!.map((v) => v).toList();
+    }
+    if (this.ratings != null) {
+      data['ratings'] = this.ratings!.map((v) => v).toList();
     }
     return data;
   }
