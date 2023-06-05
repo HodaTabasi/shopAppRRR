@@ -10,11 +10,13 @@ import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
 import '../../utils/size_custom_radio.dart';
+import '../data/model/add_order_responce.dart';
 import '../data/model/order.dart';
 import '../data/model/product.dart';
 
 class APIGetxController extends GetxController {
   RxList<Product> products = <Product>[].obs;
+  RxList<Product> relatedProducts = <Product>[].obs;
   RxList<Product> FillterResult = <Product>[].obs;
   RxList<Product> orderProduct = <Product>[].obs;
   Map<String, List<Product>> productMap = {};
@@ -131,7 +133,7 @@ class APIGetxController extends GetxController {
     orders[index].isExpanded = isExpanded;
   }
 
-  Future<ApiResponse> addOrder({order}) async {
+  Future<AddOrderResponse> addOrder({order}) async {
     return await DataRepository().addOrder(order: order);
   }
 

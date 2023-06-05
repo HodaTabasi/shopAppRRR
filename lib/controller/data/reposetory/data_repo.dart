@@ -7,6 +7,7 @@ import 'package:rrr_shop_app/controller/data/model/product.dart';
 import 'package:rrr_shop_app/controller/data/model/slider.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
+import '../model/add_order_responce.dart';
 import '../model/notification.dart';
 import '../model/rate.dart';
 
@@ -43,10 +44,10 @@ class DataRepository with ApiHelper{
     return jsonArray.map((jsonObject) => Order.fromJson(jsonObject)).toList();
   }
 
- Future<ApiResponse> addOrder({order}) async {
+ Future<AddOrderResponse> addOrder({order}) async {
     final jsonResponse = await _apiController.addOrder(order: order);
     // return failedResponse;
-    return jsonResponse['success'] ?successResponce:failedResponse;
+    return AddOrderResponse.fromJson(jsonResponse);
   }
 
   Future<List<MySlider>> getSliders() async {

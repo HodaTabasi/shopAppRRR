@@ -11,6 +11,7 @@ import 'package:rrr_shop_app/utils/constants.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
 
 import '../../../../controller/data/api/api_response.dart';
+import '../../../../controller/data/model/add_order_responce.dart';
 import '../../../../controller/data/model/order.dart';
 
 class OrderPage extends StatefulWidget {
@@ -305,8 +306,8 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
                                             onTap: () async {
                                               controller.flagLoad.value = true;
 
-                                              ApiResponse responce = await controller.addOrder(order:makeOrder(order));
-                                                showSnackBar(context: context,message: responce.message,error: !responce.success);
+                                              AddOrderResponse responce = await controller.addOrder(order:makeOrder(order));
+                                                showSnackBar(context: context,message: responce.message,error: !responce.success!);
                                                 controller.flagLoad.value = false;
 
                                             },

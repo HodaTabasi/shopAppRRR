@@ -13,6 +13,7 @@ import 'package:rrr_shop_app/core/app_button.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
 
+import '../../controller/data/model/add_order_responce.dart';
 import '../../controller/data/model/order.dart';
 import '../../core/app_order_card.dart';
 
@@ -357,14 +358,16 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   }
 
   performBuying() async {
-    ApiResponse response = await APIGetxController.to.addOrder(order: order);
-    showSnackBar(context: context,message: response.message,error: !response.success);
-    if(response.success){
+    AddOrderResponse response = await APIGetxController.to.addOrder(order: order);
+    showSnackBar(context: context,message: response.message,error: !response.success!);
+    if(response.success!){
       if(APIGetxController.to.cartFlag){
         await HiveGetXController.to.deleteAllProductFromCart();
         APIGetxController.to.cartFlag = false;
       }
-      Navigator.pushNamedAndRemoveUntil(context, '/main_screen', (route) => false);
+      print(response.data!.relatedProducts!);
+      APIGetxController.to.relatedProducts.value = response.data!.relatedProducts??[];
+      Navigator.pushNamedAndRemoveUntil(context, '/related_product_screen', (route) => false);
     }
   }
 

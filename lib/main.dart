@@ -19,6 +19,7 @@ import 'package:rrr_shop_app/screens/login_screen.dart';
 import 'package:rrr_shop_app/screens/notification/notification_screen.dart';
 import 'package:rrr_shop_app/screens/otp/otp_screen.dart';
 import 'package:rrr_shop_app/screens/product_details/product_details.dart';
+import 'package:rrr_shop_app/screens/related_products.dart';
 import 'package:rrr_shop_app/screens/setting/setting_screen.dart';
 import 'package:rrr_shop_app/screens/splach_screen.dart';
 import 'package:rrr_shop_app/utils/l10n1.dart';
@@ -119,6 +120,7 @@ class _MyAppState extends State<MyApp> with FbNotifications{
                 '/map_screen': (context) => GoogleMapLcationPage(),
                 '/notification_screen': (context) => MyNotificationScreen(),
                 '/result_screen': (context) => ResultPage(),
+                '/related_product_screen': (context) => RelatedProductScreen(),
               },
             );
             }

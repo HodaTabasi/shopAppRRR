@@ -41,7 +41,7 @@ class Order {
     phone = json['phone'];
     totalPrice = json['total_price'];
     deliverPrice = json['deliver_price'];
-    fastDeliver = json['fast_deliver'];
+    fastDeliver = json['fast_deliver'] == 0 ?false:true;
     statusId = json['status_id'];
     token = json['token'];
     deletedAt = json['deleted_at'];
@@ -66,7 +66,7 @@ class Order {
     data['phone'] = this.phone;
     data['total_price'] = this.totalPrice;
     data['deliver_price'] = this.deliverPrice;
-    data['fast_deliver'] = this.fastDeliver;
+    data['fast_deliver'] = this.fastDeliver ;
     data['status_id'] = this.statusId;
     data['token'] = this.token;
     data['deleted_at'] = this.deletedAt;
