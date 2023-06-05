@@ -23,12 +23,16 @@ class CompleteOrderScreen extends StatefulWidget {
 
 class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   num total = 0;
+  num delivery_cost = 0;
   late User user;
+  bool value = false;
+  bool valueDelevery = false;
 
   @override
   void initState() {
     getTotalPrice();
     user = SharedPrefController().user;
+    delivery_cost = SharedPrefController().getValueFor<int>(key: "delivery_cost")??2500;
     super.initState();
   }
 
@@ -86,7 +90,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                 decoration: decoration(radius: 25.0.r, blurRadius: 2),
                 child: InkWell(
                   onTap: (){
-                    Navigator.pushNamed(context, '/map_screen');
+                    // Navigator.pushNamed(context, '/map_screen');
                   },
                   child: Padding(
                     padding: EdgeInsets.all(12.0.r),
@@ -94,7 +98,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "${controller.address}",
+                          "${value?controller.address:"الخرطوم السودان"}",
                           style: const TextStyle(
                               color: Colors.black, fontWeight: FontWeight.w600),
                         ).tr(),
@@ -105,6 +109,23 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                 ),
               ),
             ),
+            getSpace(h: 10.0.r),
+            CheckboxListTile(value: value, onChanged: (val) {
+              setState(() {
+                value = val!;
+                delivery_cost = 3000;
+              });
+              if(val!){
+                Navigator.pushNamed(context, '/map_screen');
+              }
+
+            },
+            title: Text("outside",style: TextStyle(
+              fontSize: 16.sp,
+              color: mainColor,
+              fontWeight: FontWeight.bold,
+            ),textAlign: TextAlign.left,).tr()),
+
             getSpace(h: 15.0.r),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
@@ -126,7 +147,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
-                        "الدفع عند الاستيلام",
+                        "pay_on_resive",
                         style: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.w600),
                       ).tr(),
@@ -188,7 +209,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                     ),
                   ).tr(),
                   Text(
-                    "\$${total}",
+                    "EGP ${total}",
                     style: TextStyle(
                         color: mainColor,
                         fontWeight: FontWeight.bold,
@@ -210,7 +231,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                     ),
                   ).tr(),
                   Text(
-                    "\$20",
+                    "EGP ${delivery_cost}",
                     style: TextStyle(
                         color: mainColor,
                         fontWeight: FontWeight.bold,
@@ -232,7 +253,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                     ),
                   ).tr(),
                   Text(
-                    "\$15",
+                    "EGP 1000",
                     style: TextStyle(
                         color: mainColor,
                         fontWeight: FontWeight.bold,
@@ -259,7 +280,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                         fontWeight: FontWeight.w600),
                   ).tr(),
                   Text(
-                    "\$${total + 20 + 15}",
+                    "EGP ${total + 1000 + delivery_cost}",
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -268,6 +289,18 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                 ],
               ),
             ),
+            getSpace(h: 10.0.r),
+            CheckboxListTile(value: valueDelevery, onChanged: (val) {
+              setState(() {
+                valueDelevery = val!;
+                delivery_cost += 1000;
+              });
+            },
+                title: Text("fast_delivery",style: TextStyle(
+                  fontSize: 16.sp,
+                  color: mainColor,
+                  fontWeight: FontWeight.bold,
+                ),textAlign: TextAlign.left,).tr()),
             getSpace(h: 18.0.r),
             DecoratedBox(
               decoration: decoration(

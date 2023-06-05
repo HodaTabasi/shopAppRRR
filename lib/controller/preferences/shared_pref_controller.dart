@@ -22,7 +22,7 @@ class SharedPrefController {
     _sharedPreferences = await SharedPreferences.getInstance();
     if(_sharedPreferences.get(PrefKeys.lang.name) == null)
       await _sharedPreferences.setString(PrefKeys.lang.name, 'ar');
-
+      await _sharedPreferences.setInt("delivery_cost", 2500);
   }
 
   Future<void> saveUserDeviceId(token) async {

@@ -92,5 +92,8 @@
   "search2": "search",
   "result": "result",
   "re_order": "Reorder",
-  "msg": "The product has been shipped and will be delivered to you within 2 days"
+  "msg": "The product has been shipped and will be delivered to you within 1 days",
+  "fast_delivery": "Fast Delivery",
+  "pay_on_resive": "Payment When Recieving",
+  "outside": "outside Khartoum"
 }

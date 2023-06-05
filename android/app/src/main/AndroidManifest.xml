@@ -10,7 +10,7 @@
 
 
     <application
-        android:label="RRR Shop"
+        android:label="RRR Store"
         android:name="${applicationName}"
         android:icon="@mipmap/logo">
 

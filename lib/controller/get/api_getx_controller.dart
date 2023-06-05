@@ -33,7 +33,7 @@ class APIGetxController extends GetxController {
   RxBool flagLoad = false.obs;
 
   List<RadioModel> sampleData = [];
-  RxString address = "الخرطوم السودان شارع سنجانة".obs;
+  RxString address = "الخرطوم السودان".obs;
 
   XFile? pickedFile;
   late Rx<XFile> picke = XFile("").obs;
