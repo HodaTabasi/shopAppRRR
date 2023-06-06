@@ -45,6 +45,12 @@ class _FillterScreenState extends State<FillterScreen> {
   }
 
   @override
+  void initState() {
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: background,
@@ -204,9 +210,10 @@ class _FillterScreenState extends State<FillterScreen> {
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
         content: SingleChildScrollView(
-          child: BlockPicker(
+          child: ColorPicker(
             pickerColor: pickerColor,
             onColorChanged: changeColor,
+            // availableColors: Colors.primaries,
           ),
         ),
         actions: <Widget>[
@@ -221,7 +228,7 @@ class _FillterScreenState extends State<FillterScreen> {
                   getColorCode(pickerColor).toString();
               Navigator.of(context).pop(false);
             },
-            child: const Text('CLOSE', style: TextStyle(color: Colors.blue)),
+            child:  Text('close', style: TextStyle(color: mainColor)).tr(),
           ),
         ],
       ),
