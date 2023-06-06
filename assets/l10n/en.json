@@ -95,5 +95,9 @@
   "msg": "The product has been shipped and will be delivered to you within 1 days",
   "fast_delivery": "Fast Delivery",
   "pay_on_resive": "Payment When Recieving",
-  "outside": "outside Khartoum"
+  "outside": "Outside Khartoum",
+  "related_product": "Related Product",
+  "rating": "Rate Product",
+  "write_your_comment": "Write Your Comment",
+  "client_point": "Client Point"
 }

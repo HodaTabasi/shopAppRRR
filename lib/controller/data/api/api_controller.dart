@@ -343,7 +343,7 @@ dynamic getProductByCateId({id}) async {
 
   dynamic addProductRate({required Rating rate}) async {
     Uri uri = Uri.parse(APISetting.add_rate_product);
-    var response = await http.get(uri, headers: headersWithOutToken);
+    var response = await http.post(uri, headers: headersWithOutToken,body: rate.toJson1());
 
     print(response.body);
 

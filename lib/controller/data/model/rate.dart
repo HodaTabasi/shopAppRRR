@@ -49,4 +49,13 @@ class Rating {
     data['updated_at'] = this.updatedAt;
     return data;
   }
+
+  Map<String, dynamic> toJson1() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['product_id'] = this.productId.toString();
+    data['customer_id'] = this.customerId.toString();
+    data['comments'] = this.comments;
+    data['star_rating'] = this.starRating.toString();
+    return data;
+  }
 }

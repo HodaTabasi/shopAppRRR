@@ -13,6 +13,7 @@ import '../../utils/size_custom_radio.dart';
 import '../data/model/add_order_responce.dart';
 import '../data/model/order.dart';
 import '../data/model/product.dart';
+import '../data/model/rate.dart';
 
 class APIGetxController extends GetxController {
   RxList<Product> products = <Product>[].obs;
@@ -177,6 +178,14 @@ class APIGetxController extends GetxController {
     DataRepository().getProductBySubCateId(id: id, subId: subId).then((value) {
       products.value = value;
       isLoading.value = false;
+    });
+  }
+
+  Future<ApiResponse> addRating({required Rating rating}) async {
+    isLoading.value = true;
+   return await DataRepository().addProductRate(rating: rating).then((value) {
+      isLoading.value = false;
+      return value;
     });
   }
 
