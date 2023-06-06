@@ -30,10 +30,10 @@ class Rating {
 
   Rating.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    productId = json['product_id'];
-    customerId = json['customer_id'];
+    productId = int.parse(json['product_id'].toString());
+    customerId = int.parse(json['customer_id'].toString());
     comments = json['comments'];
-    starRating = json['star_rating'];
+    starRating = int.parse(json['star_rating'].toString());
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }

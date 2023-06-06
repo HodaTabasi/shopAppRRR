@@ -75,7 +75,7 @@ class _RatePageState extends State<RateSheet> {
                     title:data.tr("rating"),
                     prsee: () async {
                   if(controller.text.isNotEmpty){
-                   ApiResponse response = await APIGetxController.to.addRating(rating: myRating);
+                   ApiResponse response = await controller1.addRating(rating: myRating);
                    if(response.success){
                      Navigator.pop(context);
                    }

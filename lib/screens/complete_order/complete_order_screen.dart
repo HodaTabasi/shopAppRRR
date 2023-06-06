@@ -281,7 +281,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                         fontWeight: FontWeight.w600),
                   ).tr(),
                   Text(
-                    "EGP ${total + 1000 + delivery_cost}",
+                    "EGP ${(total + 1000 + delivery_cost).toStringAsExponential(2)}",
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -374,7 +374,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   Order get order {
     Order order1 = Order();
     order1.customerId = user.id;
-    order1.totalPrice = total.toInt();
+    order1.totalPrice = (total - delivery_cost).toInt();
     order1.address = APIGetxController.to.address.value;
     order1.phone = user.phoneNumber.toString();
     order1.username = user.name.toString();

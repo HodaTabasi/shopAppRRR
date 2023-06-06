@@ -166,10 +166,10 @@ class DataRepository with ApiHelper{
     return jsonArray.map((jsonObject) => Rating.fromJson(jsonObject)).toList();
   }
 
-  Future<ApiResponse> addProductRate({required Rating rating}) async {
+  Future<dynamic> addProductRate({required Rating rating}) async {
     final jsonResponse = await _apiController.addProductRate(rate: rating);
     // return failedResponse;
-    return jsonResponse['success'] ?successResponce:failedResponse;
+    return jsonResponse;
   }
 
 }

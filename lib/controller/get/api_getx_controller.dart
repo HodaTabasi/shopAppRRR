@@ -96,7 +96,7 @@ class APIGetxController extends GetxController {
       product.value.productSize!.split(",").forEach((element) {
         sampleData.add(RadioModel(false, element, element));
       });
-      rate = product.value.ratings!.isEmpty?4.5:product.value.ratings!.map((m) => m.starRating!).reduce((a, b) => a + b) / product.value.ratings!.length;
+      rate = (product.value.ratings!.isEmpty?4.5:product.value.ratings!.map((m) => m.starRating!).reduce((a, b) => a + b) / product.value.ratings!.length).toStringAsExponential(2);
       isLoading.value = false;
     });
   }
@@ -184,8 +184,16 @@ class APIGetxController extends GetxController {
   Future<ApiResponse> addRating({required Rating rating}) async {
     isLoading.value = true;
    return await DataRepository().addProductRate(rating: rating).then((value) {
-      isLoading.value = false;
-      return value;
+     if(value['success']){
+       print("d");
+       product.value.ratings!.add(Rating.fromJson(value['data']));
+       update();
+     }
+     isLoading.value = false;
+     return ApiResponse(message:value['message'],success: value['success']);
+
+
+
     });
   }
 
