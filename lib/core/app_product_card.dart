@@ -174,12 +174,16 @@ class _AppProductCardState extends State<AppProductCard> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar'?widget.product.brandAr??"":widget.product.brandEn??'',
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w700),
+                              Flexible(
+                                child: Text(
+                                  SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar'?widget.product.brandAr??"":widget.product.brandEn??'',
+                                  style: TextStyle(
+                                      fontSize: 12.sp,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w700),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                               // Spacer(),/
                               Image.asset(

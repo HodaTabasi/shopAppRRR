@@ -96,7 +96,7 @@ class APIGetxController extends GetxController {
       product.value.productSize!.split(",").forEach((element) {
         sampleData.add(RadioModel(false, element, element));
       });
-      rate = (product.value.ratings!.isEmpty?4.5:product.value.ratings!.map((m) => m.starRating!).reduce((a, b) => a + b) / product.value.ratings!.length).toStringAsExponential(2);
+      rate = (product.value.ratings!.isEmpty?4.5:product.value.ratings!.map((m) => m.starRating!).reduce((a, b) => a + b) / product.value.ratings!.length).toStringAsFixed(2);
       isLoading.value = false;
     });
   }

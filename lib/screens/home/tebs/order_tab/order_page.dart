@@ -209,12 +209,16 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
                                               ),
                                             ).tr(),
                                             getSpace(w: 5.r),
-                                            Text(
-                                              " ${order.address} ",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 15.sp),
+                                            Flexible(
+                                              child: Text(
+                                                " ${order.address} ",
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15.sp),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -428,13 +432,16 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
                                                     padding:
                                                         EdgeInsets.symmetric(
                                                             horizontal: 8.0.r),
-                                                    child: Text(
-                                                      "msg",
-                                                      style: TextStyle(
-                                                          color:
-                                                              Color(0xff4D4D4D),
-                                                          fontSize: 14.sp),
-                                                    ).tr(),
+                                                    child: Flexible(
+                                                      child: Text(
+                                                        "msg",
+                                                        style: TextStyle(
+                                                            color:
+                                                                Color(0xff4D4D4D),
+                                                            fontSize: 14.sp),
+
+                                                      ).tr(),
+                                                    ),
                                                   )
                                                 ],
                                               ),

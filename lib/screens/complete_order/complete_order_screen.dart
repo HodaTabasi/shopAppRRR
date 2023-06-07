@@ -24,6 +24,7 @@ class CompleteOrderScreen extends StatefulWidget {
 
 class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   num total = 0;
+  num city_cost = 0;
   num delivery_cost = 0;
   late User user;
   bool value = false;
@@ -33,7 +34,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   void initState() {
     getTotalPrice();
     user = SharedPrefController().user;
-    delivery_cost = SharedPrefController().getValueFor<int>(key: "delivery_cost")??2500;
+    delivery_cost = 0;
+    city_cost = 2500;
     super.initState();
   }
 
@@ -114,7 +116,12 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             CheckboxListTile(value: value, onChanged: (val) {
               setState(() {
                 value = val!;
-                delivery_cost = 3000;
+
+                if(val){
+                  city_cost = 3000;
+                }else {
+                  city_cost = 2500;
+                }
               });
               if(val!){
                 Navigator.pushNamed(context, '/map_screen');
@@ -232,7 +239,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                     ),
                   ).tr(),
                   Text(
-                    "EGP ${delivery_cost}",
+                    "EGP ${delivery_cost + city_cost}",
                     style: TextStyle(
                         color: mainColor,
                         fontWeight: FontWeight.bold,
@@ -281,7 +288,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                         fontWeight: FontWeight.w600),
                   ).tr(),
                   Text(
-                    "EGP ${(total + 1000 + delivery_cost).toStringAsExponential(2)}",
+                    "EGP ${(total + 1000 + delivery_cost +city_cost).toStringAsFixed(2)}",
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -294,7 +301,12 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             CheckboxListTile(value: valueDelevery, onChanged: (val) {
               setState(() {
                 valueDelevery = val!;
-                delivery_cost += 1000;
+                if(val){
+                  delivery_cost = 1000;
+                }else {
+                  delivery_cost = 0;
+                }
+
               });
             },
                 title: Text("fast_delivery",style: TextStyle(
@@ -302,7 +314,18 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                   color: mainColor,
                   fontWeight: FontWeight.bold,
                 ),textAlign: TextAlign.left,).tr()),
-            getSpace(h: 18.0.r),
+
+            getSpace(h: 5.0.r),
+        if(valueDelevery)
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text("fast_delivery_msg",style: TextStyle(
+          fontSize: 14.sp,
+          color: Colors.red,
+          fontWeight: FontWeight.bold,
+          ),textAlign: TextAlign.left,).tr(),
+        ),
+            getSpace(h: 15.0.r),
             DecoratedBox(
               decoration: decoration(
                 blurRadius: 2,
