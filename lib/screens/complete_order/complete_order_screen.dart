@@ -411,9 +411,10 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
         await HiveGetXController.to.deleteAllProductFromCart();
         APIGetxController.to.cartFlag = false;
       }
-      print(response.data!.relatedProducts!);
+      APIGetxController.to.deleteFromProductCount();
       APIGetxController.to.relatedProducts.value = response.data!.relatedProducts??[];
       Navigator.pushNamedAndRemoveUntil(context, '/related_product_screen', (route) => false);
+
     }
   }
 

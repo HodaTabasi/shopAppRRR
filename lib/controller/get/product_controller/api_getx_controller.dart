@@ -211,4 +211,23 @@ class APIGetxController extends GetxController {
     orderProduct.value = list;
     // print(orderProduct.value);
   }
+
+  void deleteFromProductCount() {
+    for(var v in orderProduct){
+      if( productMap['new'] != null && productMap['new']!.contains(v)){
+        int index = productMap['new']!.indexWhere((element) => element == v);
+        int i = int.parse(productMap['new']![index].productQty!) -1;
+        productMap['new']![index].productQty = i.toString();
+      }else if(productMap['trend'] != null && productMap['trend']!.contains(v)){
+        int index = productMap['trend']!.indexWhere((element) => element == v);
+        int i = int.parse(productMap['trend']![index].productQty!) -1;
+        productMap['trend']![index].productQty = i.toString();
+      }else if(productMap['offers'] != null &&productMap['offers']!.contains(v)) {
+        int index = productMap['offers']!.indexWhere((element) => element == v);
+        int i = int.parse(productMap['offers']![index].productQty!) -1;
+        productMap['offers']![index].productQty = i.toString();
+      }
+    }
+    orderProduct.clear();
+  }
 }

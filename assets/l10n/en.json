@@ -102,5 +102,6 @@
   "client_point": "Client Point",
   "close": "Close ",
   "fast_delivery_msg": "Delivery Your order will be processed within 8 hours ",
-  "do_cancel_order": "Did you sure Cancel your Order? "
+  "do_cancel_order": "Did you sure Cancel your Order? ",
+  "out_of_sale": "out of sale"
 }

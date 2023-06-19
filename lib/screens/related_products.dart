@@ -20,6 +20,7 @@ class _RelatedProductScreenState extends State<RelatedProductScreen> {
   @override
   Widget build(BuildContext context) {
     return GetX<APIGetxController>(builder: (controller) {
+
       return Scaffold(
         backgroundColor: Color(0xffFFFDFA),
         appBar: AppBar(

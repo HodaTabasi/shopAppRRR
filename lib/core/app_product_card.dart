@@ -25,8 +25,10 @@ class _AppProductCardState extends State<AppProductCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        APIGetxController.to.productId = widget.product.id!;
-        Navigator.pushNamed(context, '/product_details_screen');
+        if(widget.product.productQty != "0"){
+          APIGetxController.to.productId = widget.product.id!;
+          Navigator.pushNamed(context, '/product_details_screen');
+        }
       },
       child: GetX<HiveGetXController>(
         builder: (controller) {
@@ -199,7 +201,7 @@ class _AppProductCardState extends State<AppProductCard> {
                       child: Row(
                         children: [
                           Visibility(
-                            visible :widget.product.discountPrice != 0,
+                            visible :widget.product.discountPrice != "0",
                             child: Text("\$${widget.product.sellingPrice}",
                                 style: TextStyle(
                                     decoration: TextDecoration.lineThrough,
@@ -250,25 +252,22 @@ class _AppProductCardState extends State<AppProductCard> {
                 //         color: Colors.green.shade900,
                 //       ),
                 //     )),
-                // Positioned(
-                //   left: 0,
-                //   top: 0,
-                //   child: CustomPaint(
-                //     painter: TrianglePainter(
-                //       strokeColor: mainColor,
-                //       strokeWidth: 10,
-                //       paintingStyle: PaintingStyle.fill,
-                //     ),
-                //     child: Container(
-                //       decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.circular(25.r)
-                //       ),
-                //       height: 50,
-                //       width: 80,
-                //       child: Text("soon"),
-                //     ),
-                //   ),
-                // ),
+                Visibility(
+                  visible: widget.product.productQty == "0",
+                  child: Positioned(
+                    left: 0,
+                    top: 70.r,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        // borderRadius: BorderRadius.circular(8.r),
+                        color: mainColor
+                      ),
+                      height: 30.h,
+                      width: 180.w,
+                      child: Text("out_of_sale",textAlign: TextAlign.center,style: TextStyle(color: Colors.white),).tr(),
+                    ),
+                  ),
+                ),
               ],
             ),
           );
