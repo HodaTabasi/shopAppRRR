@@ -16,6 +16,7 @@ import 'package:rrr_shop_app/utils/helper.dart';
 import '../../controller/data/model/add_order_responce.dart';
 import '../../controller/data/model/order.dart';
 import '../../core/app_order_card.dart';
+import '../home/tebs/profile_tab/custom_dialog.dart';
 
 class CompleteOrderScreen extends StatefulWidget {
   @override
@@ -193,7 +194,23 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                           top: 8,
                           left: 8,
                           child: InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                if(controller.orderProduct.length == 1){
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return CoustomDialog(
+                                          onClick: () async {
+                                            Navigator.pushReplacementNamed(context, '/main_screen');
+                                          },
+                                          title: "do_cancel_order",
+                                          image: "ff.svg",
+                                        );
+                                      });
+                                }else {
+                                  controller.orderProduct.removeAt(index);
+                                }
+                              },
                               child: SvgPicture.asset(
                                   "assets/images/delete.svg"))),
                     ],

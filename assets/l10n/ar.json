@@ -105,5 +105,6 @@
   "write_your_comment": "اكتب تعليقك",
   "client_point": "اراء العملاء ",
   "close": "اغلاق ",
-  "fast_delivery_msg": "سيتم توصيل طلبك خلال 8 ساعات "
+  "fast_delivery_msg": "سيتم توصيل طلبك خلال 8 ساعات ",
+  "do_cancel_order": "هل انت متاكد من الغاء الطلب؟ "
 }
