@@ -8,6 +8,7 @@ import 'package:rrr_shop_app/controller/data/model/product.dart';
 import 'package:rrr_shop_app/controller/data/model/user.dart';
 import 'package:rrr_shop_app/controller/get/product_controller/api_getx_controller.dart';
 import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
+import 'package:rrr_shop_app/controller/get/product_controller/get_order_getx_controller.dart';
 import 'package:rrr_shop_app/controller/get/product_controller/home_product_getx_controller.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 import 'package:rrr_shop_app/core/app_button.dart';
@@ -405,7 +406,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   }
 
   performBuying() async {
-    AddOrderResponse response = await APIGetxController.to.addOrder(order: order);
+    AddOrderResponse response = await OrderGetxController.to.addOrder(order: order);
     showSnackBar(context: context,message: response.message,error: !response.success!);
     if(response.success!){
       if(APIGetxController.to.cartFlag){

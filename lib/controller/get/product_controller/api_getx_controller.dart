@@ -113,30 +113,30 @@ class APIGetxController extends GetxController {
   //   });
   // }
 
-  getOrders({statusId}) {
-    isLoading.value = true;
-    orders.clear();
-    DataRepository().getOrders(statusId: statusId).then((value) {
-      orders.value = value.data!;
-      isLoading.value = false;
-    });
-  }
+  // getOrders({statusId}) {
+  //   isLoading.value = true;
+  //   orders.clear();
+  //   DataRepository().getOrders(statusId: statusId).then((value) {
+  //     orders.value = value.data!;
+  //     isLoading.value = false;
+  //   });
+  // }
 
   Future<List<MyNotification>> getNotification() async {
     return await DataRepository().getNotifications();
   }
 
-  Future<ApiResponse> cancelOrder({id}) async {
-    return await DataRepository().cancelOrder(id: id);
-  }
+  // Future<ApiResponse> cancelOrder({id}) async {
+  //   return await DataRepository().cancelOrder(id: id);
+  // }
 
-  changeExpanded(index, isExpanded) {
-    orders[index].isExpanded = isExpanded;
-  }
+  // changeExpanded(index, isExpanded) {
+  //   orders[index].isExpanded = isExpanded;
+  // }
 
-  Future<AddOrderResponse> addOrder({order}) async {
-    return await DataRepository().addOrder(order: order);
-  }
+  // Future<AddOrderResponse> addOrder({order}) async {
+  //   return await DataRepository().addOrder(order: order);
+  // }
 
   getFiltter({search}) {
     isLoading.value = true;
@@ -191,8 +191,6 @@ class APIGetxController extends GetxController {
      }
      isLoading.value = false;
      return ApiResponse(message:value['message'],success: value['success']);
-
-
 
     });
   }
