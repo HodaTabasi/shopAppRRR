@@ -19,6 +19,7 @@ import '../../controller/data/model/add_order_responce.dart';
 import '../../controller/data/model/order.dart';
 import '../../core/app_order_card.dart';
 import '../home/tebs/profile_tab/custom_dialog.dart';
+import 'app_order_card.dart';
 
 class CompleteOrderScreen extends StatefulWidget {
   @override
@@ -26,7 +27,7 @@ class CompleteOrderScreen extends StatefulWidget {
 }
 
 class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
-  num total = 0;
+  // num total = 0;
   num city_cost = 0;
   num delivery_cost = 0;
   late User user;
@@ -35,24 +36,24 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
   @override
   void initState() {
-    getTotalPrice();
+    APIGetxController.to.getTotalPrice();
     user = SharedPrefController().user;
     delivery_cost = 0;
     city_cost = 2500;
     super.initState();
   }
 
-  getTotalPrice() {
-    APIGetxController.to.orderProduct.forEach((element) {
-      element.selectedQty??=1;
-      if(element.discountPrice == 0){
-        total += element.selectedQty! * num.parse(element.sellingPrice!);
-      }else {
-        total += element.selectedQty! * num.parse(getDiscountPrice(element.discountPrice!, element.sellingPrice!));
-      }
-
-    });
-  }
+  // getTotalPrice() {
+  //   APIGetxController.to.orderProduct.forEach((element) {
+  //     element.selectedQty??=1;
+  //     if(element.discountPrice == 0){
+  //       total += element.selectedQty! * num.parse(element.sellingPrice!);
+  //     }else {
+  //       total += element.selectedQty! * num.parse(getDiscountPrice(element.discountPrice!, element.sellingPrice!));
+  //     }
+  //
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -195,7 +196,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                 itemBuilder: (context, index) {
                   return Stack(
                     children: [
-                      ListItemWidget(
+                      BuyListItemWidget(
                           isOrder: false,
                           product: controller.orderProduct[index]),
                       Positioned(
@@ -242,7 +243,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                     ),
                   ).tr(),
                   Text(
-                    "EGP ${total}",
+                    "EGP ${controller.total.value}",
                     style: TextStyle(
                         color: mainColor,
                         fontWeight: FontWeight.bold,
@@ -313,7 +314,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                         fontWeight: FontWeight.w600),
                   ).tr(),
                   Text(
-                    "EGP ${(total + 1000 + delivery_cost +city_cost).toStringAsFixed(2)}",
+                    "EGP ${(controller.total.value + 1000 + delivery_cost +city_cost).toStringAsFixed(2)}",
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -423,7 +424,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   Order get order {
     Order order1 = Order();
     order1.customerId = user.id;
-    order1.totalPrice = (total - delivery_cost).toInt();
+    order1.totalPrice = (APIGetxController.to.total.value - delivery_cost).toInt().abs();
     order1.address = APIGetxController.to.address.value;
     order1.phone = user.phoneNumber.toString();
     order1.username = user.name.toString();

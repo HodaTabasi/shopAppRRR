@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 
 import '../../data/model/product.dart';
 import '../../data/reposetory/data_repo.dart';
-import '../../preferences/shared_pref_controller.dart';
-import '../hive_getx_controller.dart';
 
 class HomeGetxController extends GetxController {
   RxList<Product> products = <Product>[].obs;
@@ -51,14 +49,11 @@ class HomeGetxController extends GetxController {
       isLoading.value = true;
       DataRepository().getAllProduct(page: page).then((value) async {
         lastPage = value.lastPage!;
-        productMap.addAll(
-            {"trend": value.data!.where((element) => element.trend == 1).toList()});
-        productMap.addAll(
-            {"new": value.data!.where((element) => element.newProduct == 1).toList()});
-        productMap.addAll(
-            {"offers": value.data!.where((element) => element.offer == 1).toList()});
+        productMap.addAll({"all": value.data!});
+        productMap.addAll({"trend": value.data!.where((element) => element.trend == 1).toList()});
+        productMap.addAll({"new": value.data!.where((element) => element.newProduct == 1).toList()});
+        productMap.addAll({"offers": value.data!.where((element) => element.offer == 1).toList()});
         products.value = productMap["new"] ?? [];
-        print(products.length);
 
         // await SharedPrefController().lastUpdate1(DateFormat('yyyy-MM-dd – kk:mm')
         //     .format(DateTime.now().add(const Duration(days: 1))));
@@ -70,6 +65,7 @@ class HomeGetxController extends GetxController {
       isPageLoading.value = true;
       DataRepository().getAllProduct(page: page).then((value) async {
         lastPage = value.lastPage!;
+        productMap.addAll({"all": value.data!});
         productMap["trend"]!.addAll(value.data!.where((element) => element.trend == 1));
         productMap["new"]!.addAll(value.data!.where((element) => element.newProduct == 1));
         productMap["offers"]!.addAll(value.data!.where((element) => element.offer == 1));
@@ -88,19 +84,20 @@ class HomeGetxController extends GetxController {
 
   void deleteFromProductCount(orderProduct) {
     for(var v in orderProduct){
-      if( productMap['new'] != null && productMap['new']!.contains(v)){
-        int index = productMap['new']!.indexWhere((element) => element == v);
-        int i = int.parse(productMap['new']![index].productQty!) -1;
-        productMap['new']![index].productQty = i.toString();
-      }else if(productMap['trend'] != null && productMap['trend']!.contains(v)){
-        int index = productMap['trend']!.indexWhere((element) => element == v);
-        int i = int.parse(productMap['trend']![index].productQty!) -1;
-        productMap['trend']![index].productQty = i.toString();
-      }else if(productMap['offers'] != null &&productMap['offers']!.contains(v)) {
-        int index = productMap['offers']!.indexWhere((element) => element == v);
-        int i = int.parse(productMap['offers']![index].productQty!) -1;
-        productMap['offers']![index].productQty = i.toString();
+      if( productMap['all'] != null && productMap['all']!.contains(v)){
+        int index = productMap['all']!.indexWhere((element) => element == v);
+        int i = int.parse(productMap['all']![index].productQty!) -1;
+        productMap['all']![index].productQty = i.toString();
       }
+      // else if(productMap['trend'] != null && productMap['trend']!.contains(v)){
+      //   int index = productMap['trend']!.indexWhere((element) => element == v);
+      //   int i = int.parse(productMap['trend']![index].productQty!) -1;
+      //   productMap['trend']![index].productQty = i.toString();
+      // }else if(productMap['offers'] != null &&productMap['offers']!.contains(v)) {
+      //   int index = productMap['offers']!.indexWhere((element) => element == v);
+      //   int i = int.parse(productMap['offers']![index].productQty!) -1;
+      //   productMap['offers']![index].productQty = i.toString();
+      // }
     }
     orderProduct.clear();
   }

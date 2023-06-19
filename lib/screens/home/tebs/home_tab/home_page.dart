@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     controller = TabController(length: l.length, vsync: this);
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 4, vsync: this);
     scrollController = ScrollController();
     scrollController.addListener(_listener);
 
@@ -182,6 +182,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               case 2:
                 key = "trend";
                 break;
+              case 3:
+                key = "all";
+                break;
             }
             HomeGetxController.to.products.value =
                 HomeGetxController.to.productMap[key] ?? [];
@@ -201,6 +204,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
           Tab(
             icon: Text("more_sele").tr(),
+          ),
+          Tab(
+            icon: Text("all").tr(),
           )
         ],
       ),

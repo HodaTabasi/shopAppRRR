@@ -9,6 +9,7 @@ import 'package:rrr_shop_app/controller/data/reposetory/data_repo.dart';
 import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
+import '../../../utils/constants.dart';
 import '../../../utils/size_custom_radio.dart';
 import '../../data/model/add_order_responce.dart';
 import '../../data/model/order.dart';
@@ -21,7 +22,7 @@ class APIGetxController extends GetxController {
   RxList<Product> FillterResult = <Product>[].obs;
   RxList<Product> orderProduct = <Product>[].obs;
   // Map<String, List<Product>> productMap = {};
-  RxList<Order> orders = <Order>[].obs;
+  // RxList<Order> orders = <Order>[].obs;
   RxList<MySlider> sliders = <MySlider>[].obs;
   RxList<Category> cate = <Category>[].obs;
   late Rx<Product> product = Product().obs;
@@ -43,6 +44,8 @@ class APIGetxController extends GetxController {
   late Rx<XFile> picke = XFile("").obs;
 
   static APIGetxController get to => Get.find<APIGetxController>();
+
+  RxInt  total  = 0.obs;
 
   changeFile(XFile? xFile) {
     picke.value = XFile(xFile!.path);
@@ -124,6 +127,18 @@ class APIGetxController extends GetxController {
 
   Future<List<MyNotification>> getNotification() async {
     return await DataRepository().getNotifications();
+  }
+
+  getTotalPrice() {
+    total.value = 0;
+    APIGetxController.to.orderProduct.forEach((element) {
+      element.selectedQty??=1;
+      if(element.discountPrice == 0){
+        total.value += (element.selectedQty! * num.parse(element.sellingPrice!)).toInt();
+      }else {
+        total.value += (element.selectedQty! * num.parse(getDiscountPrice(element.discountPrice!, element.sellingPrice!))).toInt();
+      }
+    });
   }
 
   // Future<ApiResponse> cancelOrder({id}) async {

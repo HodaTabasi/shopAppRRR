@@ -29,6 +29,7 @@ class OrderGetxController extends GetxController {
     });
   }
 
+
   Future<AddOrderResponse> addOrder({order}) async {
     return await DataRepository().addOrder(order: order);
   }

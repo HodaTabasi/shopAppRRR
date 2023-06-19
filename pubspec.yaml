@@ -61,6 +61,7 @@ dependencies:
   intl: any
   url_launcher: ^6.1.11
   flutter_rating_bar: ^4.0.1
+  connectivity_plus: ^4.0.1
 
 dev_dependencies:
   flutter_test:

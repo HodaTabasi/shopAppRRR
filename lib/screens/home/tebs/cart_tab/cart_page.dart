@@ -48,7 +48,7 @@ class _CartPageState extends State<CartPage> {
                     child: InkWell(
                       onTap: () async {
                         controller.cartProducts.removeWhere((element){
-                          print(element.itemCartFlag);
+                          // print(element.itemCartFlag);
                           if(element.itemCartFlag){
                             controller.deleteFromCart(id: element.id!);
                             return element.itemCartFlag;
@@ -121,7 +121,7 @@ class _CartPageState extends State<CartPage> {
                   ),
                   BtnApp(title: data.tr("buy"), prsee: (){
                     APIGetxController.to.cartFlag = true;
-                    APIGetxController.to.putOrderProduct(list: controller.cartProducts.where((p0) => p0.itemCartFlag).toList());
+                    APIGetxController.to.putOrderProduct(list: controller.cartProducts.where((p0) => !p0.itemCartFlag).toList());
                     Navigator.pushNamed(context, '/complete_buy_screen');
                   })
                 ],

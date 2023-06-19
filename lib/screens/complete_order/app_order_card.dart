@@ -2,25 +2,24 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
+import 'package:rrr_shop_app/controller/get/product_controller/api_getx_controller.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
-import '../controller/data/api/api_setting.dart';
-import '../controller/data/model/product.dart';
-import '../utils/constants.dart';
-import '../utils/helper.dart';
-
-class ListItemWidget extends StatefulWidget {
+import '../../controller/data/model/product.dart';
+import '../../utils/constants.dart';
+import '../../utils/helper.dart';
+class BuyListItemWidget extends StatefulWidget {
   bool isOrder;
   Product product;
   int index = 0;
-  ListItemWidget({required this.isOrder,required this.product,
+  BuyListItemWidget({required this.isOrder,required this.product,
   this.index = 0});
 
   @override
-  State<ListItemWidget> createState() => _ListItemWidgetState();
+  State<BuyListItemWidget> createState() => _BuyListItemWidgetState();
 }
 
-class _ListItemWidgetState extends State<ListItemWidget> {
+class _BuyListItemWidgetState extends State<BuyListItemWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,15 +29,6 @@ class _ListItemWidgetState extends State<ListItemWidget> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Visibility(
-            visible:widget.isOrder,
-            child: Checkbox(value:HiveGetXController.to.cartProducts[widget.index].itemCartFlag,
-              onChanged: (value) {
-                HiveGetXController.to.cartProducts[widget.index].itemCartFlag= value!;
-                setState(() {
-                });
-            },),
-          ),
           Padding(
             padding:  widget.isOrder ?EdgeInsets.zero:EdgeInsets.all(8.0),
             child: ClipRRect(
@@ -99,8 +89,8 @@ class _ListItemWidgetState extends State<ListItemWidget> {
                             onTap:(){
                               if(widget.product.selectedQty! >1){
                                 widget.product.selectedQty = widget.product.selectedQty! - 1;
-                                HiveGetXController.to.cartProducts[widget.index].selectedQty = widget.product.selectedQty;
-                                HiveGetXController.to.getTotal();
+                                APIGetxController.to.orderProduct[widget.index].selectedQty = widget.product.selectedQty;
+                                APIGetxController.to.getTotalPrice();
                                 setState(() {
                                 });
                               }
@@ -128,8 +118,8 @@ class _ListItemWidgetState extends State<ListItemWidget> {
                           InkWell(
                             onTap: (){
                               widget.product.selectedQty = widget.product.selectedQty! + 1;
-                              HiveGetXController.to.cartProducts[widget.index].selectedQty = widget.product.selectedQty;
-                              HiveGetXController.to.getTotal();
+                              APIGetxController.to.orderProduct[widget.index].selectedQty = widget.product.selectedQty;
+                              APIGetxController.to.getTotalPrice();
                               setState(() {
                               });
                             },

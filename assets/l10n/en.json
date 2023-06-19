@@ -26,7 +26,7 @@
   "all_save": "Your data has been saved successfully",
   "go_home": "Home Page",
   "search": "Looking for t-shirts, shirts...",
-  "new2": "recently arrived",
+  "new2": "Newer",
   "offer": "Offers",
   "more_sele": "Best Seller",
   "trend": "trend",
@@ -103,5 +103,6 @@
   "close": "Close ",
   "fast_delivery_msg": "Delivery Your order will be processed within 8 hours ",
   "do_cancel_order": "Did you sure Cancel your Order? ",
-  "out_of_sale": "out of sale"
+  "out_of_sale": "out of sale",
+  "all": "All"
 }

@@ -13,6 +13,7 @@ class HiveGetXController extends GetxController {
   getTotal(){
     total.value = 0;
     cartProducts.forEach((element) {
+      print(element.selectedQty);
       element.selectedQty??=1;
       if(element.discountPrice == 0){
         total.value += element.selectedQty! * num.parse(element.sellingPrice!).toInt();
