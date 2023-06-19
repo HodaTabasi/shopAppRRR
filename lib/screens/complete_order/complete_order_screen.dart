@@ -94,6 +94,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                 decoration: decoration(radius: 25.0.r, blurRadius: 2),
                 child: InkWell(
                   onTap: (){
+
+                      Navigator.pushNamed(context, '/map_screen');
+
                     // Navigator.pushNamed(context, '/map_screen');
                   },
                   child: Padding(
@@ -101,11 +104,16 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "${value?controller.address:"الخرطوم السودان"}",
-                          style: const TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.w600),
-                        ).tr(),
+                        Flexible(
+                          child: Text(
+                            "${controller.address}",
+                            maxLines: 3,
+                            // "${value?controller.address:"الخرطوم السودان"}",
+                            style: const TextStyle(
+                                color: Colors.black, fontWeight: FontWeight.w600,
+                            overflow: TextOverflow.ellipsis),
+                          ).tr(),
+                        ),
                         SvgPicture.asset("assets/images/address.svg")
                       ],
                     ),
@@ -124,9 +132,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                   city_cost = 2500;
                 }
               });
-              if(val!){
-                Navigator.pushNamed(context, '/map_screen');
-              }
+
 
             },
             title: Text("outside",style: TextStyle(
