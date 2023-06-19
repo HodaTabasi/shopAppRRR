@@ -33,6 +33,7 @@ import 'controller/get/general_controler.dart';
 import 'controller/get/hive_getx_controller.dart';
 import 'controller/get/languages_getx_controoler.dart';
 import 'controller/get/loading_getx_controller.dart';
+import 'controller/get/product_controller/get_order_getx_controller.dart';
 import 'controller/get/product_controller/home_product_getx_controller.dart';
 import 'controller/preferences/shared_pref_controller.dart';
 import 'screens/complete_profile/complete_profile.dart';
@@ -85,6 +86,7 @@ class _MyAppState extends State<MyApp> with FbNotifications{
   GeneralDataController controller6 = Get.put<GeneralDataController>(GeneralDataController());
   FillterGetXController controller7 = Get.put<FillterGetXController>(FillterGetXController());
   HomeGetxController controller8 = Get.put<HomeGetxController>(HomeGetxController());
+  OrderGetxController controller9 = Get.put<OrderGetxController>(OrderGetxController());
 
   // This widget is the root of your application.
   @override

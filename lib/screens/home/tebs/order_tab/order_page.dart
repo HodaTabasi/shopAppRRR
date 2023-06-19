@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
 import 'package:rrr_shop_app/controller/data/model/user.dart';
 import 'package:rrr_shop_app/controller/get/product_controller/api_getx_controller.dart';
+import 'package:rrr_shop_app/controller/get/product_controller/get_order_getx_controller.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 import 'package:rrr_shop_app/core/skeleton.dart';
 import 'package:rrr_shop_app/screens/product_details/rate_sheet.dart';
@@ -28,11 +29,14 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
 
   int currentIndex = 0;
   int expandIndex = -1;
+  late ScrollController scrollController;
 
   @override
   void initState() {
     tabController = TabController(length: 4, vsync: this);
-    APIGetxController.to.getOrders(statusId: currentIndex + 1);
+    scrollController = ScrollController();
+    scrollController.addListener(_listener);
+    OrderGetxController.to.getOrders(statusId: currentIndex + 1,page: 1);
     super.initState();
   }
 
@@ -51,10 +55,11 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
         centerTitle: true,
       ),
       body: ListView(
+        controller: scrollController,
         children: [
           buildContainer(),
           getSpace(h: 16.r),
-          GetX<APIGetxController>(builder: (controller) {
+          GetX<OrderGetxController>(builder: (controller) {
             return controller.isLoading.value
                 ? buildShimmer()
                 : Padding(
@@ -83,6 +88,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
                                 headerBuilder: (context, isExpanded) {
                                   return Row(
                                     children: [
+                                      if(order.orderProducts!.isNotEmpty)
                                       Padding(
                                         padding: EdgeInsets.symmetric(
                                             vertical: 5.0.r, horizontal: 8.r),
@@ -455,7 +461,14 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
                               );
                             }).toList()),
                   );
-          })
+          }),
+          getSpace(h: 10.h),
+          if(OrderGetxController.to.isPageLoading.value)
+            Skeleton(
+              width: double.infinity,
+              height: 50.h,
+            ),
+
         ],
       ),
     );
@@ -495,7 +508,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
         onTap: (value) {
           setState(() {
             currentIndex = value;
-            APIGetxController.to.getOrders(statusId: currentIndex + 1);
+            OrderGetxController.to.getOrders(statusId: currentIndex + 1);
             print(currentIndex);
           });
         },
@@ -540,5 +553,18 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
         ],
       ),
     );
+  }
+
+  void _listener() {
+
+    if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
+      print("fgddsd");
+      print("fgddsd ${OrderGetxController.to.lastPage}");
+      OrderGetxController.to.currentPage++;
+      if(OrderGetxController.to.currentPage <= OrderGetxController.to.lastPage){
+        OrderGetxController.to.getOrders(statusId: currentIndex + 1,page: OrderGetxController.to.currentPage);
+      }
+        // HomeGetxController.to.getAllProduct(page: HomeGetxController.to.currentPage);
+    }
   }
 }

@@ -20,7 +20,7 @@ class APIGetxController extends GetxController {
   RxList<Product> relatedProducts = <Product>[].obs;
   RxList<Product> FillterResult = <Product>[].obs;
   RxList<Product> orderProduct = <Product>[].obs;
-  Map<String, List<Product>> productMap = {};
+  // Map<String, List<Product>> productMap = {};
   RxList<Order> orders = <Order>[].obs;
   RxList<MySlider> sliders = <MySlider>[].obs;
   RxList<Category> cate = <Category>[].obs;
@@ -48,45 +48,45 @@ class APIGetxController extends GetxController {
     picke.value = XFile(xFile!.path);
   }
 
-  getAllProduct({page}) {
-
-
-    if (SharedPrefController().lastUpdate.isEmpty) {
-      get(page: page);
-    } else {
-      if (DateFormat('yyyy-MM-dd – kk:mm')
-          .parse(SharedPrefController().lastUpdate)
-          .isBefore(DateTime.now())) {
-        get(page: page);
-      } else {
-        List<Product> p = HiveGetXController.to.readAllProduct();
-        productMap.addAll(
-            {"trend": p.where((element) => element.trend == 1).toList()});
-        productMap.addAll(
-            {"new": p.where((element) => element.newProduct == 1).toList()});
-        productMap.addAll(
-            {"offers": p.where((element) => element.offer == 1).toList()});
-        products.value = productMap["new"] ?? [];
-      }
-    }
-  }
-
-  get({page = 1}) {
-    isLoading.value = true;
-    DataRepository().getAllProduct(page: page).then((value) async {
-      productMap.addAll(
-          {"trend": value.data!.where((element) => element.trend == 1).toList()});
-      productMap.addAll(
-          {"new": value.data!.where((element) => element.newProduct == 1).toList()});
-      productMap.addAll(
-          {"offers": value.data!.where((element) => element.offer == 1).toList()});
-      products.value = productMap["new"] ?? [];
-      await SharedPrefController().lastUpdate1(DateFormat('yyyy-MM-dd – kk:mm')
-          .format(DateTime.now().add(const Duration(days: 1))));
-      await HiveGetXController.to.addAllProduct(products.value);
-      isLoading.value = false;
-    });
-  }
+  // getAllProduct({page}) {
+  //
+  //
+  //   if (SharedPrefController().lastUpdate.isEmpty) {
+  //     get(page: page);
+  //   } else {
+  //     if (DateFormat('yyyy-MM-dd – kk:mm')
+  //         .parse(SharedPrefController().lastUpdate)
+  //         .isBefore(DateTime.now())) {
+  //       get(page: page);
+  //     } else {
+  //       List<Product> p = HiveGetXController.to.readAllProduct();
+  //       productMap.addAll(
+  //           {"trend": p.where((element) => element.trend == 1).toList()});
+  //       productMap.addAll(
+  //           {"new": p.where((element) => element.newProduct == 1).toList()});
+  //       productMap.addAll(
+  //           {"offers": p.where((element) => element.offer == 1).toList()});
+  //       products.value = productMap["new"] ?? [];
+  //     }
+  //   }
+  // }
+  //
+  // get({page = 1}) {
+  //   isLoading.value = true;
+  //   DataRepository().getAllProduct(page: page).then((value) async {
+  //     productMap.addAll(
+  //         {"trend": value.data!.where((element) => element.trend == 1).toList()});
+  //     productMap.addAll(
+  //         {"new": value.data!.where((element) => element.newProduct == 1).toList()});
+  //     productMap.addAll(
+  //         {"offers": value.data!.where((element) => element.offer == 1).toList()});
+  //     products.value = productMap["new"] ?? [];
+  //     await SharedPrefController().lastUpdate1(DateFormat('yyyy-MM-dd – kk:mm')
+  //         .format(DateTime.now().add(const Duration(days: 1))));
+  //     await HiveGetXController.to.addAllProduct(products.value);
+  //     isLoading.value = false;
+  //   });
+  // }
 
   getProductDetails({productId}) {
     isLoading.value = true;
@@ -101,23 +101,23 @@ class APIGetxController extends GetxController {
     });
   }
 
-  getNewProducts() {
-    DataRepository().getNewProduct().then((value) {
-      products.value = value;
-      productMap.addAll(
-          {"trend": value.where((element) => element.trend == 1).toList()});
-      productMap.addAll(
-          {"new": value.where((element) => element.newProduct == 1).toList()});
-      productMap.addAll(
-          {"offers": value.where((element) => element.offer == 1).toList()});
-    });
-  }
+  // getNewProducts() {
+  //   DataRepository().getNewProduct().then((value) {
+  //     products.value = value;
+  //     productMap.addAll(
+  //         {"trend": value.where((element) => element.trend == 1).toList()});
+  //     productMap.addAll(
+  //         {"new": value.where((element) => element.newProduct == 1).toList()});
+  //     productMap.addAll(
+  //         {"offers": value.where((element) => element.offer == 1).toList()});
+  //   });
+  // }
 
   getOrders({statusId}) {
     isLoading.value = true;
     orders.clear();
     DataRepository().getOrders(statusId: statusId).then((value) {
-      orders.value = value;
+      orders.value = value.data!;
       isLoading.value = false;
     });
   }
@@ -212,22 +212,22 @@ class APIGetxController extends GetxController {
     // print(orderProduct.value);
   }
 
-  void deleteFromProductCount() {
-    for(var v in orderProduct){
-      if( productMap['new'] != null && productMap['new']!.contains(v)){
-        int index = productMap['new']!.indexWhere((element) => element == v);
-        int i = int.parse(productMap['new']![index].productQty!) -1;
-        productMap['new']![index].productQty = i.toString();
-      }else if(productMap['trend'] != null && productMap['trend']!.contains(v)){
-        int index = productMap['trend']!.indexWhere((element) => element == v);
-        int i = int.parse(productMap['trend']![index].productQty!) -1;
-        productMap['trend']![index].productQty = i.toString();
-      }else if(productMap['offers'] != null &&productMap['offers']!.contains(v)) {
-        int index = productMap['offers']!.indexWhere((element) => element == v);
-        int i = int.parse(productMap['offers']![index].productQty!) -1;
-        productMap['offers']![index].productQty = i.toString();
-      }
-    }
-    orderProduct.clear();
-  }
+  // void deleteFromProductCount() {
+  //   for(var v in orderProduct){
+  //     if( productMap['new'] != null && productMap['new']!.contains(v)){
+  //       int index = productMap['new']!.indexWhere((element) => element == v);
+  //       int i = int.parse(productMap['new']![index].productQty!) -1;
+  //       productMap['new']![index].productQty = i.toString();
+  //     }else if(productMap['trend'] != null && productMap['trend']!.contains(v)){
+  //       int index = productMap['trend']!.indexWhere((element) => element == v);
+  //       int i = int.parse(productMap['trend']![index].productQty!) -1;
+  //       productMap['trend']![index].productQty = i.toString();
+  //     }else if(productMap['offers'] != null &&productMap['offers']!.contains(v)) {
+  //       int index = productMap['offers']!.indexWhere((element) => element == v);
+  //       int i = int.parse(productMap['offers']![index].productQty!) -1;
+  //       productMap['offers']![index].productQty = i.toString();
+  //     }
+  //   }
+  //   orderProduct.clear();
+  // }
 }

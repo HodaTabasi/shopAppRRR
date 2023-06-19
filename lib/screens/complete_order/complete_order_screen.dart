@@ -8,6 +8,7 @@ import 'package:rrr_shop_app/controller/data/model/product.dart';
 import 'package:rrr_shop_app/controller/data/model/user.dart';
 import 'package:rrr_shop_app/controller/get/product_controller/api_getx_controller.dart';
 import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
+import 'package:rrr_shop_app/controller/get/product_controller/home_product_getx_controller.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 import 'package:rrr_shop_app/core/app_button.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
@@ -411,7 +412,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
         await HiveGetXController.to.deleteAllProductFromCart();
         APIGetxController.to.cartFlag = false;
       }
-      APIGetxController.to.deleteFromProductCount();
+      HomeGetxController.to.deleteFromProductCount(APIGetxController.to.orderProduct);
       APIGetxController.to.relatedProducts.value = response.data!.relatedProducts??[];
       Navigator.pushNamedAndRemoveUntil(context, '/related_product_screen', (route) => false);
 
