@@ -7,7 +7,7 @@ import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
 import 'package:rrr_shop_app/core/app_button.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
 
-import '../../../../controller/get/api_getx_controller.dart';
+import '../../../../controller/get/product_controller/api_getx_controller.dart';
 import '../../../../core/app_order_card.dart';
 import '../../../../utils/constants.dart';
 

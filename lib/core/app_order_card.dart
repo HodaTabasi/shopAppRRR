@@ -44,7 +44,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
             child: ClipRRect(
                 clipBehavior: Clip.antiAlias,
                 borderRadius: BorderRadius.circular(8.r),
-                child: Image.network("${APISetting.IMAGE_BASE_URL}${widget.product.productThumbnail}",height: 80.h,width: 110.w,fit: BoxFit.fill,)),
+                child: Image.network("${widget.product.productThumbnail}",height: 80.h,width: 110.w,fit: BoxFit.fill,)),
           ),
           Expanded(
             child: Padding(

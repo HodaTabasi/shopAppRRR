@@ -9,11 +9,11 @@ import 'package:rrr_shop_app/controller/data/reposetory/data_repo.dart';
 import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
-import '../../utils/size_custom_radio.dart';
-import '../data/model/add_order_responce.dart';
-import '../data/model/order.dart';
-import '../data/model/product.dart';
-import '../data/model/rate.dart';
+import '../../../utils/size_custom_radio.dart';
+import '../../data/model/add_order_responce.dart';
+import '../../data/model/order.dart';
+import '../../data/model/product.dart';
+import '../../data/model/rate.dart';
 
 class APIGetxController extends GetxController {
   RxList<Product> products = <Product>[].obs;
@@ -48,16 +48,16 @@ class APIGetxController extends GetxController {
     picke.value = XFile(xFile!.path);
   }
 
-  getAllProduct() {
+  getAllProduct({page}) {
 
 
     if (SharedPrefController().lastUpdate.isEmpty) {
-      get();
+      get(page: page);
     } else {
       if (DateFormat('yyyy-MM-dd – kk:mm')
           .parse(SharedPrefController().lastUpdate)
           .isBefore(DateTime.now())) {
-        get();
+        get(page: page);
       } else {
         List<Product> p = HiveGetXController.to.readAllProduct();
         productMap.addAll(
@@ -71,15 +71,15 @@ class APIGetxController extends GetxController {
     }
   }
 
-  get() {
+  get({page = 1}) {
     isLoading.value = true;
-    DataRepository().getAllProduct().then((value) async {
+    DataRepository().getAllProduct(page: page).then((value) async {
       productMap.addAll(
-          {"trend": value.where((element) => element.trend == 1).toList()});
+          {"trend": value.data!.where((element) => element.trend == 1).toList()});
       productMap.addAll(
-          {"new": value.where((element) => element.newProduct == 1).toList()});
+          {"new": value.data!.where((element) => element.newProduct == 1).toList()});
       productMap.addAll(
-          {"offers": value.where((element) => element.offer == 1).toList()});
+          {"offers": value.data!.where((element) => element.offer == 1).toList()});
       products.value = productMap["new"] ?? [];
       await SharedPrefController().lastUpdate1(DateFormat('yyyy-MM-dd – kk:mm')
           .format(DateTime.now().add(const Duration(days: 1))));

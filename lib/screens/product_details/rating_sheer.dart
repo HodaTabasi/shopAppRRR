@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:rrr_shop_app/screens/product_details/rate_sheet.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
 
-import '../../controller/get/api_getx_controller.dart';
+import '../../controller/get/product_controller/api_getx_controller.dart';
 import '../../utils/helper.dart';
 
 class RatingSheet extends StatelessWidget {

@@ -6,7 +6,7 @@ import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
 import 'package:rrr_shop_app/controller/data/model/product.dart';
-import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
+import 'package:rrr_shop_app/controller/get/product_controller/api_getx_controller.dart';
 import 'package:rrr_shop_app/controller/hive/hice_operations.dart';
 import 'package:rrr_shop_app/screens/home/tebs/cart_tab/cart_page.dart';
 import 'package:rrr_shop_app/screens/home/tebs/fav_tab/fav_screen.dart';

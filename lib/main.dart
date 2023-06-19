@@ -27,12 +27,13 @@ import 'package:rrr_shop_app/utils/notification/fb_notifications.dart';
 
 import 'controller/get/Notification_getx_controller.dart';
 import 'controller/get/api_auth_getx_controller.dart';
-import 'controller/get/api_getx_controller.dart';
+import 'controller/get/product_controller/api_getx_controller.dart';
 import 'controller/get/fillter_getx.dart';
 import 'controller/get/general_controler.dart';
 import 'controller/get/hive_getx_controller.dart';
 import 'controller/get/languages_getx_controoler.dart';
 import 'controller/get/loading_getx_controller.dart';
+import 'controller/get/product_controller/home_product_getx_controller.dart';
 import 'controller/preferences/shared_pref_controller.dart';
 import 'screens/complete_profile/complete_profile.dart';
 
@@ -83,6 +84,7 @@ class _MyAppState extends State<MyApp> with FbNotifications{
   NotificationGetxController controller5 = Get.put<NotificationGetxController>(NotificationGetxController());
   GeneralDataController controller6 = Get.put<GeneralDataController>(GeneralDataController());
   FillterGetXController controller7 = Get.put<FillterGetXController>(FillterGetXController());
+  HomeGetxController controller8 = Get.put<HomeGetxController>(HomeGetxController());
 
   // This widget is the root of your application.
   @override

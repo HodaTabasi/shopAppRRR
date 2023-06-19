@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
-import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
+import 'package:rrr_shop_app/controller/get/product_controller/api_getx_controller.dart';
 import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
 import 'package:rrr_shop_app/core/app_button.dart';
 import 'package:rrr_shop_app/core/skeleton.dart';
@@ -120,7 +120,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         child: APIGetxController.to.product.value.multiImg!.isEmpty?PageView(
                           children: [
                             Image.network(
-                              "${APISetting.IMAGE_BASE_URL}${APIGetxController.to.product.value.productThumbnail}",
+                              "${APIGetxController.to.product.value.productThumbnail}",
                               fit: BoxFit.fill,
                             )
                           ],
@@ -132,7 +132,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           },
                           itemBuilder: (context, index) {
                           return  Image.network(
-                            "${APISetting.IMAGE_BASE_URL}${APIGetxController.to.product.value.multiImg![index]}",
+                            "${APIGetxController.to.product.value.multiImg![index]}",
                             fit: BoxFit.fill,
                           );
                         },),

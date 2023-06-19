@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
 
-import '../../controller/get/api_getx_controller.dart';
+import '../../controller/get/product_controller/api_getx_controller.dart';
 import '../../utils/helper.dart';
 
 class MenuScreen extends StatefulWidget {

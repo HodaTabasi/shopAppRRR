@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:rrr_shop_app/controller/data/api/api_response.dart';
 import 'package:rrr_shop_app/controller/data/model/rate.dart';
 import 'package:rrr_shop_app/controller/data/model/user.dart';
-import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
+import 'package:rrr_shop_app/controller/get/product_controller/api_getx_controller.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
 import 'package:rrr_shop_app/core/app_button.dart';

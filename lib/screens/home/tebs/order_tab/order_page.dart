@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
 import 'package:rrr_shop_app/controller/data/model/user.dart';
-import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
+import 'package:rrr_shop_app/controller/get/product_controller/api_getx_controller.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 import 'package:rrr_shop_app/core/skeleton.dart';
 import 'package:rrr_shop_app/screens/product_details/rate_sheet.dart';
@@ -90,7 +90,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
                                             borderRadius:
                                                 BorderRadius.circular(10.r),
                                             child: Image.network(
-                                              "${APISetting.IMAGE_BASE_URL}${order.orderProducts![0].productImage}",
+                                              "${order.orderProducts![0].productImage}",
                                               height: 55,
                                               width: 66,
                                               fit: BoxFit.fill,

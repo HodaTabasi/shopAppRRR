@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
 import 'package:rrr_shop_app/controller/data/model/rate.dart';
@@ -13,8 +12,8 @@ import 'api_helper.dart';
 
 class APIController with ApiHelper{
 
-dynamic getAllProduct() async {
-  Uri uri = Uri.parse(APISetting.get_all_product);
+dynamic getAllProduct({page}) async {
+  Uri uri = Uri.parse(APISetting.get_all_product.replaceFirst("number", page.toString()));
   var response = await http.get(uri, headers: headersWithOutToken);
 
   print(response.body);
@@ -253,6 +252,8 @@ registerWithImage({required String path,required User user}) async {
   request.fields['lang'] = 'ar';
 
   var response = await request.send();
+  print(response.statusCode);
+  // print(response.stream.transform(utf8.decoder).first);
   if (response.statusCode == 200) {
     var body = await response.stream.transform(utf8.decoder).first;
     var jsonResponse = jsonDecode(body);

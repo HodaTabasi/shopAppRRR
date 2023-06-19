@@ -1,6 +1,7 @@
 import 'package:rrr_shop_app/controller/data/api/api_controller.dart';
 import 'package:rrr_shop_app/controller/data/api/api_helper.dart';
 import 'package:rrr_shop_app/controller/data/api/api_response.dart';
+import 'package:rrr_shop_app/controller/data/model/AllProductResponse.dart';
 import 'package:rrr_shop_app/controller/data/model/category.dart';
 import 'package:rrr_shop_app/controller/data/model/order.dart';
 import 'package:rrr_shop_app/controller/data/model/product.dart';
@@ -20,11 +21,11 @@ class DataRepository with ApiHelper{
     return _instance??=DataRepository._();
   }
 
-  Future<List<Product>> getAllProduct() async {
-    final jsonResponse = await _apiController.getAllProduct();
-    var jsonArray = jsonResponse['data'] as List;
-    return jsonArray.map((jsonObject) => Product.fromJson(jsonObject)).toList();
-
+  Future<AllProductResponse> getAllProduct({page}) async {
+    final jsonResponse = await _apiController.getAllProduct(page: page);
+    var jsonArray = jsonResponse['data'];
+    return AllProductResponse.fromJson(jsonArray);
+    // return jsonArray.map((jsonObject) => Product.fromJson(jsonObject)).toList();
   }
 
   Future<Product> getProductDetails({productId}) async {

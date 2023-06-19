@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rrr_shop_app/controller/data/api/api_response.dart';
 import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
-import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
+import 'package:rrr_shop_app/controller/get/product_controller/api_getx_controller.dart';
 import 'package:rrr_shop_app/screens/home/tebs/profile_tab/setting_item.dart';
 import 'package:rrr_shop_app/screens/home/tebs/profile_tab/suppourt_sheet.dart';
 import 'package:rrr_shop_app/screens/login_screen.dart';

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
+import 'package:rrr_shop_app/controller/get/product_controller/api_getx_controller.dart';
 
 import 'api_auth_getx_controller.dart';
 import 'hive_getx_controller.dart';

@@ -12,7 +12,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:rrr_shop_app/core/app_button.dart';
 
-import '../../controller/get/api_getx_controller.dart';
+import '../../controller/get/product_controller/api_getx_controller.dart';
 import '../../utils/constants.dart';
 
 class GoogleMapLcationPage extends StatefulWidget {

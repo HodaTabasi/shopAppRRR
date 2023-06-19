@@ -4,9 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
-import 'package:rrr_shop_app/controller/data/model/product.dart';
-import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
-import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
+import 'package:rrr_shop_app/controller/get/product_controller/api_getx_controller.dart';
+import 'package:rrr_shop_app/controller/get/product_controller/home_product_getx_controller.dart';
 import 'package:rrr_shop_app/screens/home/tebs/home_tab/widget/search_widget.dart';
 import 'package:rrr_shop_app/screens/home/tebs/home_tab/widget/slider_widget.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
@@ -26,6 +25,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late TabController controller;
 
   late TabController tabController;
+  late ScrollController scrollController;
 
   int currentIndex = 0;
 
@@ -34,9 +34,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.initState();
     controller = TabController(length: l.length, vsync: this);
     tabController = TabController(length: 3, vsync: this);
+    scrollController = ScrollController();
+    scrollController.addListener(_listener);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      APIGetxController.to.getAllProduct();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      HomeGetxController.to.getAllProduct(page: 1);
     });
   }
 
@@ -93,13 +95,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           )
         ],
       ),
-      body: GetX<APIGetxController>(builder: (controller1) {
+      body: GetX<HomeGetxController>(builder: (controller1) {
         controller1.products.value =
-            APIGetxController.to.productMap["new"] ?? [];
+            HomeGetxController.to.productMap["new"] ?? [];
         return controller1.isLoading.value
             ? buildShimmer()
             : ListView(
                 padding: EdgeInsets.all(16.r),
+                controller: scrollController,
                 children: [
                   SearchWidget(),
                   getSpace(h: 10.h),
@@ -116,7 +119,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     itemBuilder: (context, index) {
                       return AppProductCard(controller1.products[index]);
                     },
-                  )
+                  ),
+                  getSpace(h: 10.h),
+                  if(controller1.isPageLoading.value)
+                    Skeleton(
+                      width: double.infinity,
+                      height: 50.h,
+                    ),
+
                 ],
               );
       }),
@@ -164,7 +174,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             String key = "";
             switch (value) {
               case 0:
-                key = "trend";
+                key = "new";
                 break;
               case 1:
                 key = "offers";
@@ -173,8 +183,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 key = "trend";
                 break;
             }
-            APIGetxController.to.products.value =
-                APIGetxController.to.productMap[key] ?? [];
+            HomeGetxController.to.products.value =
+                HomeGetxController.to.productMap[key] ?? [];
           });
         },
         indicator: BoxDecoration(
@@ -195,5 +205,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ],
       ),
     );
+  }
+
+  void _listener() {
+
+    if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
+      print("fgddsd");
+      print("fgddsd ${HomeGetxController.to.lastPage}");
+      HomeGetxController.to.currentPage++;
+      if(HomeGetxController.to.currentPage <= HomeGetxController.to.lastPage)
+        HomeGetxController.to.getAllProduct(page: HomeGetxController.to.currentPage);
+    }
   }
 }

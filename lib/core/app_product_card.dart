@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
 import 'package:rrr_shop_app/controller/data/model/product.dart';
-import 'package:rrr_shop_app/controller/get/api_getx_controller.dart';
+import 'package:rrr_shop_app/controller/get/product_controller/api_getx_controller.dart';
 import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
 
 import '../controller/preferences/shared_pref_controller.dart';
@@ -73,7 +73,7 @@ class _AppProductCardState extends State<AppProductCard> {
                                 topLeft: Radius.circular(16.r),
                                 topRight: Radius.circular(16.r)),
                             child: Image.network(
-                              "${APISetting.IMAGE_BASE_URL}${widget.product.productThumbnail}",
+                              "${widget.product.productThumbnail}",
                               height: 100.h,
                               fit: BoxFit.fill,
                               width: double.infinity,

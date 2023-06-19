@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../controller/get/api_getx_controller.dart';
+import '../../controller/get/product_controller/api_getx_controller.dart';
 import '../../utils/constants.dart';
 import '../../utils/helper.dart';
 
