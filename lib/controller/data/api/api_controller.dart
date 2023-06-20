@@ -106,6 +106,21 @@ dynamic getSliders() async {
   return null;
 }
 
+dynamic getPublicOffer() async {
+  Uri uri = Uri.parse(APISetting.get_pubic_offer);
+  var response = await http.get(uri, headers: headersWithOutToken);
+
+  print(response.body);
+
+  if (response.statusCode == 200 || response.statusCode == 400) {
+    var jsonResponse = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      return jsonResponse;
+    }
+  }
+  return null;
+}
+
 dynamic getAllCategory() async {
   Uri uri = Uri.parse(APISetting.get_all_category);
   var response = await http.get(uri, headers: headersWithOutToken);

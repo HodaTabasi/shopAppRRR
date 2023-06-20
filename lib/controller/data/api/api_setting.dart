@@ -20,4 +20,5 @@ class APISetting {
   static String delete_user = "${BASE_URL}customers/destroy/{phone_number}";
   static String get_rate_product = "${BASE_URL}ratings/get_ratings/{id}";
   static String add_rate_product = "${BASE_URL}ratings/add_rating";
+  static String get_pubic_offer = "${BASE_URL}offers/get_offers";
 }

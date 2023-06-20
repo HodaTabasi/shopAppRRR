@@ -37,8 +37,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     scrollController = ScrollController();
     scrollController.addListener(_listener);
 
-    WidgetsBinding.instance.addPostFrameCallback((_){
-      HomeGetxController.to.getAllProduct(page: HomeGetxController.to.currentPage);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      HomeGetxController.to
+          .getAllProduct(page: HomeGetxController.to.currentPage);
     });
   }
 
@@ -56,7 +57,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ).tr(),
         centerTitle: true,
         leading: GetBuilder<NotificationGetxController>(
-          builder:(controller) =>  Stack(
+          builder: (controller) => Stack(
             children: [
               IconButton(
                   onPressed: () {
@@ -70,7 +71,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 top: 7,
                 right: 8,
                 child: Visibility(
-                  visible: controller.notificationNumber > 0 ,
+                  visible: controller.notificationNumber > 0,
                   child: const CircleAvatar(
                     backgroundColor: Colors.amber,
                     radius: 3,
@@ -85,10 +86,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             padding: EdgeInsets.all(16.0.r),
             child: InkWell(
               onTap: () {
-                WidgetsBinding.instance.addPostFrameCallback((_){
+                WidgetsBinding.instance.addPostFrameCallback((_) {
                   ZoomDrawer.of(context)!.toggle();
-                  });
-
+                });
               },
               child: SvgPicture.asset("assets/images/16_16.svg"),
             ),
@@ -97,68 +97,78 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
       body: GetX<HomeGetxController>(builder: (controller1) {
         controller1.products.value =
-            HomeGetxController.to.productMap["new"] ?? [];
+            HomeGetxController.to.offers.isEmpty?HomeGetxController.to.productMap["new"] ?? []:HomeGetxController.to.productMap["all"] ?? [];
         return controller1.isLoading.value
             ? buildShimmer()
-            : ListView(
-                padding: EdgeInsets.all(16.r),
-                controller: scrollController,
-                children: [
-                  SearchWidget(),
-                  getSpace(h: 10.h),
-                  SliderWidget(
-                      controller: controller, l: APIGetxController.to.sliders),
-                  getSpace(h: 10.h),
-                  buildContainer(),
-                  getSpace(h: 10.h),
-                  GridView.builder(
-                    itemCount: controller1.products.length,
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    gridDelegate: sliver,
-                    itemBuilder: (context, index) {
-                      return AppProductCard(controller1.products[index]);
-                    },
-                  ),
-                  getSpace(h: 10.h),
-                  if(controller1.isPageLoading.value)
-                    Skeleton(
-                      width: double.infinity,
-                      height: 50.h,
-                    ),
-
-                ],
-              );
+            : buildBody(controller1);
       }),
+    );
+  }
+
+  ListView buildBody(HomeGetxController controller1) {
+    return ListView(
+      padding: EdgeInsets.all(16.r),
+      controller: scrollController,
+      children: [
+        SearchWidget(),
+        getSpace(h: 10.h),
+        Visibility(
+          visible: HomeGetxController.to.offers.isEmpty,
+          child: SliderWidget(
+              controller: controller, l: APIGetxController.to.sliders),
+        ),
+        Visibility(
+            visible: HomeGetxController.to.offers.isEmpty,
+            child: getSpace(h: 10.h)),
+        Visibility(
+            visible: HomeGetxController.to.offers.isEmpty,
+            child: buildContainer()),
+        getSpace(h: 10.h),
+        GridView.builder(
+          itemCount: controller1.products.length,
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          gridDelegate: sliver,
+          itemBuilder: (context, index) {
+            return AppProductCard(controller1.products[index]);
+          },
+        ),
+        getSpace(h: 10.h),
+        if (controller1.isPageLoading.value)
+          Skeleton(
+            width: double.infinity,
+            height: 50.h,
+          ),
+      ],
     );
   }
 
   Padding buildShimmer() {
     return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Skeleton(
-                    width: double.infinity,
-                    height: 50.h,
-                  ),
-                  getSpace(h: 20.h),
-                  Skeleton(
-                    width: double.infinity,
-                    height: 150.h,
-                  ),
-                  getSpace(h: 20.h),
-                  Expanded(
-                    child: GridView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: 4,
-                      gridDelegate: sliver,
-                      itemBuilder: (context, index) => Skeleton(),
-                    ),
-                  )
-                ],
-              ),
-            );
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Skeleton(
+            width: double.infinity,
+            height: 50.h,
+          ),
+          getSpace(h: 20.h),
+          Skeleton(
+            width: double.infinity,
+            height: 150.h,
+          ),
+          getSpace(h: 20.h),
+          Expanded(
+            child: GridView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: 4,
+              gridDelegate: sliver,
+              itemBuilder: (context, index) => Skeleton(),
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   Container buildContainer() {
@@ -214,13 +224,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   void _listener() {
-
-    if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
       // print("fgddsd");
       // print("fgddsd ${HomeGetxController.to.lastPage}");
       HomeGetxController.to.currentPage++;
-      if(HomeGetxController.to.currentPage <= HomeGetxController.to.lastPage)
-        HomeGetxController.to.getAllProduct(page: HomeGetxController.to.currentPage);
+      if (HomeGetxController.to.currentPage <= HomeGetxController.to.lastPage)
+        HomeGetxController.to
+            .getAllProduct(page: HomeGetxController.to.currentPage);
     }
   }
 }

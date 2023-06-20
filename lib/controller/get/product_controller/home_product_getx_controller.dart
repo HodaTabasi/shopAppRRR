@@ -1,6 +1,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:get/get.dart';
+import 'package:rrr_shop_app/controller/data/model/PublicOffer.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
 
 import '../../data/model/product.dart';
@@ -15,6 +16,7 @@ class HomeGetxController extends GetxController {
   RxBool isPageLoading = false.obs;
   int lastPage = 1;
   int currentPage = 1;
+  RxList<publicOffer> offers = <publicOffer>[].obs;
 
   static HomeGetxController get to => Get.find<HomeGetxController>();
 
@@ -50,14 +52,22 @@ class HomeGetxController extends GetxController {
         } else {
             List<Product> p = HiveGetXController.to.readAllProduct();
             if(p != null){
-              productMap.addAll({"all": p});
-              productMap.addAll(
-                  {"trend": p.where((element) => element.trend == 1).toList()});
-              productMap.addAll(
-                  {"new": p.where((element) => element.newProduct == 1).toList()});
-              productMap.addAll(
-                  {"offers": p.where((element) => element.offer == 1).toList()});
-              products.value = productMap["new"] ?? [];
+              if(offers.isEmpty){
+                productMap.addAll({"all": p});
+                productMap.addAll(
+                    {"trend": p.where((element) => element.trend == 1).toList()});
+                productMap.addAll(
+                    {"new": p.where((element) => element.newProduct == 1).toList()});
+                productMap.addAll(
+                    {"offers": p.where((element) => element.offer == 1).toList()});
+                products.value = productMap["new"] ?? [];
+              }else {
+                productMap.addAll({"all": p.map((e) {
+                  e.discountPrice = offers.first.discount.toString();
+                  return e;
+                }).toList()});
+              }
+
             }else {
               productMap['trend'] = [];
               productMap['new'] = [];
@@ -73,12 +83,19 @@ class HomeGetxController extends GetxController {
     if(currentPage==1){
       isLoading.value = true;
       DataRepository().getAllProduct(page: page).then((value) async {
-        lastPage = value.lastPage!;
-        productMap.addAll({"all": value.data!});
-        productMap.addAll({"trend": value.data!.where((element) => element.trend == 1).toList()});
-        productMap.addAll({"new": value.data!.where((element) => element.newProduct == 1).toList()});
-        productMap.addAll({"offers": value.data!.where((element) => element.offer == 1).toList()});
-        products.value = productMap["new"] ?? [];
+        if(offers.isEmpty){
+          lastPage = value.lastPage!;
+          productMap.addAll({"all": value.data!});
+          productMap.addAll({"trend": value.data!.where((element) => element.trend == 1).toList()});
+          productMap.addAll({"new": value.data!.where((element) => element.newProduct == 1).toList()});
+          productMap.addAll({"offers": value.data!.where((element) => element.offer == 1).toList()});
+          products.value = productMap["new"] ?? [];
+        }else {
+          productMap.addAll({"all": value.data!.map((e) {
+             e.discountPrice = offers.first.discount.toString();
+             return e;
+          }).toList()});
+        }
 
         await SharedPrefController().lastUpdate1(DateFormat('yyyy-MM-dd – kk:mm')
             .format(DateTime.now().add(const Duration(days: 1))));
@@ -89,14 +106,19 @@ class HomeGetxController extends GetxController {
     }else {
       isPageLoading.value = true;
       DataRepository().getAllProduct(page: page).then((value) async {
-        print("Dfsdfsdfsf ${value.data!.length}");
         lastPage = value.lastPage!;
-        productMap.addAll({"all": value.data!});
-        productMap["trend"]!.addAll(value.data!.where((element) => element.trend == 1));
-        productMap["new"]!.addAll(value.data!.where((element) => element.newProduct == 1));
-        productMap["offers"]!.addAll(value.data!.where((element) => element.offer == 1));
-        products.value = productMap["new"] ?? [];
-        print(products.length);
+        if(offers.isEmpty){
+          productMap.addAll({"all": value.data!});
+          productMap["trend"]!.addAll(value.data!.where((element) => element.trend == 1));
+          productMap["new"]!.addAll(value.data!.where((element) => element.newProduct == 1));
+          productMap["offers"]!.addAll(value.data!.where((element) => element.offer == 1));
+          products.value = productMap["new"] ?? [];
+        }else {
+          productMap.addAll({"all": value.data!.map((e) {
+            e.discountPrice = offers.first.discount.toString();
+            return e;
+          }).toList()});
+        }
 
         await SharedPrefController().lastUpdate1(DateFormat('yyyy-MM-dd – kk:mm')
             .format(DateTime.now().add(const Duration(days: 1))));
@@ -126,5 +148,9 @@ class HomeGetxController extends GetxController {
       // }
     }
     orderProduct.clear();
+  }
+
+  getOffer() async {
+    offers.value = await DataRepository().getPublicOffer();
   }
 }

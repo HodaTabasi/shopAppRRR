@@ -12,6 +12,7 @@ import 'package:rrr_shop_app/screens/product_details/rating_sheer.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
 
+import '../../controller/get/product_controller/home_product_getx_controller.dart';
 import '../../controller/preferences/shared_pref_controller.dart';
 import '../../utils/CustomRadio.dart';
 import '../../utils/size_custom_radio.dart';
@@ -205,7 +206,17 @@ class _ProductDetailsState extends State<ProductDetails> {
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 16.r, vertical: 8.r),
-                        child: Text(
+                        child:
+                        // HomeGetxController.to.offers.isNotEmpty?
+                        // Text(
+                        //   "${getDiscountPrice(HomeGetxController.to.offers.first.discount!.toString(), APIGetxController.to.product.value.sellingPrice!)}\$",
+                        //   style: TextStyle(
+                        //       color: mainColor,
+                        //       fontSize: 16.sp,
+                        //       fontWeight: FontWeight.w600),
+                        // )
+                        //     :
+                        Text(
                           "${APIGetxController.to.product.value.discountPrice != "0" ?getDiscountPrice(APIGetxController.to.product.value.discountPrice!, APIGetxController.to.product.value.sellingPrice!):APIGetxController.to.product.value.sellingPrice}\$",
                           style: TextStyle(
                               color: mainColor,

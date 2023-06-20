@@ -15,6 +15,7 @@ import '../../data/model/add_order_responce.dart';
 import '../../data/model/order.dart';
 import '../../data/model/product.dart';
 import '../../data/model/rate.dart';
+import 'home_product_getx_controller.dart';
 
 class APIGetxController extends GetxController {
   RxList<Product> products = <Product>[].obs;
@@ -98,6 +99,10 @@ class APIGetxController extends GetxController {
       isLoading.value = true;
       DataRepository().getProductDetails(productId: productId).then((value) {
         product.value = value;
+        if(HomeGetxController.to.offers.isNotEmpty){
+          product.value.discountPrice = HomeGetxController.to.offers.first.discount!.toString();
+        }
+
         sampleData.clear();
         product.value.productSize!.split(",").forEach((element) {
           sampleData.add(RadioModel(false, element, element));
