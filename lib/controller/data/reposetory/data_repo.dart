@@ -40,8 +40,8 @@ class DataRepository with ApiHelper{
     return jsonArray.map((jsonObject) => Product.fromJson(jsonObject)).toList();
   }
 
-  Future<getOrderResponse> getOrders({statusId}) async {
-    final jsonResponse = await _apiController.getOrders(statusId: statusId);
+  Future<getOrderResponse> getOrders({statusId,page}) async {
+    final jsonResponse = await _apiController.getOrders(statusId: statusId,page: page);
     var jsonArray = jsonResponse['data'] ;
     return getOrderResponse.fromJson(jsonArray);
   }

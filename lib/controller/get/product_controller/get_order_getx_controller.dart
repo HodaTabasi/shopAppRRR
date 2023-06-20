@@ -25,7 +25,7 @@ class OrderGetxController extends GetxController {
     if (await checkStatus()) {
       isLoading.value = true;
       orders.clear();
-      DataRepository().getOrders(statusId: statusId).then((value) {
+      DataRepository().getOrders(statusId: statusId,page: page).then((value) {
         orders.value = value.data!;
         isLoading.value = false;
       });

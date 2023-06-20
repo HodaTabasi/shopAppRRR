@@ -523,7 +523,8 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
         onTap: (value) {
           setState(() {
             currentIndex = value;
-            OrderGetxController.to.getOrders(statusId: currentIndex + 1);
+            OrderGetxController.to.currentPage = 1;
+            OrderGetxController.to.getOrders(statusId: currentIndex + 1,page: OrderGetxController.to.currentPage );
             print(currentIndex);
           });
         },
@@ -573,8 +574,8 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   void _listener() {
 
     if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
-      print("fgddsd");
-      print("fgddsd ${OrderGetxController.to.lastPage}");
+      // print("fgddsd");
+      // print("fgddsd ${OrderGetxController.to.lastPage}");
       OrderGetxController.to.currentPage++;
       if(OrderGetxController.to.currentPage <= OrderGetxController.to.lastPage){
         OrderGetxController.to.getOrders(statusId: currentIndex + 1,page: OrderGetxController.to.currentPage);

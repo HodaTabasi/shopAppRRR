@@ -11,7 +11,7 @@ class AllProductResponse {
   String? nextPageUrl;
   String? path;
   int? perPage;
-  Null? prevPageUrl;
+  String? prevPageUrl;
   int? to;
   int? total;
 
@@ -51,7 +51,7 @@ class AllProductResponse {
     nextPageUrl = json['next_page_url'];
     path = json['path'];
     perPage = json['per_page'];
-    prevPageUrl = json['prev_page_url'];
+    prevPageUrl = json['prev_page_url']??'';
     to = json['to'];
     total = json['total'];
   }

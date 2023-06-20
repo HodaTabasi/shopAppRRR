@@ -13,10 +13,8 @@ import 'api_helper.dart';
 class APIController with ApiHelper{
 
 dynamic getAllProduct({page}) async {
-  Uri uri = Uri.parse(APISetting.get_all_product.replaceFirst("number", page.toString()));
+  Uri uri = Uri.parse(APISetting.get_all_product.replaceFirst("{number}", page.toString()));
   var response = await http.get(uri, headers: headersWithOutToken);
-
-  print(response.body);
 
   if (response.statusCode == 200 || response.statusCode == 400) {
     var jsonResponse = jsonDecode(response.body);
@@ -57,9 +55,9 @@ dynamic getNewProduct() async {
   return null;
 }
 
-dynamic getOrders({statusId}) async {
+dynamic getOrders({statusId,page}) async {
   User u = SharedPrefController().user;
-  Uri uri = Uri.parse(APISetting.get_orders.replaceFirst('{customer_id}/{status_id}','${u.id}/$statusId' ));
+  Uri uri = Uri.parse(APISetting.get_orders.replaceFirst('{customer_id}/{status_id}','${u.id}/$statusId').replaceFirst("{number}", page.toString()));
   print(uri.path);
   var response = await http.get(uri, headers: headersWithOutToken);
 

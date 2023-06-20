@@ -44,6 +44,7 @@ class HomeGetxController extends GetxController {
 
 
   getAllProduct({page}) async {
+    print(page);
     if (await checkStatus()) {
           get(page: page);
         } else {
@@ -68,6 +69,7 @@ class HomeGetxController extends GetxController {
   }
 
   get({page = 1}) {
+    print(page);
     if(currentPage==1){
       isLoading.value = true;
       DataRepository().getAllProduct(page: page).then((value) async {
@@ -87,6 +89,7 @@ class HomeGetxController extends GetxController {
     }else {
       isPageLoading.value = true;
       DataRepository().getAllProduct(page: page).then((value) async {
+        print("Dfsdfsdfsf ${value.data!.length}");
         lastPage = value.lastPage!;
         productMap.addAll({"all": value.data!});
         productMap["trend"]!.addAll(value.data!.where((element) => element.trend == 1));

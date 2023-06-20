@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     scrollController.addListener(_listener);
 
     WidgetsBinding.instance.addPostFrameCallback((_){
-      HomeGetxController.to.getAllProduct(page: 1);
+      HomeGetxController.to.getAllProduct(page: HomeGetxController.to.currentPage);
     });
   }
 
@@ -216,8 +216,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void _listener() {
 
     if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
-      print("fgddsd");
-      print("fgddsd ${HomeGetxController.to.lastPage}");
+      // print("fgddsd");
+      // print("fgddsd ${HomeGetxController.to.lastPage}");
       HomeGetxController.to.currentPage++;
       if(HomeGetxController.to.currentPage <= HomeGetxController.to.lastPage)
         HomeGetxController.to.getAllProduct(page: HomeGetxController.to.currentPage);
