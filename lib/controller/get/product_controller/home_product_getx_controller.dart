@@ -1,9 +1,12 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:get/get.dart';
+import 'package:rrr_shop_app/utils/constants.dart';
 
 import '../../data/model/product.dart';
 import '../../data/reposetory/data_repo.dart';
+import '../../preferences/shared_pref_controller.dart';
+import '../hive_getx_controller.dart';
 
 class HomeGetxController extends GetxController {
   RxList<Product> products = <Product>[].obs;
@@ -40,8 +43,28 @@ class HomeGetxController extends GetxController {
   // }
 
 
-  getAllProduct({page}) {
-      get(page: page);
+  getAllProduct({page}) async {
+    if (await checkStatus()) {
+          get(page: page);
+        } else {
+            List<Product> p = HiveGetXController.to.readAllProduct();
+            if(p != null){
+              productMap.addAll({"all": p});
+              productMap.addAll(
+                  {"trend": p.where((element) => element.trend == 1).toList()});
+              productMap.addAll(
+                  {"new": p.where((element) => element.newProduct == 1).toList()});
+              productMap.addAll(
+                  {"offers": p.where((element) => element.offer == 1).toList()});
+              products.value = productMap["new"] ?? [];
+            }else {
+              productMap['trend'] = [];
+              productMap['new'] = [];
+              productMap['offers'] = [];
+              productMap['all'] = [];
+            }
+
+        }
   }
 
   get({page = 1}) {
@@ -55,9 +78,9 @@ class HomeGetxController extends GetxController {
         productMap.addAll({"offers": value.data!.where((element) => element.offer == 1).toList()});
         products.value = productMap["new"] ?? [];
 
-        // await SharedPrefController().lastUpdate1(DateFormat('yyyy-MM-dd – kk:mm')
-        //     .format(DateTime.now().add(const Duration(days: 1))));
-        // await HiveGetXController.to.addAllProduct(products.value);
+        await SharedPrefController().lastUpdate1(DateFormat('yyyy-MM-dd – kk:mm')
+            .format(DateTime.now().add(const Duration(days: 1))));
+        await HiveGetXController.to.addAllProduct(products.value);
 
           isLoading.value = false;
       });
@@ -72,9 +95,9 @@ class HomeGetxController extends GetxController {
         products.value = productMap["new"] ?? [];
         print(products.length);
 
-        // await SharedPrefController().lastUpdate1(DateFormat('yyyy-MM-dd – kk:mm')
-        //     .format(DateTime.now().add(const Duration(days: 1))));
-        // await HiveGetXController.to.addAllProduct(products.value);
+        await SharedPrefController().lastUpdate1(DateFormat('yyyy-MM-dd – kk:mm')
+            .format(DateTime.now().add(const Duration(days: 1))));
+        await HiveGetXController.to.addAllProduct(products.value);
 
         isPageLoading.value = false;
       });
@@ -101,6 +124,4 @@ class HomeGetxController extends GetxController {
     }
     orderProduct.clear();
   }
-
-
 }

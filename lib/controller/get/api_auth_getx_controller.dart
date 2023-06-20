@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:rrr_shop_app/controller/data/api/api_response.dart';
 import 'package:rrr_shop_app/controller/data/reposetory/data_repo.dart';
+import 'package:rrr_shop_app/utils/constants.dart';
+import 'package:easy_localization/easy_localization.dart' as data;
 
 class AuthGETXController extends GetxController {
 
@@ -12,27 +14,55 @@ class AuthGETXController extends GetxController {
   static AuthGETXController get to => Get.find<AuthGETXController>();
 
   Future<ApiResponse> login({phone}) async {
-    return await DataRepository().login(phone: phone);
+    if(await checkStatus()){
+      return await DataRepository().login(phone: phone);
+    }else {
+      return ApiResponse(success: false, message: data.tr('no_internet'));
+    }
+
   }
 
   Future<ApiResponse> register({user}) async {
-    return await DataRepository().register(user: user);
+    if(await checkStatus()){
+      return await DataRepository().register(user: user);
+    }else {
+      return ApiResponse(success: false, message: data.tr('no_internet'));
+    }
+
   }
 
   Future<ApiResponse> updateUser({user}) async {
-    return await DataRepository().updateUser(user: user);
+    if(await checkStatus()){
+      return await DataRepository().updateUser(user: user);
+    }else {
+      return ApiResponse(success: false, message: data.tr('no_internet'));
+    }
+
   }
-  deleteUser({phone}) async {
-    return await DataRepository().deleteUser(phone: phone.toString());
+  Future<ApiResponse> deleteUser({phone}) async {
+    if(await checkStatus()){
+      return await DataRepository().deleteUser(phone: phone.toString());
+    }else {
+      return ApiResponse(success: false, message: data.tr('no_internet'));
+    }
   }
 
 
   Future<ApiResponse> registerWithImage({path,user}) async {
-    return await DataRepository().registerWithImage(path:path,user: user);
+    if(await checkStatus()){
+      return await DataRepository().registerWithImage(path:path,user: user);
+    }else {
+      return ApiResponse(success: false, message: data.tr('no_internet'));
+    }
+
   }
 
   Future<ApiResponse> updateUserWithImage({path,user}) async {
-    return await DataRepository().updateUserWithImage(path:path,user: user);
+    if(await checkStatus()){
+      return await DataRepository().updateUserWithImage(path:path,user: user);
+    }else {
+      return ApiResponse(success: false, message: data.tr('no_internet'));
+    }
   }
 
   changeValue(value){

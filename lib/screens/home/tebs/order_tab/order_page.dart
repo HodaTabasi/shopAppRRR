@@ -1,6 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' as data;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
 import 'package:rrr_shop_app/controller/data/model/user.dart';
@@ -15,6 +16,7 @@ import 'package:rrr_shop_app/utils/helper.dart';
 import '../../../../controller/data/api/api_response.dart';
 import '../../../../controller/data/model/add_order_responce.dart';
 import '../../../../controller/data/model/order.dart';
+import '../../../../core/app_button.dart';
 
 class OrderPage extends StatefulWidget {
   @override
@@ -36,7 +38,10 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
     tabController = TabController(length: 4, vsync: this);
     scrollController = ScrollController();
     scrollController.addListener(_listener);
-    OrderGetxController.to.getOrders(statusId: currentIndex + 1,page: 1);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      OrderGetxController.to.getOrders(statusId: currentIndex + 1,page: OrderGetxController.to.currentPage);
+    });
+
     super.initState();
   }
 
@@ -60,7 +65,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
           buildContainer(),
           getSpace(h: 16.r),
           GetX<OrderGetxController>(builder: (controller) {
-            return controller.isLoading.value
+            return APIGetxController.to.NetFound.value?controller.isLoading.value
                 ? buildShimmer()
                 : Padding(
                     padding: EdgeInsets.all(16.0.r),
@@ -460,7 +465,17 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
                                 ),
                               );
                             }).toList()),
-                  );
+                  ):Center(
+              child: Column(
+                children: [
+                  SvgPicture.asset("assets/ff.svg"),
+                  Text("no_internet",style: TextStyle(color: Colors.black, fontSize: 16.sp),).tr(),
+                  BtnApp(title: data.tr('reload'), prsee: (){
+                    OrderGetxController.to.getOrders(statusId: currentIndex + 1,page: OrderGetxController.to.currentPage);
+                  })
+                ],
+              ),
+            );
           }),
           getSpace(h: 10.h),
           if(OrderGetxController.to.isPageLoading.value)

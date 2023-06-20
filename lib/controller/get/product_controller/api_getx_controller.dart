@@ -47,6 +47,8 @@ class APIGetxController extends GetxController {
 
   RxInt  total  = 0.obs;
 
+  RxBool NetFound = true.obs;
+
   changeFile(XFile? xFile) {
     picke.value = XFile(xFile!.path);
   }
@@ -91,17 +93,22 @@ class APIGetxController extends GetxController {
   //   });
   // }
 
-  getProductDetails({productId}) {
-    isLoading.value = true;
-    DataRepository().getProductDetails(productId: productId).then((value) {
-      product.value = value;
-      sampleData.clear();
-      product.value.productSize!.split(",").forEach((element) {
-        sampleData.add(RadioModel(false, element, element));
+  getProductDetails({productId}) async {
+    if(await checkStatus()){
+      isLoading.value = true;
+      DataRepository().getProductDetails(productId: productId).then((value) {
+        product.value = value;
+        sampleData.clear();
+        product.value.productSize!.split(",").forEach((element) {
+          sampleData.add(RadioModel(false, element, element));
+        });
+        rate = (product.value.ratings!.isEmpty?4.5:product.value.ratings!.map((m) => m.starRating!).reduce((a, b) => a + b) / product.value.ratings!.length).toStringAsFixed(2);
+        isLoading.value = false;
       });
-      rate = (product.value.ratings!.isEmpty?4.5:product.value.ratings!.map((m) => m.starRating!).reduce((a, b) => a + b) / product.value.ratings!.length).toStringAsFixed(2);
-      isLoading.value = false;
-    });
+    }else {
+
+      NetFound.value = false;
+    }
   }
 
   // getNewProducts() {

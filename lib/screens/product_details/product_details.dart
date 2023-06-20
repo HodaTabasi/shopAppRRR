@@ -30,10 +30,11 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   @override
   void initState() {
+    pageController = PageController(initialPage: 0);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getData();
     });
-    pageController = PageController(initialPage: 0);
+
     super.initState();
   }
 
@@ -109,7 +110,8 @@ class _ProductDetailsState extends State<ProductDetails> {
             icon: Icon(Icons.arrow_back_ios, color: Colors.black),
           ),
         ),
-        body: APIGetxController.to.isLoading.value
+        body: APIGetxController.to.NetFound.value?
+        APIGetxController.to.isLoading.value
             ? buildProductDetailsShimmer()
             : ListView(
                 children: [
@@ -394,7 +396,17 @@ class _ProductDetailsState extends State<ProductDetails> {
                        Navigator.pushNamed(context, '/complete_buy_screen');
                       })
                 ],
-              ),
+              ):Center(
+          child: Column(
+            children: [
+              SvgPicture.asset("assets/ff.svg"),
+              Text("no_internet",style: TextStyle(color: Colors.black, fontSize: 16.sp),).tr(),
+              BtnApp(title: data.tr('reload'), prsee: (){
+                getData();
+              })
+            ],
+          ),
+        ),
       );
     });
   }

@@ -36,10 +36,13 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
 
   @override
   void initState() {
-    APIGetxController.to.getTotalPrice();
     user = SharedPrefController().user;
     delivery_cost = 0;
     city_cost = 2500;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      APIGetxController.to.getTotalPrice();
+
+  });
     super.initState();
   }
 

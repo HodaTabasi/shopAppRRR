@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
@@ -145,4 +146,16 @@ getColor(String hexColor) {
   Color color =
   Color(int.parse(hexColor.substring(1, 7), radix: 16) + 0xFF000000);
   return color;
+}
+
+Future<bool> checkStatus() async {
+  var connectivityResult = await (Connectivity().checkConnectivity());
+  if (connectivityResult == ConnectivityResult.mobile) {
+    print("connected to a mobile network");
+    return true;
+  } else if (connectivityResult == ConnectivityResult.wifi) {
+    print("connected to a wifi network");
+   return true;
+  }
+  return false;
 }

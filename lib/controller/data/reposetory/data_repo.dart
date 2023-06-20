@@ -90,7 +90,7 @@ class DataRepository with ApiHelper{
     return jsonArray.map((jsonObject) => Product.fromJson(jsonObject)).toList();
   }
 
-  deleteUser({phone}) async {
+  Future<ApiResponse> deleteUser({phone}) async {
     final jsonResponse = await _apiController.deleteUser(phone: phone);
     if(jsonResponse['success']){
       SharedPrefController().user = jsonResponse['data'];

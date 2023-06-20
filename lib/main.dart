@@ -100,6 +100,7 @@ class _MyAppState extends State<MyApp> with FbNotifications{
             builder: (controller){
               // context.setLocale(Locale(controller.language));
               return MaterialApp(
+                debugShowCheckedModeBanner: false,
               // initialBinding: AllBindingController(),
               // smartManagement: SmartManagement.full,
               title: 'Flutter Demo',
