@@ -321,12 +321,8 @@ dynamic updateUser({user}) async {
   return null;
 }
 
-
-
-
-
-dynamic getProductByCateId({id}) async {
-  Uri uri = Uri.parse(APISetting.get_all_product_by_category.replaceFirst('{id}',id ));
+dynamic getProductByCateId({id,page}) async {
+  Uri uri = Uri.parse(APISetting.get_all_product_by_category.replaceFirst('{id}',id ).replaceFirst('{number}', page.toString()));
   var response = await http.get(uri, headers: headersWithOutToken);
 
   print(response.body);
@@ -370,9 +366,10 @@ dynamic getProductByCateId({id}) async {
     return null;
   }
 
-dynamic getProductBySubCateId({id,subId}) async {
+dynamic getProductBySubCateId({id,subId,page}) async {
   String s = APISetting.get_all_product_by_subcategory.replaceFirst('{id}',id );
    s = APISetting.get_all_product_by_subcategory.replaceFirst('{sub_id}',subId );
+   s = APISetting.get_all_product_by_subcategory.replaceFirst('{number}',page.toString() );
   Uri uri = Uri.parse(s);
   var response = await http.get(uri, headers: headersWithOutToken);
 

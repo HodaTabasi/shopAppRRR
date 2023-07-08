@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:rrr_shop_app/controller/get/product_controller/get_cat_sub_getx_controller.dart';
 import 'package:rrr_shop_app/controller/hive/hice_operations.dart';
 import 'package:rrr_shop_app/screens/cat_product/cat_product_screen.dart';
 import 'package:rrr_shop_app/screens/complete_order/complete_order_screen.dart';
@@ -85,6 +86,7 @@ class _MyAppState extends State<MyApp> with FbNotifications{
   FillterGetXController controller7 = Get.put<FillterGetXController>(FillterGetXController());
   HomeGetxController controller8 = Get.put<HomeGetxController>(HomeGetxController());
   OrderGetxController controller9 = Get.put<OrderGetxController>(OrderGetxController());
+  GetSubCatGetxController controller10 = Get.put<GetSubCatGetxController>(GetSubCatGetxController());
 
   // This widget is the root of your application.
   @override

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
+import 'package:rrr_shop_app/controller/get/product_controller/get_cat_sub_getx_controller.dart';
 
 import '../../controller/get/product_controller/api_getx_controller.dart';
 import '../../utils/helper.dart';
@@ -46,8 +47,10 @@ class _MenuScreenState extends State<MenuScreen> {
                   return ListTile(
                     onTap: () {
                       // ZoomDrawer.of(context)!.close();
-                      controller.flag = false;
-                      controller.category = controller.cate[index];
+                      // controller.flag = false;
+                      GetSubCatGetxController.to.flag = false;
+                      GetSubCatGetxController.to.category = controller.cate[index];
+                      // controller.category = controller.cate[index];
                       Navigator.pushNamed(context, '/cart_product_screen');
                     },
                     contentPadding: EdgeInsets.symmetric(horizontal: 8.r),
@@ -68,8 +71,10 @@ class _MenuScreenState extends State<MenuScreen> {
                       return ListTile(
                         onTap: () {
                           // ZoomDrawer.of(context)!.close();
-                          controller.category = e;
-                          controller.flag = true;
+                          // controller.category = e;
+                          // controller.flag = true;
+                          GetSubCatGetxController.to.flag = true;
+                          GetSubCatGetxController.to.category = e;
                           Navigator.pushNamed(context, '/cart_product_screen');
                         },
                         title: Text(e.nameAr!),

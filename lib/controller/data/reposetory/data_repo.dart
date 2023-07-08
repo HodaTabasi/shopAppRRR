@@ -41,6 +41,35 @@ class DataRepository with ApiHelper{
     return jsonArray.map((jsonObject) => Product.fromJson(jsonObject)).toList();
   }
 
+  Future<AllProductResponse> getProductByCateId({id,page}) async {
+    final jsonResponse = await _apiController.getProductByCateId(id: id,page:page);
+    var jsonArray = jsonResponse['data'];
+    return AllProductResponse.fromJson(jsonArray);
+
+    // var jsonArray = jsonResponse['data']['data'] as List;
+    // return jsonArray.map((jsonObject) => Product.fromJson(jsonObject)).toList();
+  }
+
+  Future<AllProductResponse> getProductBySubCateId({id,subId,page}) async {
+    final jsonResponse = await _apiController.getProductBySubCateId(id: id,subId: subId,page:page);
+    var jsonArray = jsonResponse['data'];
+    return AllProductResponse.fromJson(jsonArray);
+    // var jsonArray = jsonResponse['data']['data'] as List;
+    // return jsonArray.map((jsonObject) => Product.fromJson(jsonObject)).toList();
+  }
+
+  Future<List<Rating>> getProductRate({id}) async {
+    final jsonResponse = await _apiController.getProductRate(id: id);
+    var jsonArray = jsonResponse['data'] as List;
+    return jsonArray.map((jsonObject) => Rating.fromJson(jsonObject)).toList();
+  }
+
+  Future<dynamic> addProductRate({required Rating rating}) async {
+    final jsonResponse = await _apiController.addProductRate(rate: rating);
+    // return failedResponse;
+    return jsonResponse;
+  }
+
   Future<getOrderResponse> getOrders({statusId,page}) async {
     final jsonResponse = await _apiController.getOrders(statusId: statusId,page: page);
     var jsonArray = jsonResponse['data'] ;
@@ -107,6 +136,8 @@ class DataRepository with ApiHelper{
     return failedResponse;
   }
 
+//////////////////////////////////////////////////////////////////
+
   dynamic login({phone}) async {
     final jsonResponse = await _apiController.login(phone: phone);
     if(jsonResponse['success']){
@@ -154,30 +185,6 @@ class DataRepository with ApiHelper{
       return successResponce;
     }
     return failedResponse;
-  }
-
-  Future<List<Product>> getProductByCateId({id}) async {
-    final jsonResponse = await _apiController.getProductByCateId(id: id);
-    var jsonArray = jsonResponse['data']['data'] as List;
-    return jsonArray.map((jsonObject) => Product.fromJson(jsonObject)).toList();
-  }
-
-  Future<List<Product>> getProductBySubCateId({id,subId}) async {
-    final jsonResponse = await _apiController.getProductBySubCateId(id: id,subId: subId);
-    var jsonArray = jsonResponse['data']['data'] as List;
-    return jsonArray.map((jsonObject) => Product.fromJson(jsonObject)).toList();
-  }
-
-  Future<List<Rating>> getProductRate({id}) async {
-    final jsonResponse = await _apiController.getProductRate(id: id);
-    var jsonArray = jsonResponse['data'] as List;
-    return jsonArray.map((jsonObject) => Rating.fromJson(jsonObject)).toList();
-  }
-
-  Future<dynamic> addProductRate({required Rating rating}) async {
-    final jsonResponse = await _apiController.addProductRate(rate: rating);
-    // return failedResponse;
-    return jsonResponse;
   }
 
 }

@@ -194,19 +194,19 @@ class APIGetxController extends GetxController {
     });
   }
 
-  getProductByCateId({id}) async {
-    DataRepository().getProductByCateId(id: id).then((value) {
-      products.value = value;
-      isLoading.value = false;
-    });
-  }
+  // getProductByCateId({id}) async {
+  //   DataRepository().getProductByCateId(id: id).then((value) {
+  //     products.value = value;
+  //     isLoading.value = false;
+  //   });
+  // }
 
-  getProductBySubCateId({id, subId}) async {
-    DataRepository().getProductBySubCateId(id: id, subId: subId).then((value) {
-      products.value = value;
-      isLoading.value = false;
-    });
-  }
+  // getProductBySubCateId({id, subId}) async {
+  //   DataRepository().getProductBySubCateId(id: id, subId: subId).then((value) {
+  //     products.value = value;
+  //     isLoading.value = false;
+  //   });
+  // }
 
   Future<ApiResponse> addRating({required Rating rating}) async {
     isLoading.value = true;
@@ -222,16 +222,16 @@ class APIGetxController extends GetxController {
     });
   }
 
-  getProduct() {
-    isLoading.value = true;
-    print("dfdsgdf $flag");
-    if (flag) {
-      getProductBySubCateId(
-          id: category!.id.toString(), subId: category!.subCategory.toString());
-    } else {
-      getProductByCateId(id: category!.id.toString());
-    }
-  }
+  // getProduct() {
+  //   isLoading.value = true;
+  //   print("dfdsgdf $flag");
+  //   if (flag) {
+  //     getProductBySubCateId(
+  //         id: category!.id.toString(), subId: category!.subCategory.toString());
+  //   } else {
+  //     getProductByCateId(id: category!.id.toString());
+  //   }
+  // }
 
   putOrderProduct({list}) {
     orderProduct.value = list;
