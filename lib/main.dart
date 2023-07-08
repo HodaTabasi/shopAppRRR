@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:rrr_shop_app/controller/get/all_binding_controller.dart';
 import 'package:rrr_shop_app/controller/hive/hice_operations.dart';
 import 'package:rrr_shop_app/screens/cat_product/cat_product_screen.dart';
 import 'package:rrr_shop_app/screens/complete_order/complete_order_screen.dart';

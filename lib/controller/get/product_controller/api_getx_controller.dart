@@ -224,6 +224,7 @@ class APIGetxController extends GetxController {
 
   getProduct() {
     isLoading.value = true;
+    print("dfdsgdf $flag");
     if (flag) {
       getProductBySubCateId(
           id: category!.id.toString(), subId: category!.subCategory.toString());

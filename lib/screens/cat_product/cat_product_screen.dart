@@ -17,6 +17,7 @@ class _CatProductScreenState extends State<CatProductScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      print("object");
       APIGetxController.to.getProduct();
     });
 
@@ -35,7 +36,9 @@ class _CatProductScreenState extends State<CatProductScreen> {
           backgroundColor: Color(0xffFFFDFA),
           elevation: 0,
           leading: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+              },
               icon: Icon(
                 Icons.arrow_back_ios,
                 color: Colors.black,

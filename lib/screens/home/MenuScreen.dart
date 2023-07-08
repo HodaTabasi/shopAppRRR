@@ -46,6 +46,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   return ListTile(
                     onTap: () {
                       // ZoomDrawer.of(context)!.close();
+                      controller.flag = false;
                       controller.category = controller.cate[index];
                       Navigator.pushNamed(context, '/cart_product_screen');
                     },
@@ -68,6 +69,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         onTap: () {
                           // ZoomDrawer.of(context)!.close();
                           controller.category = e;
+                          controller.flag = true;
                           Navigator.pushNamed(context, '/cart_product_screen');
                         },
                         title: Text(e.nameAr!),

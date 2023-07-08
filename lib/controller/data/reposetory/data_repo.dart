@@ -158,14 +158,13 @@ class DataRepository with ApiHelper{
 
   Future<List<Product>> getProductByCateId({id}) async {
     final jsonResponse = await _apiController.getProductByCateId(id: id);
-    var jsonArray = jsonResponse['data'] as List;
+    var jsonArray = jsonResponse['data']['data'] as List;
     return jsonArray.map((jsonObject) => Product.fromJson(jsonObject)).toList();
-
   }
 
   Future<List<Product>> getProductBySubCateId({id,subId}) async {
     final jsonResponse = await _apiController.getProductBySubCateId(id: id,subId: subId);
-    var jsonArray = jsonResponse['data'] as List;
+    var jsonArray = jsonResponse['data']['data'] as List;
     return jsonArray.map((jsonObject) => Product.fromJson(jsonObject)).toList();
   }
 
