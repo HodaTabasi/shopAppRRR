@@ -37,12 +37,13 @@ class _SettingScreenState extends State<SettingScreen> {
         elevation: 0,
         toolbarHeight: 60.h,
         centerTitle: true,
-        actions: [IconButton(
+        leading: IconButton(
           onPressed: (){
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_forward_ios,color: Colors.black),
-        )],
+          icon: Icon(Icons.arrow_back_ios,color: Colors.black),
+        ),
+        // actions: [],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

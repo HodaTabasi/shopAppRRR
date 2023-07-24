@@ -6,7 +6,7 @@ import '../../core/app_product_card.dart';
 import '../../utils/constants.dart';
 
 class SearchClass extends SearchDelegate<Product> {
-  List<Product> allData;
+  List<Product> allData  ;
 
   List<Product> allSuggestedData;
 
@@ -17,15 +17,19 @@ class SearchClass extends SearchDelegate<Product> {
     return [
       IconButton(onPressed: (){
         query = '';
+        Navigator.pop(context);
       }, icon: Icon(Icons.clear))
     ];
   }
 
   @override
   Widget? buildLeading(BuildContext context) {
-    return IconButton(onPressed: (){
-      close(context, allData[0]);
-    }, icon: Icon(Icons.arrow_back_ios));
+    return  Visibility(
+      visible: allData.isNotEmpty,
+      child: IconButton(onPressed: (){
+        close(context, allData[0]);
+      }, icon: Icon(Icons.arrow_back_ios)),
+    );
   }
 
   @override

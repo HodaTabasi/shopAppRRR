@@ -108,8 +108,13 @@ class DataRepository with ApiHelper{
 
   Future<List<MyNotification>> getNotifications() async {
     final jsonResponse = await _apiController.getNotifications();
+
     var jsonArray = jsonResponse['data'] as List;
-    return jsonArray.map((jsonObject) => MyNotification.fromJson(jsonObject)).toList();
+    return jsonArray.map((jsonObject) {
+      print(MyNotification.fromJson(jsonObject));
+      return MyNotification.fromJson(jsonObject);
+
+    }).toList();
   }
 
  dynamic cancelOrder({id}) async {

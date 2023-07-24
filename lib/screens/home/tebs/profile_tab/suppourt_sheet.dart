@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,7 +60,10 @@ class SuppourtSheet extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
-                      onTap: (){},
+                      onTap: () async {
+                        await launch(
+                            "https://wa.me/0905305315?text=Hello");
+                      },
                       child: SvgPicture.asset("assets/images/whats.svg"),
                     ),
                   ),
@@ -76,7 +81,8 @@ class SuppourtSheet extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: (){
-                        _launchUrl(Uri.parse("https://www.facebook.com/profile.php?id=100092446166287"));
+
+                        _launchFaceBookUrl("https://www.facebook.com/profile.php");
                       },
                       child: SvgPicture.asset("assets/images/facebook.svg"),
                     ),
@@ -111,4 +117,26 @@ class SuppourtSheet extends StatelessWidget {
       throw Exception('Could not launch $url');
     }
   }
+  Future<void> _launchFaceBookUrl(url) async {
+    String fbProtocolUrl;
+    if (Platform.isIOS) {
+      fbProtocolUrl = 'fb://profile/100092446166287';
+    } else {
+      fbProtocolUrl = 'fb://page/100092446166287';
+    }
+
+    String fallbackUrl = url;
+
+    try {
+      bool launched = await launch(fbProtocolUrl, forceSafariVC: false);
+
+      if (!launched) {
+        await launch(fallbackUrl, forceSafariVC: false);
+      }
+    } catch (e) {
+      await launch(fallbackUrl, forceSafariVC: false);
+    }
+  }
+
+
 }

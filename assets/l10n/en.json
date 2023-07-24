@@ -106,5 +106,6 @@
   "out_of_sale": "out of sale",
   "all": "All",
   "no_internet": "No Internet Connection",
-  "reload": "reload"
+  "reload": "reload",
+  "notification": "Notification"
 }

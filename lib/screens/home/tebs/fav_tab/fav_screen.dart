@@ -16,7 +16,7 @@ class FavPage extends StatefulWidget {
 }
 
 class _FavPageState extends State<FavPage> {
-  List<int> l = [1, 2, 3, 5,6,7,8];
+  // List<int> l = [1, 2, 3, 5,6,7,8];
 
   @override
   Widget build(BuildContext context) {

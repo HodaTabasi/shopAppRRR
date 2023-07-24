@@ -229,8 +229,14 @@ class _AppProductCardState extends State<AppProductCard> {
                           shape: BoxShape.circle, color: Colors.white),
                       child: InkWell(
                           onTap: () async {
-                            bool b = await controller.addToFav(p: widget.product);
-                            showSnackBar(context: context,message: "done",error: !b);
+                            bool b = false ;
+                            if(controller.favProducts.any((element) => element.id == widget.product.id)){
+                              b = await controller.deleteFromFav(id: widget.product.id!);
+                            }else {
+                              b = await controller.addToFav(p: widget.product);
+                            }
+
+                            showSnackBar(context: context,message: b?"done":'error',error: !b);
                           },
                           child:controller.favProducts.any((element) => element.id == widget.product.id) ?Icon(
                             Icons.favorite,

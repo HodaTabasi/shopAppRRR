@@ -27,7 +27,8 @@ class MyNotification {
     titleEn = json['title_en'];
     bodyAr = json['body_ar'];
     bodyEn = json['body_en'];
-    token = json['token'];
+
+    // token = json['token'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
