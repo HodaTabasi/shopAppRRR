@@ -34,11 +34,12 @@ class _CompleteProfileState extends State<CompleteProfile> {
   void initState() {
     if (AuthGETXController.to.flag) {
       User u = SharedPrefController().user;
+      print(u);
       _nameController = TextEditingController(text: u.name);
       _emailController = TextEditingController(text: u.email);
       _idController = TextEditingController(text: u.idNumber.toString());
       _birthdayController = TextEditingController(text: u.dateOfBirth);
-      u.gender == "male"
+      u.gender!.toLowerCase() == "male"
           ? AuthGETXController.to.groupValue.value = 1
           : AuthGETXController.to.groupValue.value = 2;
       AuthGETXController.to.phoneNumber = u.phoneNumber.toString();
@@ -186,6 +187,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
       }else {
         isSucess = await AuthGETXController.to.updateUserWithImage(path:APIGetxController.to.picke.value.path,user: user);
       }
+
 
     }else{
       if(APIGetxController.to.picke.value.path.isEmpty){

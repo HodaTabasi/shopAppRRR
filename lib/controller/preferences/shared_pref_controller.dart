@@ -39,6 +39,7 @@ class SharedPrefController {
 
 
   set user(user){
+    print("dgdr ${user}");
     String encodedMap = json.encode(user);
     print(encodedMap);
     _sharedPreferences.setString(PrefKeys.user.name, encodedMap);
