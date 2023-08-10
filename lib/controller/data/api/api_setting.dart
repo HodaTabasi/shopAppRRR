@@ -21,4 +21,5 @@ class APISetting {
   static String get_rate_product = "${BASE_URL}ratings/get_ratings/{id}";
   static String add_rate_product = "${BASE_URL}ratings/add_rating";
   static String get_pubic_offer = "${BASE_URL}offers/get_offers";
+  static String get_setting = "${BASE_URL}privacy-policy";
 }

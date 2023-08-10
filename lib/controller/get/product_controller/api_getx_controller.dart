@@ -44,6 +44,8 @@ class APIGetxController extends GetxController {
   XFile? pickedFile;
   late Rx<XFile> picke = XFile("").obs;
 
+  RxString policy = ''.obs;
+
   static APIGetxController get to => Get.find<APIGetxController>();
 
   RxInt  total  = 0.obs;
@@ -256,4 +258,12 @@ class APIGetxController extends GetxController {
   //   }
   //   orderProduct.clear();
   // }
+  getSetting(){
+  isLoading.value = true;
+  DataRepository().getSetting().then((value) {
+    policy.value = value;
+    isLoading.value = false;
+  });
+
+}
 }

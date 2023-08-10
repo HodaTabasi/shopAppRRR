@@ -107,5 +107,6 @@
   "all": "All",
   "no_internet": "No Internet Connection",
   "reload": "reload",
-  "notification": "Notification"
+  "notification": "Notification",
+  "policy": "Privacy Policy"
 }

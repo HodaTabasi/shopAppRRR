@@ -191,4 +191,14 @@ class DataRepository with ApiHelper{
     return failedResponse;
   }
 
+  Future<String> getSetting() async {
+    final jsonResponse = await _apiController.getSetting();
+    if(jsonResponse != null){
+      return jsonResponse['data'];
+    }else {
+      return '';
+    }
+
+  }
+
 }

@@ -384,4 +384,19 @@ dynamic getProductBySubCateId({id,subId,page}) async {
   return null;
 }
 
+  dynamic getSetting() async {
+    Uri uri = Uri.parse(APISetting.get_setting);
+    var response = await http.get(uri, headers: headersWithOutToken);
+
+    print(response.body);
+
+    if (response.statusCode == 200 || response.statusCode == 400) {
+      var jsonResponse = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        return jsonResponse;
+      }
+    }
+    return null;
+  }
+
 }
