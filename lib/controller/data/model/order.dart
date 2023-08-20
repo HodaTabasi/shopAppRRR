@@ -96,7 +96,7 @@ class Order {
 
   @override
   String toString() {
-    return '{customerId: $customerId, username:$username , phone:$phone  address: $address,  totalPrice: $totalPrice, }'; //orderProducts: $orderProducts
+    return 'Order{id: $id, customerId: $customerId, username: $username, address: $address, phone: $phone, totalPrice: $totalPrice, statusId: $statusId, token: $token, deletedAt: $deletedAt, createdAt: $createdAt, updatedAt: $updatedAt, deliverPrice: $deliverPrice, fastDeliver: $fastDeliver, orderProducts: $orderProducts, isExpanded: $isExpanded}';
   }
 }
 

@@ -410,6 +410,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   }
 
   performBuying() async {
+    print(order);
     AddOrderResponse response = await OrderGetxController.to.addOrder(order: order);
     showSnackBar(context: context,message: response.message,error: !response.success!);
     if(response.success!){

@@ -81,7 +81,6 @@ class SuppourtSheet extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: (){
-
                         _launchFaceBookUrl("https://www.facebook.com/profile.php");
                       },
                       child: SvgPicture.asset("assets/images/facebook.svg"),
@@ -122,21 +121,25 @@ class SuppourtSheet extends StatelessWidget {
     if (Platform.isIOS) {
       fbProtocolUrl = 'fb://profile/100092446166287';
     } else {
-      fbProtocolUrl = 'fb://page/100092446166287';
+      fbProtocolUrl = 'fb://profile/100092446166287';
+      // fbProtocolUrl = 'fb://page/100092446166287';
     }
-
-    String fallbackUrl = url;
+//https://www.facebook.com/profile.php?id=100092446166287
+    String fallbackUrl = "https://www.facebook.com/profile.php";
 
     try {
-      bool launched = await launch(fbProtocolUrl, forceSafariVC: false);
+      Uri fbBundleUri = Uri.parse(fbProtocolUrl);
+      var canLaunchNatively = await canLaunchUrl(fbBundleUri);
 
-      if (!launched) {
-        await launch(fallbackUrl, forceSafariVC: false);
+      if (canLaunchNatively) {
+        launchUrl(fbBundleUri);
+      } else {
+        await launchUrl(Uri.parse(fallbackUrl),
+            mode: LaunchMode.externalApplication);
       }
-    } catch (e) {
-      await launch(fallbackUrl, forceSafariVC: false);
+    } catch (e, st) {
+      // Handle this as you prefer
     }
   }
-
 
 }
