@@ -246,7 +246,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                     ),
                   ).tr(),
                   Text(
-                    "EGP ${controller.total.value}",
+                    "SDG ${controller.total.value}",
                     style: TextStyle(
                         color: mainColor,
                         fontWeight: FontWeight.bold,
@@ -268,7 +268,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                     ),
                   ).tr(),
                   Text(
-                    "EGP ${delivery_cost + city_cost}",
+                    "SDG ${delivery_cost + city_cost}",
                     style: TextStyle(
                         color: mainColor,
                         fontWeight: FontWeight.bold,
@@ -290,7 +290,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                     ),
                   ).tr(),
                   Text(
-                    "EGP 1000",
+                    "SDG 1000",
                     style: TextStyle(
                         color: mainColor,
                         fontWeight: FontWeight.bold,
@@ -317,7 +317,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                         fontWeight: FontWeight.w600),
                   ).tr(),
                   Text(
-                    "EGP ${(controller.total.value + 1000 + delivery_cost +city_cost).toStringAsFixed(2)}",
+                    "SDG ${(controller.total.value + 1000 + delivery_cost +city_cost).toStringAsFixed(2)}",
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,

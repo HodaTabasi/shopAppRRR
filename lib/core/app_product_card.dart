@@ -202,14 +202,14 @@ class _AppProductCardState extends State<AppProductCard> {
                         children: [
                           Visibility(
                             visible :widget.product.discountPrice != "0",
-                            child: Text("\$${widget.product.sellingPrice}",
+                            child: Text(" ${widget.product.sellingPrice}",
                                 style: TextStyle(
                                     decoration: TextDecoration.lineThrough,
                                     color: thirdColor)),
                           ),
                           getSpace(w: 5.w),
                           Text(
-                            "\$${widget.product.discountPrice == "0"?widget.product.sellingPrice:getDiscountPrice(widget.product.discountPrice!,widget.product.sellingPrice!)}",
+                            "SDG ${widget.product.discountPrice == "0"?widget.product.sellingPrice:getDiscountPrice(widget.product.discountPrice!,widget.product.sellingPrice!)}",
                             style: TextStyle(
                                 color: mainColor,
                                 fontWeight: FontWeight.bold,

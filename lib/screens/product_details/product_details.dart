@@ -217,7 +217,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         // )
                         //     :
                         Text(
-                          "${APIGetxController.to.product.value.discountPrice != "0" ?getDiscountPrice(APIGetxController.to.product.value.discountPrice!, APIGetxController.to.product.value.sellingPrice!):APIGetxController.to.product.value.sellingPrice}\$",
+                          "${APIGetxController.to.product.value.discountPrice != "0" ?getDiscountPrice(APIGetxController.to.product.value.discountPrice!, APIGetxController.to.product.value.sellingPrice!):APIGetxController.to.product.value.sellingPrice} SDG",
                           style: TextStyle(
                               color: mainColor,
                               fontSize: 16.sp,

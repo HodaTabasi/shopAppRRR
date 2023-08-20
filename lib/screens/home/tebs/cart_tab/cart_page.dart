@@ -110,7 +110,7 @@ class _CartPageState extends State<CartPage> {
                           TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 16.sp),
                         ).tr(),
                         Text(
-                          "\$${controller.getTotal()}",
+                          "SDG ${controller.getTotal()}",
                           style: TextStyle(
                               color: mainColor,
                               fontWeight: FontWeight.bold,
