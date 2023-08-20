@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rrr_shop_app/controller/get/product_controller/api_getx_controller.dart';
 import 'package:rrr_shop_app/screens/search/search_page.dart';
 
+import '../../../../../controller/get/product_controller/home_product_getx_controller.dart';
 import '../../../../../utils/constants.dart';
 
 class SearchWidget extends StatelessWidget {
@@ -32,8 +33,8 @@ class SearchWidget extends StatelessWidget {
                     showSearch(
                         context: context,
                         delegate: SearchClass(
-                            allData: APIGetxController.to.products,
-                            allSuggestedData: APIGetxController.to.products));
+                            allData: HomeGetxController.to.products,
+                            allSuggestedData: HomeGetxController.to.products));
                   },
                   decoration: InputDecoration(
                       border: OutlineInputBorder(

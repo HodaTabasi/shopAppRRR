@@ -189,8 +189,10 @@ class _AppProductCardState extends State<AppProductCard> {
                               ),
                               // Spacer(),/
                               Image.asset(
-                                "assets/images/trust1.png",
-                                color: Colors.green.shade900,
+                                "assets/images/brandotth.jpeg",
+                                height: 20.h,
+                                width: 20.w,
+                                // color: Colors.green.shade900,
                               )
                             ],
                           )),

@@ -34,6 +34,7 @@ class SearchClass extends SearchDelegate<Product> {
 
   @override
   Widget buildResults(BuildContext context) {
+    print("dfdf $allSuggestedData");
     List<Product> result = allData
         .where((element) =>
             element.productNameEn!.toLowerCase().contains(query.toLowerCase()) ||

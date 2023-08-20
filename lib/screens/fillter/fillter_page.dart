@@ -96,7 +96,8 @@ class _FillterScreenState extends State<FillterScreen> {
               },
               activeColor: mainColor,
               inactiveColor: divider,
-              labels: RangeLabels('10', '1000'),
+              labels: RangeLabels(FillterGetXController.to.minPrice.toString(), FillterGetXController.to.maxPrice.toString()),
+              divisions: 4,
             ),
             getSpace(h: 8.0.h),
             Text(
