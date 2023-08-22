@@ -68,7 +68,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             IconButton(
                 onPressed: () async {
                   APIGetxController.to.product.value.itemCartFlag =
-                      true;
+                      false;
                   APIGetxController.to.product.value.selectedColor =
                       APIGetxController.to.color;
                   APIGetxController.to.product.value.selectedSize =

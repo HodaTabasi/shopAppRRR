@@ -86,6 +86,7 @@ class Product {
         this.multiImg});
 
   Product.fromJson(Map<String, dynamic> json) {
+    itemCartFlag = false;
     id = json['id'];
     categoryId = json['category_id'];
     subcategoryId = json['subcategory_id'];

@@ -123,7 +123,7 @@ class _CartPageState extends State<CartPage> {
                     opacity: controller.cartProducts.isNotEmpty?1:0,
                     child: BtnApp(title: data.tr("buy"), prsee: (){
                       APIGetxController.to.cartFlag = true;
-                      APIGetxController.to.putOrderProduct(list: controller.cartProducts.where((p0) => !p0.itemCartFlag).toList());
+                      APIGetxController.to.putOrderProduct(list: controller.cartProducts.where((p0) => p0.itemCartFlag).toList());
                       Navigator.pushNamed(context, '/complete_buy_screen');
                     }),
                   )

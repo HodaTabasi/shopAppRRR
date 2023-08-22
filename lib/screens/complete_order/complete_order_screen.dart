@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:rrr_shop_app/controller/data/api/api_response.dart';
-import 'package:rrr_shop_app/controller/data/model/product.dart';
 import 'package:rrr_shop_app/controller/data/model/user.dart';
 import 'package:rrr_shop_app/controller/get/product_controller/api_getx_controller.dart';
 import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
@@ -17,7 +15,6 @@ import 'package:rrr_shop_app/utils/helper.dart';
 
 import '../../controller/data/model/add_order_responce.dart';
 import '../../controller/data/model/order.dart';
-import '../../core/app_order_card.dart';
 import '../home/tebs/profile_tab/custom_dialog.dart';
 import 'app_order_card.dart';
 
@@ -128,7 +125,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
               ),
             ),
             getSpace(h: 10.0.r),
-            CheckboxListTile(value: value, onChanged: (val) {
+            CheckboxListTile(value: value, onChanged: (val) async {
+              final v = await  Navigator.pushNamed(context, '/map_screen');
               setState(() {
                 value = val!;
 

@@ -46,7 +46,7 @@ class _AppProductCardState extends State<AppProductCard> {
                     left: 0,
                     child: InkWell(
                       onTap: () async {
-                        widget.product.itemCartFlag = true;
+                        widget.product.itemCartFlag = false;
                        bool b = await controller.addToCart(p: widget.product);
                        showSnackBar(context: context,message: b?"done":"exist before",error: !b);
                        },
