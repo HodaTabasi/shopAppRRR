@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rrr_shop_app/controller/data/api/api_response.dart';
 import 'package:rrr_shop_app/controller/data/api/api_setting.dart';
+import 'package:rrr_shop_app/controller/get/product_controller/api_getx_controller.dart';
 import 'package:rrr_shop_app/screens/home/tebs/profile_tab/setting_item.dart';
 import 'package:rrr_shop_app/screens/home/tebs/profile_tab/suppourt_sheet.dart';
 import 'package:rrr_shop_app/screens/login_screen.dart';
@@ -56,9 +57,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       u.profileImage != null?"${APISetting.IMAGE_BASE_URL}${u.profileImage}":"https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Ym9va3xlbnwwfHwwfHw%3D&w=1000&q=80"),
                 ),
                 trailing: InkWell(
-                  onTap: () {
+                  onTap: () async {
                     AuthGETXController.to.flag = true;
-                    Navigator.pushNamed(context, '/complete_screen');
+                    final v = await Navigator.pushNamed(context, '/complete_screen');
+                    setState(() {
+                      u = SharedPrefController().user;
+                    });
                   },
                   child: SvgPicture.asset("assets/images/editprofile.svg"),
                 ),
@@ -104,8 +108,12 @@ class _ProfilePageState extends State<ProfilePage> {
               SettingItem(
                 title: "setting",
                 iconName: "Setting.svg",
-                onClick: () {
-                  Navigator.pushNamed(context, '/setting_screen');
+                onClick: () async {
+                  APIGetxController.to.phoneNumber = u.phoneNumber.toString();
+                  final v = await Navigator.pushNamed(context, '/setting_screen');
+                  setState(() {
+                    u = SharedPrefController().user;
+                  });
                 },
               ),
               SettingItem(

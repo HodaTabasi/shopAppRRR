@@ -1,18 +1,13 @@
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:rrr_shop_app/controller/data/api/api_response.dart';
 import 'package:rrr_shop_app/controller/data/model/category.dart';
 import 'package:rrr_shop_app/controller/data/model/notification.dart';
 import 'package:rrr_shop_app/controller/data/model/slider.dart';
 import 'package:rrr_shop_app/controller/data/reposetory/data_repo.dart';
-import 'package:rrr_shop_app/controller/get/hive_getx_controller.dart';
-import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 
 import '../../../utils/constants.dart';
 import '../../../utils/size_custom_radio.dart';
-import '../../data/model/add_order_responce.dart';
-import '../../data/model/order.dart';
 import '../../data/model/product.dart';
 import '../../data/model/rate.dart';
 import 'home_product_getx_controller.dart';
@@ -51,6 +46,7 @@ class APIGetxController extends GetxController {
   RxInt  total  = 0.obs;
 
   RxBool NetFound = true.obs;
+  String phoneNumber = "";
 
   changeFile(XFile? xFile) {
     picke.value = XFile(xFile!.path);
@@ -153,6 +149,11 @@ class APIGetxController extends GetxController {
         total.value += (element.selectedQty! * num.parse(getDiscountPrice(element.discountPrice!, element.sellingPrice!))).toInt();
       }
     });
+  }
+Future<ApiResponse> changePhone({phone, newPhone}) async {
+   ApiResponse response = await DataRepository().changePhone(phone: phone, newPhone:newPhone);
+   flagLoad.value = false;
+   return response;
   }
 
   // Future<ApiResponse> cancelOrder({id}) async {
@@ -258,6 +259,7 @@ class APIGetxController extends GetxController {
   //   }
   //   orderProduct.clear();
   // }
+
   getSetting(){
   isLoading.value = true;
   DataRepository().getSetting().then((value) {

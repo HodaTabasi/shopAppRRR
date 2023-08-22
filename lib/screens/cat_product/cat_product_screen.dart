@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:rrr_shop_app/controller/get/product_controller/api_getx_controller.dart';
 import 'package:rrr_shop_app/controller/get/product_controller/get_cat_sub_getx_controller.dart';
 import 'package:rrr_shop_app/core/app_product_card.dart';
 import 'package:rrr_shop_app/core/skeleton.dart';
@@ -115,8 +114,6 @@ class _CatProductScreenState extends State<CatProductScreen> {
   void _listener() {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      // print("fgddsd");
-      // print("fgddsd ${HomeGetxController.to.lastPage}");
       GetSubCatGetxController.to.currentPage++;
       if (GetSubCatGetxController.to.currentPage <= GetSubCatGetxController.to.lastPage)
         GetSubCatGetxController.to.getProduct(page: GetSubCatGetxController.to.currentPage);

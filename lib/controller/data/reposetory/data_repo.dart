@@ -124,6 +124,13 @@ class DataRepository with ApiHelper{
     }
     return failedResponse;
   }
+  dynamic changePhone({phone, newPhone}) async {
+    final jsonResponse = await _apiController.changePhone(phone: phone,newPhone: newPhone);
+    if(jsonResponse['success']){
+      return successResponce;
+    }
+    return failedResponse;
+  }
 
   Future<List<Product>> Filtter({search}) async {
     final jsonResponse = await _apiController.Filtter(search:search);
