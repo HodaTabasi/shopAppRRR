@@ -134,7 +134,7 @@ class SuppourtSheet extends StatelessWidget {
       if (canLaunchNatively) {
         launchUrl(fbBundleUri);
       } else {
-        await launchUrl(Uri.parse(fallbackUrl),
+        await launchUrl(Uri.parse(fbProtocolUrl),
             mode: LaunchMode.externalApplication);
       }
     } catch (e, st) {

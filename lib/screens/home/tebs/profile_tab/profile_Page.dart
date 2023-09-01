@@ -53,8 +53,9 @@ class _ProfilePageState extends State<ProfilePage> {
               ListTile(
                 leading: CircleAvatar(
                   radius: 30.r,
+                  backgroundColor: Colors.grey[100],
                   backgroundImage: NetworkImage(
-                      u.profileImage != null?"${APISetting.IMAGE_BASE_URL}${u.profileImage}":"https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Ym9va3xlbnwwfHwwfHw%3D&w=1000&q=80"),
+                      u.profileImage != null?"${APISetting.IMAGE_BASE_URL}${u.profileImage}":"https://icons-for-free.com/iconfiles/png/512/person-1324760545186718018.png"),
                 ),
                 trailing: InkWell(
                   onTap: () async {

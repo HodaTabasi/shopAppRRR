@@ -98,7 +98,7 @@ class Product {
     productSize = json['product_size'];
     basePrice = json['base_price'];
     sellingPrice = json['selling_price'];
-    discountPrice = json['discount_price'];
+    discountPrice = json['discount_price'] ?? "0";
     descriptionEn = json['description_en'];
     descriptionAr = json['description_ar'];
     productThumbnail = json['product_thumbnail'];

@@ -64,7 +64,7 @@ class _FillterScreenState extends State<FillterScreen> {
           ).tr(),
           centerTitle: true,
           leading: IconButton(
-              onPressed: () {},
+              onPressed: () =>Navigator.pop(context),
               icon: Icon(
                 Icons.arrow_back_ios,
                 color: Colors.black,
@@ -90,8 +90,8 @@ class _FillterScreenState extends State<FillterScreen> {
               onChanged: (value) {
                 setState(() {
                   values = value;
-                  FillterGetXController.to.minPrice = values.start * 50000;
-                  FillterGetXController.to.maxPrice = values.end * 50000;
+                  FillterGetXController.to.minPrice = values.start * 500000;
+                  FillterGetXController.to.maxPrice = values.end * 500000;
                 });
               },
               activeColor: mainColor,

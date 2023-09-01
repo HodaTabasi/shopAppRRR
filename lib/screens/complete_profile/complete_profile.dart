@@ -46,10 +46,9 @@ class _CompleteProfileState extends State<CompleteProfile> {
     } else {
       _nameController = TextEditingController();
       _emailController = TextEditingController();
-      _idController = TextEditingController();
+      _idController = TextEditingController(text: "1");
       _birthdayController = TextEditingController();
     }
-
     super.initState();
   }
 
@@ -95,12 +94,12 @@ class _CompleteProfileState extends State<CompleteProfile> {
               hint: data.tr('enter_email'),
               controller: _emailController,
             ),
-            AppTextFiled(
-              title: 'id',
-              icon: Icons.art_track,
-              hint: data.tr('enter_id'),
-              controller: _idController,
-            ),
+            // AppTextFiled(
+            //   title: 'id',
+            //   icon: Icons.art_track,
+            //   hint: data.tr('enter_id'),
+            //   controller: _idController,
+            // ),
             AppTextFiled(
               title: 'date',
               icon: Icons.calendar_month,

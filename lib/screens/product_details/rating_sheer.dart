@@ -46,6 +46,7 @@ class RatingSheet extends StatelessWidget {
                     getSpace(w: 8.0.r),
                     InkWell(
                       onTap: () async {
+                        Navigator.pop(context);
                         showModalBottomSheet(
                             // isScrollControlled: true,
                             backgroundColor: Colors.white,

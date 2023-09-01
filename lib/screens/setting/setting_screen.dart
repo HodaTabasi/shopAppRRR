@@ -31,7 +31,7 @@ class _SettingScreenState extends State<SettingScreen> {
 @override
   void initState() {
   langValue = SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name)=='ar'?0:1;
-  _phoneController = TextEditingController(text: "161467163161");
+  _phoneController = TextEditingController();
   _newPhoneController = TextEditingController();
   super.initState();
 
@@ -127,12 +127,6 @@ class _SettingScreenState extends State<SettingScreen> {
                               SizedBox(
                                 width: 10.w,
                               ),
-                              Text(
-                                "249+",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xff0A0400)),
-                              )
                             ],
                           ),
                         ),
@@ -157,12 +151,6 @@ class _SettingScreenState extends State<SettingScreen> {
                               SizedBox(
                                 width: 10.w,
                               ),
-                              Text(
-                                "249+",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xff0A0400)),
-                              )
                             ],
                           ),
                         ),

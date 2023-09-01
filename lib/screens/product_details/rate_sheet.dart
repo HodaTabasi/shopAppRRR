@@ -78,6 +78,8 @@ class _RatePageState extends State<RateSheet> {
                    ApiResponse response = await controller1.addRating(rating: myRating);
                    if(response.success){
                      Navigator.pop(context);
+                     APIGetxController.to.productId = myRating.productId;
+                     Navigator.pushReplacementNamed(context, '/product_details_screen');
                    }
                    showSnackBar(context: context,message: response.message,error: !response.success);
                   }

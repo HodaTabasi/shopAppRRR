@@ -10,6 +10,7 @@ import 'package:rrr_shop_app/controller/get/product_controller/get_order_getx_co
 import 'package:rrr_shop_app/controller/get/product_controller/home_product_getx_controller.dart';
 import 'package:rrr_shop_app/controller/preferences/shared_pref_controller.dart';
 import 'package:rrr_shop_app/core/app_button.dart';
+import 'package:rrr_shop_app/core/app_text_filed.dart';
 import 'package:rrr_shop_app/utils/constants.dart';
 import 'package:rrr_shop_app/utils/helper.dart';
 
@@ -30,6 +31,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   late User user;
   bool value = false;
   bool valueDelevery = false;
+  TextEditingController addressController = TextEditingController();
 
   @override
   void initState() {
@@ -38,8 +40,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     city_cost = 2500;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       APIGetxController.to.getTotalPrice();
-
-  });
+    });
     super.initState();
   }
 
@@ -96,9 +97,8 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
               child: DecoratedBox(
                 decoration: decoration(radius: 25.0.r, blurRadius: 2),
                 child: InkWell(
-                  onTap: (){
-
-                      Navigator.pushNamed(context, '/map_screen');
+                  onTap: () {
+                    Navigator.pushNamed(context, '/map_screen');
 
                     // Navigator.pushNamed(context, '/map_screen');
                   },
@@ -113,8 +113,9 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                             maxLines: 3,
                             // "${value?controller.address:"الخرطوم السودان"}",
                             style: const TextStyle(
-                                color: Colors.black, fontWeight: FontWeight.w600,
-                            overflow: TextOverflow.ellipsis),
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
+                                overflow: TextOverflow.ellipsis),
                           ).tr(),
                         ),
                         SvgPicture.asset("assets/images/address.svg")
@@ -124,27 +125,38 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                 ),
               ),
             ),
-            getSpace(h: 10.0.r),
-            CheckboxListTile(value: value, onChanged: (val) async {
-              final v = await  Navigator.pushNamed(context, '/map_screen');
-              setState(() {
-                value = val!;
+            getSpace(h: 16.0.r),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.r),
+              child: AppTextFiled(
+                  hint: data.tr('enter_address'),
+                  title: data.tr('enter_address'),
+                  icon: Icons.map,
+                  controller: addressController),
+            ),
+            CheckboxListTile(
+                value: value,
+                onChanged: (val) async {
+                  final v = await Navigator.pushNamed(context, '/map_screen');
+                  setState(() {
+                    value = val!;
 
-                if(val){
-                  city_cost = 3000;
-                }else {
-                  city_cost = 2500;
-                }
-              });
-
-
-            },
-            title: Text("outside",style: TextStyle(
-              fontSize: 16.sp,
-              color: mainColor,
-              fontWeight: FontWeight.bold,
-            ),textAlign: TextAlign.left,).tr()),
-
+                    if (val) {
+                      city_cost = 3000;
+                    } else {
+                      city_cost = 2500;
+                    }
+                  });
+                },
+                title: Text(
+                  "outside",
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    color: mainColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.left,
+                ).tr()),
             getSpace(h: 15.0.r),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 8.r),
@@ -205,19 +217,20 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                           left: 8,
                           child: InkWell(
                               onTap: () {
-                                if(controller.orderProduct.length == 1){
+                                if (controller.orderProduct.length == 1) {
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
                                         return CoustomDialog(
                                           onClick: () async {
-                                            Navigator.pushReplacementNamed(context, '/main_screen');
+                                            Navigator.pushReplacementNamed(
+                                                context, '/main_screen');
                                           },
                                           title: "do_cancel_order",
                                           image: "ff.svg",
                                         );
                                       });
-                                }else {
+                                } else {
                                   controller.orderProduct.removeAt(index);
                                 }
                               },
@@ -315,7 +328,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                         fontWeight: FontWeight.w600),
                   ).tr(),
                   Text(
-                    "SDG ${(controller.total.value + 1000 + delivery_cost +city_cost).toStringAsFixed(2)}",
+                    "SDG ${(controller.total.value + 1000 + delivery_cost + city_cost).toStringAsFixed(2)}",
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -325,33 +338,41 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
               ),
             ),
             getSpace(h: 10.0.r),
-            CheckboxListTile(value: valueDelevery, onChanged: (val) {
-              setState(() {
-                valueDelevery = val!;
-                if(val){
-                  delivery_cost = 1000;
-                }else {
-                  delivery_cost = 0;
-                }
-
-              });
-            },
-                title: Text("fast_delivery",style: TextStyle(
-                  fontSize: 16.sp,
-                  color: mainColor,
-                  fontWeight: FontWeight.bold,
-                ),textAlign: TextAlign.left,).tr()),
-
+            CheckboxListTile(
+                value: valueDelevery,
+                onChanged: (val) {
+                  setState(() {
+                    valueDelevery = val!;
+                    if (val) {
+                      delivery_cost = 1000;
+                    } else {
+                      delivery_cost = 0;
+                    }
+                  });
+                },
+                title: Text(
+                  "fast_delivery",
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    color: mainColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.left,
+                ).tr()),
             getSpace(h: 5.0.r),
-        if(valueDelevery)
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text("fast_delivery_msg",style: TextStyle(
-          fontSize: 14.sp,
-          color: Colors.red,
-          fontWeight: FontWeight.bold,
-          ),textAlign: TextAlign.left,).tr(),
-        ),
+            if (valueDelevery)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "fast_delivery_msg",
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.left,
+                ).tr(),
+              ),
             getSpace(h: 15.0.r),
             DecoratedBox(
               decoration: decoration(
@@ -401,14 +422,18 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                     children: [
                       Visibility(
                           visible: controller.Loading.value,
-                          child: Align(child: Padding(
-                            padding:  EdgeInsets.symmetric(vertical: 16.0.r),
-                            child: CircularProgressIndicator(color: mainColor),
-                          ),alignment: AlignmentDirectional.bottomCenter)),
+                          child: Align(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 16.0.r),
+                                child:
+                                    CircularProgressIndicator(color: mainColor),
+                              ),
+                              alignment: AlignmentDirectional.bottomCenter)),
                       Visibility(
                           visible: !controller.Loading.value,
-                          child:BtnApp(title: data.tr("buy"), prsee: () => performBuying())
-                      ),
+                          child: BtnApp(
+                              title: data.tr("buy"),
+                              prsee: () => performBuying())),
                     ],
                   )
                 ],
@@ -423,17 +448,22 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   performBuying() async {
     print("hffh ${order.toJson1()}");
     APIGetxController.to.Loading.value = true;
-    AddOrderResponse response = await OrderGetxController.to.addOrder(order: order);
-    showSnackBar(context: context,message: response.message,error: !response.success!);
+    AddOrderResponse response =
+        await OrderGetxController.to.addOrder(order: order);
+    showSnackBar(
+        context: context, message: response.message, error: !response.success!);
     APIGetxController.to.Loading.value = false;
-    if(response.success!){
-      if(APIGetxController.to.cartFlag){
+    if (response.success!) {
+      if (APIGetxController.to.cartFlag) {
         await HiveGetXController.to.deleteAllProductFromCart();
         APIGetxController.to.cartFlag = false;
       }
-      HomeGetxController.to.deleteFromProductCount(APIGetxController.to.orderProduct);
-      APIGetxController.to.relatedProducts.value = response.data!.relatedProducts??[];
-      Navigator.pushNamedAndRemoveUntil(context, '/related_product_screen', (route) => false);
+      HomeGetxController.to
+          .deleteFromProductCount(APIGetxController.to.orderProduct);
+      APIGetxController.to.relatedProducts.value =
+          response.data!.relatedProducts ?? [];
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/related_product_screen', (route) => false);
     }
   }
 
@@ -441,13 +471,13 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     Order order1 = Order();
     order1.customerId = user.id;
     order1.totalPrice = (APIGetxController.to.total.value).toInt().abs();
-    order1.address = APIGetxController.to.address.value;
+    order1.address = APIGetxController.to.address.value +" more details ("+addressController.text +")";
     order1.phone = user.phoneNumber.toString();
     order1.username = user.name.toString();
     order1.deliverPrice = delivery_cost;
     order1.fastDeliver = valueDelevery;
-    order1.orderProducts = APIGetxController.to.orderProduct
-        .map<OrderProducts>((element) {
+    order1.orderProducts =
+        APIGetxController.to.orderProduct.map<OrderProducts>((element) {
       OrderProducts orderProducts = OrderProducts();
       orderProducts.productId = element.id;
       orderProducts.productSize = int.parse(element.selectedSize!);
@@ -457,8 +487,7 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       orderProducts.productImage = element.productThumbnail;
 
       return orderProducts;
-    })
-        .toList();
+    }).toList();
 
     return order1;
   }
