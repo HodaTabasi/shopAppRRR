@@ -38,8 +38,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     scrollController.addListener(_listener);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      HomeGetxController.to
-          .getAllProduct(page: HomeGetxController.to.currentPage);
+      HomeGetxController.to.getAllProduct(page: HomeGetxController.to.currentPage);
     });
   }
 
@@ -183,7 +182,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             currentIndex = value;
             String key = "";
             switch (value) {
-              case 0:
+              case 3:
                 key = "new";
                 break;
               case 1:
@@ -192,7 +191,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               case 2:
                 key = "trend";
                 break;
-              case 3:
+              case 0:
                 key = "all";
                 break;
             }
@@ -207,7 +206,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         unselectedLabelColor: thirdColor,
         tabs: [
           Tab(
-            icon: Text("new2").tr(),
+            icon: Text("all").tr(),
           ),
           Tab(
             icon: Text("offer").tr(),
@@ -216,8 +215,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             icon: Text("more_sele").tr(),
           ),
           Tab(
-            icon: Text("all").tr(),
-          )
+            icon: Text("new2").tr(),
+          ),
         ],
       ),
     );

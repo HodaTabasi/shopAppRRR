@@ -20,7 +20,7 @@ class HiveGetXController extends GetxController {
       }else {
         total.value += element.selectedQty! * num.parse(getDiscountPrice(element.discountPrice!, element.sellingPrice!)).toInt();
       }
-      total.value += num.parse(element.sellingPrice!).toInt() * element.selectedQty!;
+      // total.value += num.parse(element.sellingPrice!).toInt() * element.selectedQty!;
     });
     return total.value;
   }

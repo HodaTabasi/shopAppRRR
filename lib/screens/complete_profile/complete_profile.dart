@@ -138,7 +138,19 @@ class _CompleteProfileState extends State<CompleteProfile> {
               ),
             ),
             getSpace(h: 8.h),
-            BtnApp(title: data.tr("save"), prsee: () => _performRegister())
+            Stack(
+              children: [
+                Visibility(
+                  visible: AuthGETXController.to.loading.value,
+                    child: Align(child: Padding(
+                      padding:  EdgeInsets.symmetric(vertical: 16.0.r),
+                      child: CircularProgressIndicator(color: mainColor),
+                    ),alignment: AlignmentDirectional.bottomCenter)),
+                Visibility(
+                  visible: !AuthGETXController.to.loading.value,
+                    child: BtnApp(title: data.tr("save"), prsee: () => _performRegister())),
+              ],
+            )
           ],
         );
       }),
@@ -179,7 +191,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
   }
 
   Future<void> _register() async {
-    LoadingController.to.changeLoading(true);
+    AuthGETXController.to.loading.value = true;
+    // LoadingController.to.changeLoading(true);
     late ApiResponse isSucess;
     if(AuthGETXController.to.flag){
       if(APIGetxController.to.picke.value.path.isEmpty){
@@ -196,8 +209,9 @@ class _CompleteProfileState extends State<CompleteProfile> {
         isSucess = await AuthGETXController.to.registerWithImage(path:APIGetxController.to.picke.value.path,user: user);
       }
     }
+    AuthGETXController.to.loading.value = false;
 
-    LoadingController.to.changeLoading(false);
+    // LoadingController.to.changeLoading(false);
 
     if (isSucess.success ) {
       if(!AuthGETXController.to.flag){

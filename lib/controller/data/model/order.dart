@@ -35,12 +35,21 @@ class Order {
 
   Order.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    customerId = json['customer_id'];
+    if(json['customer_id'] is String){
+      customerId = int.parse(json['customer_id']);
+    }else{
+      customerId = json['customer_id'];
+    }
     username = json['username'];
     address = json['address'];
     phone = json['phone'];
     totalPrice = json['total_price'];
-    deliverPrice = json['deliver_price'];
+    if(json['deliver_price'] is String){
+      deliverPrice = num.parse(json['deliver_price']);
+    }else{
+      deliverPrice = json['deliver_price'];
+    }
+
     fastDeliver = json['fast_deliver'] == 0 ?false:true;
     statusId = json['status_id'];
     token = json['token'];
@@ -88,6 +97,7 @@ class Order {
     data['phone'] = this.phone.toString();
     data['deliver_price'] = deliverPrice.toString();
     data['fast_deliver'] = fastDeliver!?"1":"0";
+    data['token'] = '';
     if (this.orderProducts != null) {
       data['products'] =json.encode(this.orderProducts!.map((v) => v.toJson1()).toList());
     }

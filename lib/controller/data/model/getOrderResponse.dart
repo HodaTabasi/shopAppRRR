@@ -8,10 +8,10 @@ class getOrderResponse {
   int? lastPage;
   String? lastPageUrl;
   List<Links>? links;
-  Null? nextPageUrl;
+  String? nextPageUrl;
   String? path;
   int? perPage;
-  Null? prevPageUrl;
+  String? prevPageUrl;
   int? to;
   int? total;
 
@@ -49,6 +49,8 @@ class getOrderResponse {
       });
     }
     nextPageUrl = json['next_page_url'];
+
+
     path = json['path'];
     perPage = json['per_page'];
     prevPageUrl = json['prev_page_url'];

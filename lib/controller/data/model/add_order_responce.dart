@@ -27,17 +27,14 @@ class AddOrderResponse {
 }
 
 class Data {
-  List<Order>? order;
+  Order? order;
   List<Product>? relatedProducts;
 
   Data({this.order, this.relatedProducts});
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['order'] != null) {
-      order = <Order>[];
-      json['order'].forEach((v) {
-        order!.add(new Order.fromJson(v));
-      });
+        order = new Order.fromJson(json['order']);
     }
     if (json['related_products'] != null) {
       relatedProducts = <Product>[];
@@ -50,7 +47,7 @@ class Data {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.order != null) {
-      data['order'] = this.order!.map((v) => v.toJson()).toList();
+      data['order'] = this.order!.toJson();
     }
     if (this.relatedProducts != null) {
       data['related_products'] =

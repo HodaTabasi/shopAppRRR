@@ -47,35 +47,35 @@ class HomeGetxController extends GetxController {
 
   getAllProduct({page}) async {
     print(page);
-    if (await checkStatus()) {
+    // if (await checkStatus()) {
           get(page: page);
-        } else {
-            List<Product> p = HiveGetXController.to.readAllProduct();
-            if(p != null){
-              if(offers.isEmpty){
-                productMap.addAll({"all": p});
-                productMap.addAll(
-                    {"trend": p.where((element) => element.trend == 1).toList()});
-                productMap.addAll(
-                    {"new": p.where((element) => element.newProduct == 1).toList()});
-                productMap.addAll(
-                    {"offers": p.where((element) => element.offer == 1).toList()});
-                products.value = productMap["new"] ?? [];
-              }else {
-                productMap.addAll({"all": p.map((e) {
-                  e.discountPrice = offers.first.discount.toString();
-                  return e;
-                }).toList()});
-              }
-
-            }else {
-              productMap['trend'] = [];
-              productMap['new'] = [];
-              productMap['offers'] = [];
-              productMap['all'] = [];
-            }
-
-        }
+        // } else {
+        //     List<Product> p = HiveGetXController.to.readAllProduct();
+        //     if(p != null){
+        //       if(offers.isEmpty){
+        //         productMap.addAll({"all": p});
+        //         productMap.addAll(
+        //             {"trend": p.where((element) => element.trend == 1).toList()});
+        //         productMap.addAll(
+        //             {"new": p.where((element) => element.newProduct == 1).toList()});
+        //         productMap.addAll(
+        //             {"offers": p.where((element) => element.offer == 1).toList()});
+        //         products.value = productMap["new"] ?? [];
+        //       }else {
+        //         productMap.addAll({"all": p.map((e) {
+        //           e.discountPrice = offers.first.discount.toString();
+        //           return e;
+        //         }).toList()});
+        //       }
+        //
+        //     }else {
+        //       productMap['trend'] = [];
+        //       productMap['new'] = [];
+        //       productMap['offers'] = [];
+        //       productMap['all'] = [];
+        //     }
+        //
+        // }
   }
 
   get({page = 1}) {
@@ -89,7 +89,8 @@ class HomeGetxController extends GetxController {
           productMap.addAll({"trend": value.data!.where((element) => element.trend == 1).toList()});
           productMap.addAll({"new": value.data!.where((element) => element.newProduct == 1).toList()});
           productMap.addAll({"offers": value.data!.where((element) => element.offer == 1).toList()});
-          products.value = productMap["new"] ?? [];
+          products.value = productMap["all"] ?? [];
+          print("dfds ${products.value}");
         }else {
           productMap.addAll({"all": value.data!.map((e) {
              e.discountPrice = offers.first.discount.toString();
@@ -112,7 +113,7 @@ class HomeGetxController extends GetxController {
           productMap["trend"]!.addAll(value.data!.where((element) => element.trend == 1));
           productMap["new"]!.addAll(value.data!.where((element) => element.newProduct == 1));
           productMap["offers"]!.addAll(value.data!.where((element) => element.offer == 1));
-          products.value = productMap["new"] ?? [];
+          products.value = productMap["all"] ?? [];
         }else {
           productMap.addAll({"all": value.data!.map((e) {
             e.discountPrice = offers.first.discount.toString();

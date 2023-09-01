@@ -397,7 +397,20 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
                     ),
                   ),
                   getSpace(h: 8.0.r),
-                  BtnApp(title: data.tr("buy"), prsee: () => performBuying())
+                  Stack(
+                    children: [
+                      Visibility(
+                          visible: controller.Loading.value,
+                          child: Align(child: Padding(
+                            padding:  EdgeInsets.symmetric(vertical: 16.0.r),
+                            child: CircularProgressIndicator(color: mainColor),
+                          ),alignment: AlignmentDirectional.bottomCenter)),
+                      Visibility(
+                          visible: !controller.Loading.value,
+                          child:BtnApp(title: data.tr("buy"), prsee: () => performBuying())
+                      ),
+                    ],
+                  )
                 ],
               ),
             )
@@ -408,9 +421,11 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
   }
 
   performBuying() async {
-    print(order);
+    print("hffh ${order.toJson1()}");
+    APIGetxController.to.Loading.value = true;
     AddOrderResponse response = await OrderGetxController.to.addOrder(order: order);
     showSnackBar(context: context,message: response.message,error: !response.success!);
+    APIGetxController.to.Loading.value = false;
     if(response.success!){
       if(APIGetxController.to.cartFlag){
         await HiveGetXController.to.deleteAllProductFromCart();
@@ -419,14 +434,13 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       HomeGetxController.to.deleteFromProductCount(APIGetxController.to.orderProduct);
       APIGetxController.to.relatedProducts.value = response.data!.relatedProducts??[];
       Navigator.pushNamedAndRemoveUntil(context, '/related_product_screen', (route) => false);
-
     }
   }
 
   Order get order {
     Order order1 = Order();
     order1.customerId = user.id;
-    order1.totalPrice = (APIGetxController.to.total.value - delivery_cost).toInt().abs();
+    order1.totalPrice = (APIGetxController.to.total.value).toInt().abs();
     order1.address = APIGetxController.to.address.value;
     order1.phone = user.phoneNumber.toString();
     order1.username = user.name.toString();

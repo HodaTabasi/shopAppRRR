@@ -68,15 +68,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             SvgPicture.asset("assets/images/16_22.svg",
                                 semanticsLabel: 'Acme Logo'),
-                            SizedBox(
-                              width: 10.w,
-                            ),
-                            Text(
-                              "249+",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xff0A0400)),
-                            )
+                            // SizedBox(
+                            //   width: 10.w,
+                            // ),
+                            // Text(
+                            //   "249+",
+                            //   style: TextStyle(
+                            //       fontWeight: FontWeight.w600,
+                            //       color: Color(0xff0A0400)),
+                            // )
                           ],
                         ),
                       ),

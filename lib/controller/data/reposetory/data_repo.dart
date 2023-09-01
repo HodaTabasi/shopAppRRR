@@ -72,7 +72,7 @@ class DataRepository with ApiHelper{
 
   Future<getOrderResponse> getOrders({statusId,page}) async {
     final jsonResponse = await _apiController.getOrders(statusId: statusId,page: page);
-    var jsonArray = jsonResponse['data'] ;
+    var jsonArray = jsonResponse ;
     return getOrderResponse.fromJson(jsonArray);
   }
 

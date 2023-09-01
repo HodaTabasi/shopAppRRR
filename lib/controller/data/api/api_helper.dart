@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import '../../preferences/shared_pref_controller.dart';
 import 'api_response.dart';
 
 mixin ApiHelper {
@@ -10,6 +11,7 @@ mixin ApiHelper {
 
   Map<String, String> get headers {
     return {
+      // HttpHeaders.authorizationHeader: SharedPrefController().token,
       HttpHeaders.authorizationHeader: '',
       HttpHeaders.acceptHeader: 'application/json',
     };

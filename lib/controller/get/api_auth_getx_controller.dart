@@ -10,6 +10,7 @@ class AuthGETXController extends GetxController {
   RxInt groupValue = 1.obs;
   bool flag = false;
   Rx<DateTime> date = DateTime.now().obs;
+  RxBool loading = false.obs;
 
   static AuthGETXController get to => Get.find<AuthGETXController>();
 

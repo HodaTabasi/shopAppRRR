@@ -90,8 +90,8 @@ class _FillterScreenState extends State<FillterScreen> {
               onChanged: (value) {
                 setState(() {
                   values = value;
-                  FillterGetXController.to.minPrice = values.start * 1000;
-                  FillterGetXController.to.maxPrice = values.end * 1000;
+                  FillterGetXController.to.minPrice = values.start * 50000;
+                  FillterGetXController.to.maxPrice = values.end * 50000;
                 });
               },
               activeColor: mainColor,

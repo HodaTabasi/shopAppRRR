@@ -81,7 +81,7 @@ class APIController with ApiHelper {
     var response = await http.post(uri,
         headers: headersWithOutToken, body: order.toJson1());
 
-    print(response.body);
+    print("ghfhf ${ jsonDecode(response.body)}");
 
     if (response.statusCode == 200 || response.statusCode == 400) {
       var jsonResponse = jsonDecode(response.body);
