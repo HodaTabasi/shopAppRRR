@@ -7,7 +7,8 @@ class APISetting {
   static String get_sub_category = "${BASE_URL}categories/get_sub_categories/{sub_cat}";
   static String get_all_category = "${BASE_URL}categories/get_all_categories";
   static String get_all_product_by_category = "${BASE_URL}products/get_product_by_category_id/{id}?page={number}";
-  static String get_all_product_by_subcategory = "${BASE_URL}products/get_product_by_subcategory_id/{id}/{sub_id}?page={number}";
+  static String get_all_product_by_subcategory = "${BASE_URL}products/get_product_by_subcategory"; //products/get_product_by_subcategory/1
+  // static String get_all_product_by_subcategory = "${BASE_URL}products/get_product_by_subcategory_id/{id}/{sub_id}?page={number}"; //products/get_product_by_subcategory/1
   static String get_sliders = "${BASE_URL}sliders/get_sliders";
   static String get_orders = "${BASE_URL}orders/get_orders/{customer_id}/{status_id}?page={number}";
   static String get_notifications = "${BASE_URL}notifications/get_all_notifications/{customer_id}";

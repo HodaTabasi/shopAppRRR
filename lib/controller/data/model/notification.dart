@@ -1,10 +1,8 @@
 class MyNotification {
   int? id;
   int? customerId;
-  String? titleAr;
-  String? titleEn;
-  String? bodyAr;
-  String? bodyEn;
+  String? title;
+  String? body;
   Null? token;
   String? createdAt;
   String? updatedAt;
@@ -12,10 +10,9 @@ class MyNotification {
   MyNotification(
       {this.id,
         this.customerId,
-        this.titleAr,
-        this.titleEn,
-        this.bodyAr,
-        this.bodyEn,
+
+        this.title,
+        this.body,
         this.token,
         this.createdAt,
         this.updatedAt});
@@ -23,10 +20,8 @@ class MyNotification {
   MyNotification.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     customerId = json['customer_id'];
-    titleAr = json['title_ar'];
-    titleEn = json['title_en'];
-    bodyAr = json['body_ar'];
-    bodyEn = json['body_en'];
+    title = json['title'];
+    body = json['body'];
 
     // token = json['token'];
     createdAt = json['created_at'];
@@ -37,10 +32,8 @@ class MyNotification {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['customer_id'] = this.customerId;
-    data['title_ar'] = this.titleAr;
-    data['title_en'] = this.titleEn;
-    data['body_ar'] = this.bodyAr;
-    data['body_en'] = this.bodyEn;
+    data['title'] = this.title;
+    data['body'] = this.body;
     data['token'] = this.token;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;

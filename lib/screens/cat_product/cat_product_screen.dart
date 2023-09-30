@@ -23,7 +23,7 @@ class _CatProductScreenState extends State<CatProductScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
 
-      GetSubCatGetxController.to.getProduct();
+      GetSubCatGetxController.to.getProduct(page:1);
     });
 
     super.initState();
@@ -78,24 +78,27 @@ class _CatProductScreenState extends State<CatProductScreen> {
         ),
         body: controller.isLoading.value
             ? buildGridViewShimmer()
-            : Column(
-              children: [
-                GridView.builder(
-                    controller: scrollController,
-                    shrinkWrap: true,
-                    padding: EdgeInsets.all(8.r),
-                    itemCount: controller.products.length,
-                    gridDelegate: sliver,
-                    itemBuilder: (context, index) {
-                      return AppProductCard(controller.products[index]);
-                    },
-                  ),
-                if (controller.isPageLoading.value)
-                  Skeleton(
-                    width: double.infinity,
-                    height: 50.h,
-                  ),
-              ],
+            : SingleChildScrollView(
+                controller: scrollController,
+              child: Column(
+                children: [
+                  GridView.builder(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.all(8.r),
+                      itemCount: controller.products.length,
+                      gridDelegate: sliver,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return AppProductCard(controller.products[index]);
+                      },
+                    ),
+                  if (controller.isPageLoading.value)
+                    Skeleton(
+                      width: double.infinity,
+                      height: 50.h,
+                    ),
+                ],
+              ),
             ),
       );
     });

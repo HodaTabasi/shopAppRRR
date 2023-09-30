@@ -69,8 +69,8 @@ class _MyNotificationScreenState extends State<MyNotificationScreen> {
                               borderRadius: BorderRadius.circular(8.r),
                               child: Image.network(
                                 "https://w7.pngwing.com/pngs/141/637/png-transparent-computer-icons-notifications-cdr-area-sound-icon-thumbnail.png",
-                                height: 80.h,
-                                width: 80.w,
+                                height: 70.h,
+                                width: 70.w,
                                 fit: BoxFit.fill,
                               )),
                         ),
@@ -82,12 +82,12 @@ class _MyNotificationScreenState extends State<MyNotificationScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "${SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar' ? notification.titleAr : notification.titleEn}",
+                                  "${notification.title}",
                                   style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w500),
                                 ),
                                 getSpace(h: 8.h),
                                 Text(
-                                  "${SharedPrefController().getValueFor<String>(key: PrefKeys.lang.name) == 'ar' ? notification.bodyAr : notification.bodyEn}",
+                                  "${notification.body}",
                                   style: TextStyle(fontSize: 12.sp),
                                 ),
                                 getSpace(h: 5.h),

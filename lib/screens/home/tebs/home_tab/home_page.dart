@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     scrollController.addListener(_listener);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      HomeGetxController.to.getAllProduct(page: HomeGetxController.to.currentPage);
+      HomeGetxController.to.getAllProduct(page: 1);
     });
   }
 
@@ -95,8 +95,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ],
       ),
       body: GetX<HomeGetxController>(builder: (controller1) {
-        controller1.products.value =
-            HomeGetxController.to.offers.isEmpty?HomeGetxController.to.productMap["new"] ?? []:HomeGetxController.to.productMap["all"] ?? [];
+        // controller1.products.value =
+        //     HomeGetxController.to.offers.isEmpty?HomeGetxController.to.productMap["new"] ?? []:HomeGetxController.to.productMap["all"] ?? [];
         return controller1.isLoading.value
             ? buildShimmer()
             : buildBody(controller1);

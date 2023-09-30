@@ -372,14 +372,12 @@ class APIController with ApiHelper {
     return null;
   }
 
-  dynamic getProductBySubCateId({id, subId, page}) async {
-    String s =
-        APISetting.get_all_product_by_subcategory.replaceFirst('{id}', id);
-    s = APISetting.get_all_product_by_subcategory
-        .replaceFirst('{sub_id}', subId);
-    s = APISetting.get_all_product_by_subcategory
-        .replaceFirst('{number}', page.toString());
+  dynamic getProductBySubCateId({id, subId, page = 1}) async {
+
+     String  s = 'https://rrrstore103.com/api/products/get_product_by_subcategory/$id?page=$page';
+
     Uri uri = Uri.parse(s);
+     print("hkhj ${uri}");
     var response = await http.get(uri, headers: headersWithOutToken);
 
     print(response.body);

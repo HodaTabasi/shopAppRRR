@@ -70,6 +70,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     children: controller.cate[index].subCategory!.map((e){
                       return ListTile(
                         onTap: () {
+                          print("hjchgj $e");
                           // ZoomDrawer.of(context)!.close();
                           // controller.category = e;
                           // controller.flag = true;

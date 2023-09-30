@@ -18,8 +18,11 @@ class GetSubCatGetxController extends GetxController {
   static GetSubCatGetxController get to => Get.find<GetSubCatGetxController>();
 
   getProduct({page}) {
+
     isLoading.value = true;
+    products.clear();
     if (flag) {
+      print(category!.subCategory.toString());
       getProductBySubCateId(
           id: category!.id.toString(), subId: category!.subCategory.toString(),page:page);
     } else {

@@ -14,6 +14,7 @@ class Order {
   String? updatedAt;
   num? deliverPrice;
   bool? fastDeliver;
+  int? deliverPlace;
   List<OrderProducts>? orderProducts;
   bool isExpanded = false;
 
@@ -30,6 +31,7 @@ class Order {
         this.createdAt,
         this.updatedAt,
         this.orderProducts,
+        this.deliverPlace,
         this.isExpanded = false
       });
 
@@ -56,6 +58,7 @@ class Order {
     deletedAt = json['deleted_at'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    // deliverPlace = json['deliver_place'];
     this.isExpanded = false;
     if (json['order_products'] != null) {
       orderProducts = <OrderProducts>[];
@@ -95,6 +98,7 @@ class Order {
     data['address'] = this.address.toString();
     data['username'] = this.username.toString();
     data['phone'] = this.phone.toString();
+    data['deliver_place'] = this.deliverPlace.toString();
     data['deliver_price'] = deliverPrice.toString();
     data['fast_deliver'] = fastDeliver!?"1":"0";
     data['token'] = '';
@@ -106,7 +110,7 @@ class Order {
 
   @override
   String toString() {
-    return 'Order{id: $id, customerId: $customerId, username: $username, address: $address, phone: $phone, totalPrice: $totalPrice, statusId: $statusId, token: $token, deletedAt: $deletedAt, createdAt: $createdAt, updatedAt: $updatedAt, deliverPrice: $deliverPrice, fastDeliver: $fastDeliver, orderProducts: $orderProducts, isExpanded: $isExpanded}';
+    return 'Order{id: $id, place $deliverPlace,customerId: $customerId, username: $username, address: $address, phone: $phone, totalPrice: $totalPrice, statusId: $statusId, token: $token, deletedAt: $deletedAt, createdAt: $createdAt, updatedAt: $updatedAt, deliverPrice: $deliverPrice, fastDeliver: $fastDeliver, orderProducts: $orderProducts, isExpanded: $isExpanded}';
   }
 }
 

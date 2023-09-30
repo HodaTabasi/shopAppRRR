@@ -137,16 +137,14 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
             CheckboxListTile(
                 value: value,
                 onChanged: (val) async {
-                  final v = await Navigator.pushNamed(context, '/map_screen');
-                  setState(() {
-                    value = val!;
-
-                    if (val) {
-                      city_cost = 3000;
-                    } else {
-                      city_cost = 2500;
-                    }
-                  });
+                  value = val!;
+                  if (val) {
+                    final v = await Navigator.pushNamed(context, '/map_screen');
+                    city_cost = 3000;
+                  } else {
+                    city_cost = 2500;
+                  }
+                  setState(() {});
                 },
                 title: Text(
                   "outside",
@@ -471,10 +469,14 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
     Order order1 = Order();
     order1.customerId = user.id;
     order1.totalPrice = (APIGetxController.to.total.value).toInt().abs();
-    order1.address = APIGetxController.to.address.value +" more details ("+addressController.text +")";
+    order1.address = APIGetxController.to.address.value +
+        " more details (" +
+        addressController.text +
+        ")";
     order1.phone = user.phoneNumber.toString();
     order1.username = user.name.toString();
     order1.deliverPrice = delivery_cost;
+    order1.deliverPlace = value ? 1 : 0;
     order1.fastDeliver = valueDelevery;
     order1.orderProducts =
         APIGetxController.to.orderProduct.map<OrderProducts>((element) {
@@ -482,10 +484,12 @@ class _CompleteOrderScreenState extends State<CompleteOrderScreen> {
       orderProducts.productId = element.id;
       orderProducts.productSize = int.parse(element.selectedSize!);
       orderProducts.productColor = element.selectedColor;
-      orderProducts.productPrice = num.parse(element.sellingPrice!).toInt();
+      orderProducts.productPrice = element.discountPrice != "0"
+          ? double.parse(
+              getDiscountPrice(element.discountPrice!, element.sellingPrice!)).toInt()
+          : num.parse(element.sellingPrice!).toInt();
       orderProducts.qty = element.selectedQty!;
       orderProducts.productImage = element.productThumbnail;
-
       return orderProducts;
     }).toList();
 

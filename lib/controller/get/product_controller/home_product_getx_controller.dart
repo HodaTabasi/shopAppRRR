@@ -83,6 +83,8 @@ class HomeGetxController extends GetxController {
     if(currentPage==1){
       isLoading.value = true;
       DataRepository().getAllProduct(page: page).then((value) async {
+        productMap.clear();
+        products.clear();
         if(offers.isEmpty){
           lastPage = value.lastPage!;
           productMap.addAll({"all": value.data!});
@@ -109,16 +111,16 @@ class HomeGetxController extends GetxController {
       DataRepository().getAllProduct(page: page).then((value) async {
         lastPage = value.lastPage!;
         if(offers.isEmpty){
-          productMap.addAll({"all": value.data!});
+          productMap['all']!.addAll(value.data!);
           productMap["trend"]!.addAll(value.data!.where((element) => element.trend == 1));
           productMap["new"]!.addAll(value.data!.where((element) => element.newProduct == 1));
           productMap["offers"]!.addAll(value.data!.where((element) => element.offer == 1));
-          products.value = productMap["all"] ?? [];
+          // products.value = productMap["all"] ?? [];
         }else {
-          productMap.addAll({"all": value.data!.map((e) {
+          productMap['all']!.addAll(value.data!.map((e) {
             e.discountPrice = offers.first.discount.toString();
             return e;
-          }).toList()});
+          }).toList());
         }
 
         await SharedPrefController().lastUpdate1(DateFormat('yyyy-MM-dd – kk:mm')
@@ -128,7 +130,6 @@ class HomeGetxController extends GetxController {
         isPageLoading.value = false;
       });
     }
-
   }
 
   void deleteFromProductCount(orderProduct) {
